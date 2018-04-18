@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var session = require('express-session');
 
 //database configuration
 var mongo = require('mongodb');
@@ -11,8 +12,15 @@ var db = monk('mongodb://heroku_nf9l5q4b:2618qlen71ent4qhgcpug2522a@ds247619.mla
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var loginRouter = require('./routes/login');
 
 var app = express();
+
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+}));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -30,6 +38,7 @@ app.use(function (req, res, next) {
 })
 
 app.use('/api/users', usersRouter);
+app.use('/login', loginRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
