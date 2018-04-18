@@ -11,7 +11,8 @@ var db = monk('mongodb://heroku_nf9l5q4b:2618qlen71ent4qhgcpug2522a@ds247619.mla
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-
+var postsRouter = require('./routes/posts');
+var addPostRouter=require('./routes/addPost');
 var app = express();
 
 // view engine setup
@@ -24,12 +25,24 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+
+
+//vkarava mu bazata
 app.use(function (req, res, next) {
   req.db = db;
   next();
 })
-
+//da sa vijda dali bachka
+app.use("/",indexRouter)
+//users
 app.use('/api/users', usersRouter);
+//posts
+app.use('/api/posts', postsRouter);
+//add post test page
+app.use('/addPost', addPostRouter);
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
