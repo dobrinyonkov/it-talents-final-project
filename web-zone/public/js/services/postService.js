@@ -1,4 +1,5 @@
 var postService = (() => {
+  cons
   function Post(ownerId, text, photo) {
     this.text = text;
     this.ownerId = ownerId;
