@@ -17,10 +17,12 @@ router.get("/", function(req, res, next) {
 });
 
 router.post("/", function(req, res, next) {
-    console.log("toz post request bachka")
+    console.log("=========toz post request bachka")
     var postsCollection = req.db.get('posts');
     var newPost = req.body;
-    console.log("v post na requesta bodyto")
+    console.log("============v post na requesta bodyto")
+    // var newPost=req.query
+    // console.log("======= v request-a query-to")
     console.log(newPost)
     // res.json("chakai")
       postsCollection.insert(newPost, function (err, data) {

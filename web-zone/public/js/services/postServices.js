@@ -39,12 +39,15 @@ var postServices = (() => {
   Post.prototype.deleteComment = function(id) {};
 
   var result = {};
+
+
   //ei tva moje da go npravim da raboti kato factory
   result.addPost = function(ownerId, text, photo) {
     var newP = new Post(ownerId, text, photo);
     console.log(newP);
     newP = JSON.parse(JSON.stringify(newP));
-    return $.post("/api/posts", newP).done(response => {
+    // newR=JSON.stringify(newP)
+    return $.post("/api/posts", newP,"application/json").done(response => {
       console.log(response);
       return response;
     });
