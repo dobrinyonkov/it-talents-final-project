@@ -47,7 +47,7 @@ var postService = (() => {
     console.log(newP);
     newP = JSON.parse(JSON.stringify(newP));
     // newR=JSON.stringify(newP)
-    return $.post("/api/posts", newP,"application/json").done(response => {
+    return $.post("http://localhost:9000/api/posts", newP).done(response => {
       console.log(response);
       return response;
     });
