@@ -1,10 +1,13 @@
-var app = angular.module("app", ["ngRoute", "angularCSS"]);
+var app = angular.module("app", [
+    "ngRoute", 
+    "angularCSS"
+]);
 
 app.config(function($routeProvider) {
     $routeProvider
     .when("/login", {
         templateUrl : "js/login/login.htm",
-        controller : 'loginMTController',
+        controller : 'LoginController',
         css : 'js/login/login.css'
     })
     // .when("/user", {
