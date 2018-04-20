@@ -1,17 +1,16 @@
-var myAngularApp = angular.module("myAngularApp", ["ngRoute"]);
+var app = angular.module("app", ["ngRoute", "angularCSS"]);
 
-myAngularApp.config(function($routeProvider) {
+app.config(function($routeProvider) {
     $routeProvider
-    .when("/", {
-        templateUrl : "login.html"
-    })
     .when("/login", {
-        templateUrl : "login.html"
+        templateUrl : "js/login/login.htm",
+        controller : 'loginMTController',
+        css : 'js/login/login.css'
     })
-    .when("/user", {
-        templateUrl : "js/user/userPage.htm",
-        controller : "userController"
-    })
+    // .when("/user", {
+    //     templateUrl : "js/user/userPage.htm",
+    //     controller : "userController"
+    // })
     .when("/post", {
         templateUrl : "js/post/postPage.htm",
         controller : "postController",
