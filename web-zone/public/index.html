@@ -1,17 +1,43 @@
-
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- ANGULAR -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.2/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.2/angular-route.min.js"></script>
+    <!-- VENDORS -->
     <script src="vendors/jquery.min.js"></script>
-    <title></title>
-</head>
-<body>
-    <p>test</p>
-    <script src="js/services/userService.js"></script>
-    <script src="js/services/postService.js"></script>
-</body>
-</html>
+    
 
+    <!-- CSS -->
+   
+    <title>Index page</title>
+</head>
+
+<body ng-app="myAngularApp">
+    <h1>test from public folder</h1>
+    <nav>
+        <ul>
+            <li><a href="#user">user</a></li>
+            <li><a href="#post">post</a></li>
+            <li><a href="#login">login</a></li>
+        </ul>
+    </nav>
+
+  <main ng-view>
+
+  </main>
+
+
+
+</body>
+
+    <!-- ANGULAR APP -->
+    <script src="js/angularApp.js"></script>
+    <!-- ANGULAR POST COMPONENET -->
+    <script src="js/post/postService.js"></script>
+    <script src="js/post/postController.js"></script>
+
+</html>

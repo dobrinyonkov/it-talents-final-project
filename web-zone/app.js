@@ -15,7 +15,7 @@ var usersRouter = require('./routes/users');
 var loginRouter = require('./routes/login');
 
 var postsRouter = require('./routes/posts');
-var addPostRouter = require('./routes/addPost');
+// var addPostRouter = require('./routes/addPost');
 var app = express();
 
 app.use(session({
@@ -50,7 +50,7 @@ app.use('/login', loginRouter);
 //posts
 app.use('/api/posts', postsRouter);
 //add post test page
-app.use('/addPost', addPostRouter);
+// app.use('/addPost', addPostRouter);
 
 
 

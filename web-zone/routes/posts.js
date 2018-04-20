@@ -19,7 +19,15 @@ router.get("/", function(req, res, next) {
 router.post("/", function(req, res, next) {
     console.log("=========toz post request bachka")
     var postsCollection = req.db.get('posts');
-    var newPost = req.body;
+    var newPost = "koko"
+    console.log(req.body)
+    // var obj=JSON.parse(req.body)
+    // console.log(obj)
+    // for (const key in obj) {
+    //   if (obj.hasOwnProperty(key)) {
+    //     newPost=key        
+    //   }
+    // }
     console.log("============v post na requesta bodyto")
     // var newPost=req.query
     // console.log("======= v request-a query-to")
