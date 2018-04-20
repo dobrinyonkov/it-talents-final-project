@@ -33,7 +33,7 @@ router.get('/:id', function(req, res, next) {
 router.post('/', function(req, res, next) {
   var userCollection = req.db.get('users');
   var user = req.body;
-  userCollection.insert(user);
+  userCollection.insert(user,);
 });
 
 module.exports = router;

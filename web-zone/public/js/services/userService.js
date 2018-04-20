@@ -1,5 +1,5 @@
 // var userService = (function (params) {
-    
+
 //     function User(firstName, lastName, email, birthDay, intrestes, password) {
 //         this.firstName = firstName;
 //         this.lastName = lastName;
@@ -15,13 +15,13 @@
 //             return user;
 //         })
 //     }
-    
+
 //     User.prototype.login = function (email, password) {
-        
+
 //     }
 
 //     User.prototype.register = function (email, password, birthDay, gender) {
-        
+
 //     }
 
 //     User.prototype.sendFriendRequest = function (userId) {
@@ -43,19 +43,18 @@
 //     }
 
 //     return new UserService();
-    
+
 // })();
 
 (function () {
-   
+
     angular
         .module('app')
         .factory('UserService', UserService);
 
-    UserService.$inject = ['$http'];
-
     function UserService($http) {
-        var service = {};        
+
+        var service = {};
 
         service.getAll = getAll;
         service.getById = getById;
@@ -67,59 +66,65 @@
         return service;
 
         function getAll() {
-            return $http.get(`api/users`).then(res => {
-                return res;
-            })
-            .cath(err => {
-                return err;
-            });
+            return $http.get(`api/users`)
+                .then(res => {
+                    return res;
+                })
+                .cath(err => {
+                    return err;
+                });
         }
 
         function getById(id) {
-            return $http.get(`api/users/${id}`).then(res => {
-                return res;
-            })
-            .cath(err => {
-                return err;
-            });
+            return $http.get(`api/users/${id}`)
+                .then(res => {
+                    return res;
+                })
+                .cath(err => {
+                    return err;
+                });
         }
 
         function getByName(name) {
-            return $http.get(`api/users/${name}`).then(res => {
-                return res;
-            })
-            .cath(err => {
-                return err;
-            });
+            return $http.get(`api/users/${name}`)
+                .then(res => {
+                    return res;
+                })
+                .cath(err => {
+                    return err;
+                });
         }
-        
+
         function create(user) {
-            return $http.post(`api/users/`, user).then(res => {
-                return res;
-            })
-            .cath(err => {
-                return err;
-            });
+            return $http.post(`http://localhost:9000/api/users/`, user)
+                .then(res => {
+                    return res;
+                })
+                .cath(err => {
+                    return err;
+                });
         }
 
         function update(user) {
-            return $http.put(`api/users/`, user._id, user).then(res => {
-                return res;
-            })
-            .cath(err => {
-                return err;
-            });
+            return $http.put(`api/users/`, user._id, user)
+                .then(res => {
+                    return res;
+                })
+                .cath(err => {
+                    return err;
+                });
         }
 
         function remove(id) {
-            return $http.delete(`api/users/${id}`).then(res => {
-                return res;
-            })
-            .cath(err => {
-                return err;
-            });
+            return $http.delete(`api/users/${id}`)
+                .then(res => {
+                    return res;
+                })
+                .cath(err => {
+                    return err;
+                });
         }
 
     }
-    
+
 })();
