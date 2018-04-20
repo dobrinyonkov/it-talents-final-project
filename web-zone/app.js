@@ -33,9 +33,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-
-
-
 //vkarava mu bazata
 app.use(function (req, res, next) {
   req.db = db;

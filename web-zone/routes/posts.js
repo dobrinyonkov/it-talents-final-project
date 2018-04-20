@@ -19,7 +19,7 @@ router.get("/", function(req, res, next) {
 router.post("/", function(req, res, next) {
     console.log("=========toz post request bachka")
     var postsCollection = req.db.get('posts');
-    var newPost = "koko"
+    var newPost = req.body
     console.log(req.body)
     // var obj=JSON.parse(req.body)
     // console.log(obj)
