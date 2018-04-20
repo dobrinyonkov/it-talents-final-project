@@ -1,4 +1,4 @@
-var postService = (() => {
+app.service("postService", $scope => {
   function Post(ownerId, text, photo) {
     this.text = text;
     this.ownerId = ownerId;
@@ -6,8 +6,10 @@ var postService = (() => {
       this.photo = photo;
     }
     this.date = new Date();
-    this.comments = [{ ownerId:42,text:"nqkav komentar",date:"dneska v 6 bez 10" }];
-    this.likes = []
+    this.comments = [
+      { ownerId: 42, text: "nqkav komentar", date: "dneska v 6 bez 10" }
+    ];
+    this.likes = [];
   }
   function Comment(ownerId, text) {
     this.ownerId = ownerId;
@@ -38,14 +40,15 @@ var postService = (() => {
   };
   Post.prototype.deleteComment = function(id) {};
 
-  var result = {};
-
-
-  //ei tva moje da go npravim da raboti kato factory
-  result.addPost = function(ownerId, text, photo) {
+  this.sayHi=function($scope){
+    $scope.greeting="hi from the angular service"
+    console.log("toz service hvana tekish")
+    
+  }
+  this.addPost = function(ownerId, text, photo) {
     var newP = new Post(ownerId, text, photo);
     console.log(newP);
-    newP = JSON.parse(JSON.stringify(newP));
+    newP = JSON.stringify(newP);
     // newR=JSON.stringify(newP)
     return $.post("http://localhost:9000/api/posts", newP).done(response => {
       console.log(response);
@@ -53,9 +56,9 @@ var postService = (() => {
     });
   };
 
-  result.deletePost = function(id) {};
+  this.deletePost = function(id) {};
 
-  result.getPost = function(id) {
+  this.getPost = function(id) {
     //teq kato gi returnvam napravo posle getPost e promise
     return $.get("/api/posts/" + id).then(postData => {
       // console.log("i sq tva api kvo vrashta")
@@ -70,6 +73,4 @@ var postService = (() => {
       return post;
     });
   };
-
-  return result;
-})();
+});

@@ -1,6 +1,4 @@
-angular
-    .module('app', [])
-    .controller('LoginController', function ($scope) {
+app.controller('loginMTController', function ($scope) {
         var vm = this;
         vm.login = login;
 
@@ -12,3 +10,4 @@ angular
             })
         }
     });
+
