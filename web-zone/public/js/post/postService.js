@@ -1,6 +1,5 @@
-app.service("postService", function($http ) {
-
-  this.greeting1="hi from the angular service"  ;
+app.service("postService", function($http) {
+  this.greeting1 = "hi from the angular service";
 
   // POST CONSTRUCTOR
   function Post(ownerId, text, photo) {
@@ -21,8 +20,17 @@ app.service("postService", function($http ) {
     this.text = text;
     this.date = new Date();
   }
-//ADD COMMENT  on the post for the moment
-  Post.prototype.addComment = function(ownerId, text) {
+  //ADD COMMENT  on the post for the moment
+  this.addComment = function(postId, ownerId, text) {
+    //find that post  in db
+   getPost(postId).then(post=>{
+     console.log(post)
+   })
+
+    //push the new comment
+
+    //update in db
+
     // this.comments.push(new Comment(ownerId, text));
     // var newPost = this;
     // $.ajax({
@@ -45,41 +53,39 @@ app.service("postService", function($http ) {
   };
   Post.prototype.deleteComment = function(id) {};
 
-// ADD POST
-  this.addPost = function(ownerId, text) {
+  // ADD POST
+  
+   let addPost = function(ownerId, text) {
     var newP = new Post(ownerId, text);
     console.log(newP);
     newP = JSON.stringify(newP);
     // newR=JSON.stringify(newP)
-    return $http.post("http://localhost:9000/api/posts", newP).done(response => {
-      console.log(response);
-      return response;
-    });
+    return $http.post("http://localhost:9000/api/posts", newP);
+    // .done(response => {
+    //   console.log(response);
+    //   return response;
+    // });
   };
-
+ this.addPost = addPost;
   this.deletePost = function(id) {};
-//GET POST BY ID
-  this.getPost = function(id) {
+  //GET POST BY ID
 
-  //  return $http.get('https://restcountries.eu/rest/v2/all')
-
-    return $http.get("/api/posts/" + id).then(r=>r.data)
+  let getPost = function(id) {
+    return $http.get("/api/posts/" + id).then(r => r.data);
     // .then(postData => {
     //   return postData
 
-
-      // console.log("i sq tva api kvo vrashta")
-      // console.log(postData)
-      // var post = Object.create(Post.prototype);
-      // for (const key in postData) {
-      //   if (postData.hasOwnProperty(key)) {
-      //     post[key] = postData[key];
-      //   }
-      // }
-      // console.log(post);
-      // return post;
+    // console.log("i sq tva api kvo vrashta")
+    // console.log(postData)
+    // var post = Object.create(Post.prototype);
+    // for (const key in postData) {
+    //   if (postData.hasOwnProperty(key)) {
+    //     post[key] = postData[key];
+    //   }
+    // }
+    // console.log(post);
+    // return post;
     // });
-  };
-
-
+  }; 
+  this.getPost = getPost;
 });
