@@ -22,26 +22,31 @@ app.service("postService", function($http ) {
     this.date = new Date();
   }
 //ADD COMMENT  on the post for the moment
-  Post.prototype.addComment = function(ownerId, text) {
-    // this.comments.push(new Comment(ownerId, text));
-    // var newPost = this;
-    // $.ajax({
-    //   type: "PUT",
-    //   url: "/api/posts",
-    //   contentType: "application/json",
-    //   data: JSON.stringify(newPost)
-    // }).done(res => {
-    //   console.log("put zaqvkata varna neshto ");
-    //   console.log(res);
-    // });
-    //   return $.post("/api/posts", post).done(response => {
-    //     console.log(response);
-    //     return response;
-    //   });
-    //   var newC=new Comment(ownerId ,text)
-    //   //var post=find that post from db
-    //   post.comments.push(newC)
-    //   //db.posts.save(post)
+  this.addComment = function(postId, ownerId, text) {
+    //find that post  in db
+
+    //push the new comment
+     
+    //update in db
+    this.comments.push(new Comment(ownerId, text));
+    var newPost = this;
+    $.ajax({
+      type: "PUT",
+      url: "/api/posts",
+      contentType: "application/json",
+      data: JSON.stringify(newPost)
+    }).done(res => {
+      console.log("put zaqvkata varna neshto ");
+      console.log(res);
+    });
+      return $.post("/api/posts", post).done(response => {
+        console.log(response);
+        return response;
+      });
+      var newC=new Comment(ownerId ,text)
+      //var post=find that post from db
+      post.comments.push(newC)
+      //db.posts.save(post)
   };
   Post.prototype.deleteComment = function(id) {};
 
@@ -51,10 +56,11 @@ app.service("postService", function($http ) {
     console.log(newP);
     newP = JSON.stringify(newP);
     // newR=JSON.stringify(newP)
-    return $http.post("http://localhost:9000/api/posts", newP).done(response => {
-      console.log(response);
-      return response;
-    });
+    return $http.post("http://localhost:9000/api/posts", newP)
+    // .done(response => {
+    //   console.log(response);
+    //   return response;
+    // });
   };
 
   this.deletePost = function(id) {};
