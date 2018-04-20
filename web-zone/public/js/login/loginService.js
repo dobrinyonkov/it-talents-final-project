@@ -1,17 +1,17 @@
 (function () {
-    
     angular
-        .module('app', ['$http'])
+        .module('app')
         .factory('LoginService', LoginService);
 
-    console.log('testloginServices')
     function LoginService($http) {
         var service = {};
 
+        service.login = login;
+
+        return service;
+
         function login(email, password) {
-            return $http.post(`localhost:9000/api/login`, { email: email, password: password }).then(res => {
-                return res;
-            });
+            return $http.post('localhost:9000/api/login', { email: email, password: password });
         }
     }
 })();

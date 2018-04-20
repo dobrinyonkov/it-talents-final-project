@@ -1,13 +1,23 @@
-app.controller('loginMTController', function ($scope) {
-        var vm = this;
-        vm.login = login;
+(function (params) {
 
-        function login($event) {
+    angular
+        .module('app')
+        .controller('LoginController', LoginController);
+
+    function LoginController($scope, LoginService) {
+        $scope.test = 'test';
+        $scope.user = {};
+        $scope.signIn = signIn;
+
+        function signIn($event) {
+            // debugger;
             $event.preventDefault();
-            vm.dataLoading = true;
-            LoginService.login(vm.email, vm.password).then(res => {
-                console.log(res);
-            })
+            // console.log($scope.user);
+            LoginService.login($scope.user.email, $scope.user.password).then(r => {
+                console.log(r);
+            });
         }
-    });
+    }
 
+
+})();

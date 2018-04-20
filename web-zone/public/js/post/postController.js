@@ -10,5 +10,6 @@ app.controller("postController", function($scope, postService) {
 
 
   $scope.postPost=postService.addPost
+  $scope.testAddingAComment=postService.addComment
 
 });
