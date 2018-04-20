@@ -10,7 +10,6 @@ var mongo = require('mongodb');
 var monk = require('monk');
 var db = monk('mongodb://heroku_nf9l5q4b:2618qlen71ent4qhgcpug2522a@ds247619.mlab.com:47619/heroku_nf9l5q4b');
 
-var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var loginRouter = require('./routes/login');
 
@@ -43,10 +42,9 @@ app.use(function (req, res, next) {
   next();
 })
 //da sa vijda dali bachka
-// app.use("/", indexRouter)
 //users
 app.use('/api/users', usersRouter);
-app.use('/login', loginRouter);
+app.use('/api/login', loginRouter);
 //posts
 app.use('/api/posts', postsRouter);
 //add post test page

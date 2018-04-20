@@ -4,6 +4,7 @@ var sha1 = require('sha1');
 
 /* post login page. */
 router.post('/', function (req, res, next) {
+    console.log(req.body);
     var email = req.body.email;
     var password = sha1(req.body.password);
 
