@@ -11,7 +11,20 @@
         return service;
 
         function login(email, password) {
-            return $http.post('localhost:9000/api/login', { email: email, password: password });
+            var user = {
+                email: email,
+                password: password
+            };
+
+
+            return $http({
+                    method: 'POST',
+                    url: 'http://localhost:9000/api/login',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    data: user
+                });
         }
     }
 })();
