@@ -1,50 +1,117 @@
 body {
-    background-color: #E9EBEE;
+  background-color: #e9ebee;
 }
 
-
 .nav-color-purple {
-    background-color: #563D7C;
+  background-color: #563d7c;
 }
 
 #logo {
-    color: azure;
-    font-size: 2.5em;
-    font-weight: bolder;
-    text-shadow: 0px 0px 1px black;
+  color: azure;
+  font-size: 2.5em;
+  font-weight: bolder;
+  text-shadow: 0px 0px 1px black;
 }
 
 ul {
-    list-style: none;
+  list-style: none;
 }
 
-.container > p, strong {
-    margin: 2em 0.4em;
-    display: inline-block;
+.container > p,
+strong {
+  margin: 2em 0.4em;
+  display: inline-block;
 }
 
-#dummy-info {
-    font-size: 1.8em;
+.dummy-info {
+  font-size: 1.8em;
+  color: #271049;
 }
 
 p {
-    font-size: 0.9em;
+  font-size: 0.9em;
 }
 
 .navbar p {
-    display: block;
-    color: azure;
-    padding: 0;
-    margin: 0;
+  display: block;
+  color: azure;
+  padding: 0;
+  margin: 0;
 }
 
 input {
-    display: inline;
+  display: inline;
 }
 
 a {
-    display: block;
-    font-size: 0.6em;
-    margin: 0;
-    color: beige;
+  display: block;
+  font-size: 0.6em;
+  margin: 0;
+  color: beige;
+}
+
+#registerForm > div {
+  /* font-size: 1.1em; */
+  /* box-sizing: content-box; */
+
+  margin: 0.8em;
+  min-width: 250px;
+  max-width: 440px;
+}
+#registerForm > div input {
+  border: none;
+  padding: 4px;
+  padding-left: 1em;
+  width: 80%;
+  border-radius: 0.22em;
+  border-bottom: 1px rgb(181, 135, 228) solid;
+  color: #563d7c;
+  background-color: #e0d7ef;
+}
+#registerForm > div input:hover {
+  border-bottom: 1px solid;
+  border-right: 1px #563d7c solid;
+}
+#registerForm > div input[type="button"] {
+  color: #e0d7ef;
+  padding: 2px;
+  width: 35%;
+  min-width: 110px;
+  margin-left: 8%;
+  background-color: #563d7c;
+  font-size: 1.1em;
+}
+#signUp {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #563d7c;
+  padding-left: 2em;
+  font-size: 1.5em;
+  font-weight: bold;
+/* font-style: oblique */
+}
+#registerForm > div input[type="button"]:hover {
+  color: #eedaca;
+}
+#registerForm > div input[type="button"]:active {
+  background-color: #e0d7ef;
+  color: #563d7c;
+}
+#errorContainer{
+    /* display: none; */
+    /* padding: 4px; */
+    padding-left: 1em;
+    width: 80% !important;
+    min-width: 192px!important;
+    max-width: 350px !important;
+    border-radius: 0.22em;
+    background: #f1c6a2;
+    border:1px solid #271049;
+    font-size: 0.8em
+}
+#errorContainer li{
+    margin-top:1em
+}
+.wrongField {
+  color: #b96d2e !important;
+  border: 2px solid red !important;
 }
