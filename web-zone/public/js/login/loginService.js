@@ -3,12 +3,47 @@
         .module('app')
         .factory('LoginService', LoginService);
 
-    function LoginService($http) {
+    function LoginService($http, $window) {
         var service = {};
 
         service.login = login;
+        service.create = create;
+        service.logOut = logOut;
 
         return service;
+
+        function changeUser(user) {
+            angular.extend(currentUser, user);
+        }
+
+        function urlBase64Decode(str) {
+            var output = str.replace('-', '+').replace('_', '/');
+            switch (output.length % 4) {
+                case 0:
+                    break;
+                case 2:
+                    output += '==';
+                    break;
+                case 3:
+                    output += '=';
+                    break;
+                default:
+                    throw 'Illegal base64url string!';
+            }
+            return window.atob(output);
+        }
+
+        function getUserFromToken() {
+            var token = $window.localStorage.getItem('token');
+            var user = {};
+            if (typeof token !== 'undefined') {
+                var encoded = token.split('.')[1];
+                user = JSON.parse(urlBase64Decode(encoded));
+            }
+            return user;
+        }
+
+        var currentUser = getUserFromToken();
 
         function login(email, password) {
             var user = {
@@ -18,13 +53,23 @@
 
 
             return $http({
-                    method: 'POST',
-                    url: 'http://localhost:9000/api/login',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    data: user
-                });
+                method: 'POST',
+                url: 'http://localhost:9000/api/login',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                data: user
+            });
+        }
+
+        function create(user) {
+            return $http.post(`http://localhost:9000/api/signup/`, user);
+        }
+
+        function logOut(success) {
+            changeUser({});
+            $window.localStorage.removeItem(token)
+            success();
         }
     }
 })();

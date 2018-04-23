@@ -5,23 +5,30 @@ var sha1 = require('sha1');
 /* post login page. */
 router.post('/', function (req, res, next) {
 
-    // var user = JSON.parse(req.body)
-    console.log(req.body);
     var email = req.body.email;
     var password = sha1(req.body.password);
     console.log(email, password);
     var userCollection = req.db.get('users');
 
     userCollection.find({ email: email, password: password }, {}, function (err, docs) {
-        console.log(docs);
-        if (docs.length > 0) {
-            req.session.userId = docs[0]._id;
-            console.log(req.session);
-            res.status(200);
-            res.json({ "user_id" : docs[0]._id});
+        if (err) {
+            res.json({
+                type: false,
+                data: "Error occured: " + err
+            });
         } else {
-            res.status(401);
-            res.json('No such user');
+            if (docs.length > 0) {
+               res.json({
+                    type: true,
+                    data: docs[0],
+                    token: docs[0].token
+                }); 
+            } else {
+                res.json({
+                    type: false,
+                    data: "Incorrect email/password"
+                });    
+            }
         }
     })
 });
