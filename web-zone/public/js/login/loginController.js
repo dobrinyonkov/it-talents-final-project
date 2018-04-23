@@ -16,7 +16,7 @@ function validatePass(email) {
 }
 
 // ANGULAR
-(function(params) {
+(function (params) {
   angular.module("app").controller("LoginController", LoginController);
 
   function LoginController($scope, LoginService) {
@@ -28,19 +28,30 @@ function validatePass(email) {
       pass2: "Passwords should match."
     };
     $scope.user = {};
+    $scope.loginErorr = '';
     $scope.signIn = signIn;
     $scope.validForm = false;
     $scope.errorMessages = [];
     $scope.signUp = signUp;
+
+
     //SIGNIN
     function signIn($event) {
       // debugger;
       $event.preventDefault();
       // console.log($scope.user);
-      LoginService.login($scope.user.email, $scope.user.password).then(r => {
-        console.log(r);
-      });
+      if (validateEmail($scope.user.email) || validatePass($scope.user.password)) {
+        LoginService.login($scope.user.email, $scope.user.password).then(r => {
+          console.log(r);
+        }).catch(e => {
+          $scope.loginErorr = 'Wrong emial or password';
+        });
+      } else {
+        $scope.loginErorr = 'Wrong emial or password';
+      }
     }
+
+
     //SIGNUP
     function signUp(username, email, pass1, pass2) {
       //   console.log(arguments);
@@ -60,8 +71,9 @@ function validatePass(email) {
         console.log("oshe malko da popalnish");
       }
     }
-    //ERRORS
 
+
+    //ERRORS
     function displayError(el, message) {
       $scope.validForm = false;
       if ($scope.errorMessages.indexOf(message) == -1) {
@@ -75,8 +87,10 @@ function validatePass(email) {
         // $scope.validForm = true;
       });
     }
+
+
     // REGISTRATION FORM VALIDATION WITH DOM
-    window.addEventListener("load", function(event) {
+    window.addEventListener("load", function (event) {
       console.log("All resources finished loading!");
       document.querySelectorAll("#registerForm > div input").forEach(el => {
         //   el.addEventListener("input",()=>{console.log("input")})

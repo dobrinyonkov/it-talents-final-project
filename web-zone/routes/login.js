@@ -18,7 +18,7 @@ router.post('/', function (req, res, next) {
             req.session.userId = docs[0]._id;
             console.log(req.session);
             res.status(200);
-            res.redirect('/home');
+            res.json({ "user_id" : docs[0]._id});
         } else {
             res.status(401);
             res.json('No such user');
