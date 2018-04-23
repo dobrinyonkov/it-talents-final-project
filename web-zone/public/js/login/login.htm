@@ -4,32 +4,33 @@
 	<div class="container">
 		<a class="navbar-brand" id="logo">web Zone</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-		    aria-expanded="false" aria-label="Toggle navigation">
+		 aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<form class="form-inline my-2 my-lg-0 ml-auto">
 				<div class="row">
-					<div class="col">
-						<p>Email</p>
-						<input ng-model="user.email" class="form-control mr-sm-2" type="email" />
-					</div>
-				</div>
-				<div class="row">
-					<div class="col">
-						<p>Password</p>
-						<input ng-model="user.password" class="form-control mr-sm-2" type="password" />
-						<button ng-click="signIn($event)" class="btn btn-light btn-sm my-2 my-sm-0">Login</button>
-					</div>
-				</div>
-				<div class="row">
+					<div class="row">
 						<div class="col">
-							<p  ng-model="loginErorr"></p>
+							<p>Email</p>
+							<input ng-model="user.email" class="form-control mr-sm-2" type="email" />
+							<div class="row">
+								<div class="col">
+									<p>{{loginErorr}}</p>
+								</div>
+							</div>
 						</div>
 					</div>
+					<div class="row">
+						<div class="col">
+							<p>Password</p>
+							<input ng-model="user.password" class="form-control mr-sm-2" type="password" />
+							<button ng-click="signIn($event)" class="btn btn-light btn-sm my-2 my-sm-0">Login</button>
+						</div>
+					</div>
+				</div>
 			</form>
-			<p></p>
 		</div>
 	</div>
 </nav>
@@ -76,14 +77,16 @@
 				<input type="password" ng-model="pass1" name="pass1" placeholder="Password">
 			</div>
 			<div>
-				<input type="password"ng-model="pass2"  name="pass2" placeholder="Retype password">
+				<input type="password" ng-model="pass2" name="pass2" placeholder="Retype password">
 			</div>
 			<div id="errorContainer" ng-show="errorMessages.length">
 				<ul>
-					<li ng-repeat="mess in errorMessages"><em>{{mess}}</em></li>
+					<li ng-repeat="mess in errorMessages">
+						<em>{{mess}}</em>
+					</li>
 				</ul>
 			</div>
-			
+
 			<div>
 				<input type="button" ng-click="signUp(username,email,pass1,pass2)" value="SIGN ME UP">
 			</div>

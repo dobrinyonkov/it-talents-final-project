@@ -10,9 +10,9 @@ function validateEmail(email) {
   let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(String(email).toLowerCase());
 }
-function validatePass(email) {
+function validatePass(password) {
   let re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}/;
-  return re.test(String(email));
+  return re.test(String(password));
 }
 
 // ANGULAR
@@ -40,14 +40,15 @@ function validatePass(email) {
       // debugger;
       $event.preventDefault();
       // console.log($scope.user);
-      if (validateEmail($scope.user.email) || validatePass($scope.user.password)) {
+      if (validateEmail($scope.user.email) && validatePass($scope.user.password)) {
         LoginService.login($scope.user.email, $scope.user.password).then(r => {
+          $scope.loginErorr = '';          
           console.log(r);
         }).catch(e => {
-          $scope.loginErorr = 'Wrong emial or password';
+          $scope.loginErorr = 'Wrong email or password';
         });
       } else {
-        $scope.loginErorr = 'Wrong emial or password';
+        $scope.loginErorr = 'Wrong email or password';
       }
     }
 
