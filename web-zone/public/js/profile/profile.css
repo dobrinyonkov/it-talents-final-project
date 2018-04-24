@@ -1,9 +1,21 @@
 
 body{
     margin-top:20px;
-    background-color: #e9ebee;
+    background-color: #e9ebee !important;
     }
     
+    .btn-purple {
+      background-color: #563d7c;
+      color: #e9ebee;
+    }
+
+    .panel-heading {
+      background-image: none;
+      background-color: #563d7c !important;
+      color: #e9ebee;
+    }
+
+
     .divider {
       height: 20px;
       display: block;

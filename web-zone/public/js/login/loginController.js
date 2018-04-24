@@ -57,6 +57,7 @@ function validatePass(password) {
 
     //SIGNUP
     function signUp(newUser) {
+      debugger;
       //   console.log(arguments);
       //   console.log($scope.validForm);
       if (
@@ -79,6 +80,8 @@ function validatePass(password) {
 
     //ERRORS
     function displayError(el, message) {
+      console.log(el);
+      console.log(message);
       $scope.validForm = false;
       if ($scope.errorMessages.indexOf(message) == -1) {
         $scope.errorMessages.push(message);

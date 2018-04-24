@@ -23,7 +23,7 @@ app.config(function ($routeProvider, $httpProvider) {
         .when("/newsfeed", {
             templateUrl: "js/news-feed/news-feed.htm",
             controller: 'NewsFeedController',
-            css: "js/new-feed/news-feed.css", 
+            css: "js/news-feed/news-feed.css", 
         })
 
 

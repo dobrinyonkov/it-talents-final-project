@@ -2,8 +2,8 @@
 body {
     font-family: 'Roboto', sans-serif;
     font-weight: 400;
+    background-color: #f0f3f5 !important;
     margin-top:40px;
-    background-color: #e9ebee;
 }
 /*==============================*/
 /*====== siderbar user profile =====*/
@@ -62,7 +62,7 @@ body {
 	bottom: 0px;
 	right: 0px;
 	line-height: 30px;
-	vertical-align: middle;
+	/* vertical-align: middle; */
 	text-align: center;
 	padding: 0;
 	box-shadow: 0px 2px 5px 0 rgba(0, 0, 0, 0.15);
@@ -311,7 +311,7 @@ body {
 }
 
 .media-object {
-    max-width: 20px;
+    max-width: 50px;
     border-radius: 50px;
     box-shadow: 0px 3px 10px 0 rgba(0, 0, 0, 0.15);
     -moz-box-shadow: 0px 3px 10px 0 rgba(0, 0, 0, 0.15);
