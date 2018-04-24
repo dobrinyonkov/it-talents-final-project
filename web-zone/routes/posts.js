@@ -1,5 +1,6 @@
 var express = require("express");
 var router = express.Router();
+var jwt = require("jsonwebtoken");
 
 //tva dali ne se izpalnqva zaedno sonova sas id-to
 router.get("/", function(req, res, next) {

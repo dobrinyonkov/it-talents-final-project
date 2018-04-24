@@ -1,6 +1,8 @@
 body {
-  background-color: #e9ebee;
+  background-color: #e9ebee !important;
 }
+
+
 
 .nav-color-purple {
   background-color: #563d7c;

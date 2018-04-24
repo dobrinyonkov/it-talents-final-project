@@ -68,16 +68,16 @@
 				Sign up!
 			</div>
 			<div>
-				<input type="text" ng-model="username" name="username" placeholder="Username">
+				<input type="text" ng-model="newUser.username" name="username" placeholder="Username">
 			</div>
 			<div>
-				<input type="email" ng-model="email" name="email" placeholder="E-mail">
+				<input type="email" ng-model="newUser.email" name="email" placeholder="E-mail">
 			</div>
 			<div>
-				<input type="password" ng-model="pass1" name="pass1" placeholder="Password">
+				<input type="password" ng-model="newUser.pass1" name="pass1" placeholder="Password">
 			</div>
 			<div>
-				<input type="password" ng-model="pass2" name="pass2" placeholder="Retype password">
+				<input type="password" ng-model="newUser.pass2" name="pass2" placeholder="Retype password">
 			</div>
 			<div id="errorContainer" ng-show="errorMessages.length">
 				<ul>
@@ -88,7 +88,7 @@
 			</div>
 
 			<div>
-				<input type="button" ng-click="signUp(username,email,pass1,pass2)" value="SIGN ME UP">
+				<input type="button" ng-click="signUp(newUser)" value="SIGN ME UP">
 			</div>
 		</div>
 	</div>

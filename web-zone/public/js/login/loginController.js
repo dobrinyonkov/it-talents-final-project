@@ -1,4 +1,4 @@
-// НЕ СТАВА С ng-change="validate($event)"
+// НЕ СТАВА С ng-keydown="validate($event)"
 
 // И ТВА НЕ СТАВА
 // document.addEventListener("DOMContentLoaded", function(event) {
@@ -19,7 +19,7 @@ function validatePass(password) {
 (function (params) {
   angular.module("app").controller("LoginController", LoginController);
 
-  function LoginController($scope, LoginService) {
+  function LoginController($scope, $location, $window, LoginService) {
     const ALL_ERRORS = {
       username: "Username must be atleast two charechers long.",
       email: "Please enter a valid e-mail address.",
@@ -28,6 +28,7 @@ function validatePass(password) {
       pass2: "Passwords should match."
     };
     $scope.user = {};
+    $scope.newUser = {};
     $scope.loginErorr = '';
     $scope.signIn = signIn;
     $scope.validForm = false;
@@ -42,8 +43,9 @@ function validatePass(password) {
       // console.log($scope.user);
       if (validateEmail($scope.user.email) && validatePass($scope.user.password)) {
         LoginService.login($scope.user.email, $scope.user.password).then(r => {
-          $scope.loginErorr = '';          
-          console.log(r);
+          $scope.loginErorr = '';
+          $window.localStorage.setItem('token', r.data.token);
+          window.location = "#!/profile";
         }).catch(e => {
           $scope.loginErorr = 'Wrong email or password';
         });
@@ -54,20 +56,22 @@ function validatePass(password) {
 
 
     //SIGNUP
-    function signUp(username, email, pass1, pass2) {
+    function signUp(newUser) {
+      debugger;
       //   console.log(arguments);
       //   console.log($scope.validForm);
       if (
         $scope.validForm &&
         $scope.errorMessages.length == 0 &&
-        username.trim().length > 0 &&
-        email.trim().length > 0 &&
-        pass1.trim().length > 0 &&
-        pass2.trim().length > 0
+        newUser.username.trim().length > 0 &&
+        newUser.email.trim().length > 0 &&
+        newUser.pass1.trim().length > 0 &&
+        newUser.pass2.trim().length > 0
       ) {
-        console.log("bravo golqm geroi shte te pusna");
-        console.log(username, email, pass1, pass2);
-        // LoginService.create(username, email, pass1, pass2)
+        LoginService.create(newUser).then(r => {
+          $window.localStorage.setItem('token', r.data.token);
+          window.location = "#!/profile";
+        });
       } else {
         console.log("oshe malko da popalnish");
       }
@@ -76,6 +80,8 @@ function validatePass(password) {
 
     //ERRORS
     function displayError(el, message) {
+      console.log(el);
+      console.log(message);
       $scope.validForm = false;
       if ($scope.errorMessages.indexOf(message) == -1) {
         $scope.errorMessages.push(message);
@@ -85,7 +91,6 @@ function validatePass(password) {
 
       el.addEventListener("input", () => {
         el.classList.remove("wrongField");
-        // $scope.validForm = true;
       });
     }
 
@@ -94,48 +99,47 @@ function validatePass(password) {
     window.addEventListener("load", function (event) {
       console.log("All resources finished loading!");
       document.querySelectorAll("#registerForm > div input").forEach(el => {
-        //   el.addEventListener("input",()=>{console.log("input")})
-        el.addEventListener("change", event => {
+        el.addEventListener("blur", event => {
           var inputType = event.target.name;
           var value = event.target.value;
-          console.log(value);
-          //   console.log("pissa po " + inputType);
           switch (inputType) {
             case "username":
-              console.log(inputType);
               if (value.length < 2) {
                 displayError(el, ALL_ERRORS.username);
               } else {
                 $scope.validForm = true;
-                $scope.errorMessages = $scope.errorMessages.filter(
-                  m => m != ALL_ERRORS.username
-                );
+                $scope.$apply(function () {
+                  $scope.errorMessages = $scope.errorMessages.filter(
+                    m => m != ALL_ERRORS.username
+                  );
+                });
               }
               break;
             case "email":
-              console.log(inputType);
               if (!validateEmail(value)) {
                 displayError(el, ALL_ERRORS.email);
               } else {
                 $scope.validForm = true;
-                $scope.errorMessages = $scope.errorMessages.filter(
-                  m => m != ALL_ERRORS.email
-                );
+                $scope.$apply(function () {
+                  $scope.errorMessages = $scope.errorMessages.filter(
+                    m => m != ALL_ERRORS.email
+                  );
+                });
               }
               break;
             case "pass1":
-              console.log(inputType);
               if (!validatePass(value)) {
                 displayError(el, ALL_ERRORS.pass1);
               } else {
                 $scope.validForm = true;
-                $scope.errorMessages = $scope.errorMessages.filter(
-                  m => m != ALL_ERRORS.pass1
-                );
+                $scope.$apply(function () {
+                  $scope.errorMessages = $scope.errorMessages.filter(
+                    m => m != ALL_ERRORS.pass1
+                  );
+                });
               }
               break;
             case "pass2":
-              console.log(inputType);
               var pass1 = document.querySelector(
                 "#registerForm > div input[type=password]"
               ).value;
@@ -143,9 +147,11 @@ function validatePass(password) {
                 displayError(el, ALL_ERRORS.pass2);
               } else {
                 $scope.validForm = true;
-                $scope.errorMessages = $scope.errorMessages.filter(
-                  m => m != ALL_ERRORS.pass2
-                );
+                $scope.$apply(function () {
+                  $scope.errorMessages = $scope.errorMessages.filter(
+                    m => m != ALL_ERRORS.pass2
+                  );
+                });
               }
               break;
             default:
