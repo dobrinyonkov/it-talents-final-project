@@ -4,7 +4,7 @@
 	<div class="container">
 		<a class="navbar-brand" id="logo">web Zone</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-		 aria-expanded="false" aria-label="Toggle navigation">
+		    aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 
@@ -68,22 +68,46 @@
 				Sign up!
 			</div>
 			<div>
-				<input type="text" ng-model="newUser.username" name="username" placeholder="Username">
+				<input type="text" ng-class="errors[0]?'wrongField':'none'" ng-model="newUser.firstName" ng-change="validate('firstName')"
+				    ng-paste="validate('firstName')" name="username" placeholder="First name">
 			</div>
 			<div>
-				<input type="email" ng-model="newUser.email" name="email" placeholder="E-mail">
+				<input type="text" ng-class="errors[1]?'wrongField':'none'" ng-model="newUser.lastName" ng-change="validate('lastName')"
+				    ng-paste="validate('lastName')" name="username" placeholder="Last name">
 			</div>
 			<div>
-				<input type="password" ng-model="newUser.pass1" name="pass1" placeholder="Password">
+				<input type="text" ng-class="errors[2]?'wrongField':'none'" ng-model="newUser.email" ng-change="validate('email')"
+				ng-paste="validate('email')"name="email" placeholder="E-mail">
 			</div>
 			<div>
-				<input type="password" ng-model="newUser.pass2" name="pass2" placeholder="Retype password">
+				<input type="password" ng-class="errors[3]?'wrongField':'none'" ng-model="newUser.pass1" ng-change="validate('pass1')" ng-paste="validate('pass1')"
+				    name="pass1" placeholder="Password">
 			</div>
-			<div id="errorContainer" ng-show="errorMessages.length">
+			<div>
+				<input type="password" ng-class="errors[4]?'wrongField':'none'" ng-model="newUser.pass2" ng-change="validate('pass2')" ng-paste="validate('pass2')"
+				    name="pass2" placeholder="Retype password">
+			</div>
+			<div ng-show=hasErrors id="errorContainer">
 				<ul>
-					<li ng-repeat="mess in errorMessages">
-						<em>{{mess}}</em>
+					<li ng-if=errors[0]>
+						<em> First name must be atleast two charechers long.</em>
 					</li>
+					<li ng-if=errors[1]>
+						<em> Last name must be atleast two charechers long.</em>
+					</li>
+					<li ng-if=errors[2]>
+						<em> Please enter a valid e-mail address.</em>
+					</li>
+					<li ng-if=errors[3]>
+						<em> Password must contain minimum eight characters, at least one uppercase letter, one lowercase letter, one number and
+							one special character.</em>
+					</li>
+					<li ng-if=errors[4]>
+						<em>Passwords should match.</em>
+					</li>
+					<li ng-if=errors[5]>
+							<em>Please fill in the form.</em>
+						</li>
 				</ul>
 			</div>
 
