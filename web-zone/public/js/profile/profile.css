@@ -1,6 +1,6 @@
 
 body{
-    margin-top:20px;
+    font-size: 14px;
     background-color: #e9ebee !important;
     }
     
@@ -9,7 +9,7 @@ body{
       color: #e9ebee;
     }
 
-    .panel-heading {
+    .card-header {
       background-image: none;
       background-color: #563d7c !important;
       color: #e9ebee;
@@ -17,7 +17,7 @@ body{
 
 
     .divider {
-      height: 20px;
+      height: 10px;
       display: block;
     }
     

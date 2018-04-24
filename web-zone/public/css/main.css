@@ -1,0 +1,3 @@
+$font-size-base: 1rem !default !important;
+$font-size-lg:   ($font-size-base * 1.25) !default !important;
+$font-size-sm:   ($font-size-base * 0.875) !default !important;
