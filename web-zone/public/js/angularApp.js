@@ -20,6 +20,11 @@ app.config(function ($routeProvider, $httpProvider) {
             controller: "postController",
 
         })
+        .when("/addPost", {
+            templateUrl: "js/post/addPost.htm",
+            controller: "addPostController",
+
+        })
         .when("/newsfeed", {
             templateUrl: "js/news-feed/news-feed.htm",
             controller: 'NewsFeedController',
