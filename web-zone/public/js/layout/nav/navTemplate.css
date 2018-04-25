@@ -1,0 +1,14 @@
+body {
+    background-color: #e9ebee !important;
+  }
+  
+  .nav-color-purple {
+    background-color: #563d7c;
+  }
+  
+  #logo {
+    color: azure;
+    text-shadow: 0px 0px 1px black;
+    border-radius: 2px;
+  }
+  

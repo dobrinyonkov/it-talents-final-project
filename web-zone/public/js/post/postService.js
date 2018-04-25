@@ -32,7 +32,6 @@ app.service("postService", function ($http) {
     }).then(updatedPost=>{
        //update in db
     })
-
  
 
    
