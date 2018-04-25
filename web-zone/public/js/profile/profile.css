@@ -15,6 +15,14 @@ body{
       color: #e9ebee;
     }
 
+    .link {
+      color: rgb(0, 74, 212);
+    }
+
+    .link:hover {
+      cursor: pointer;
+      text-decoration: underline;
+    }
 
     .divider {
       height: 10px;

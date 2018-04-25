@@ -70,17 +70,17 @@
                 .then(res => {
                     return res;
                 })
-                .cath(err => {
+                .catch(err => {
                     return err;
                 });
         }
 
         function getById(id) {
-            return $http.get(`api/users/${id}`)
+            return $http.get(`http://localhost:9000/api/users/${id}`)
                 .then(res => {
                     return res;
                 })
-                .cath(err => {
+                .catch(err => {
                     return err;
                 });
         }
@@ -90,7 +90,7 @@
                 .then(res => {
                     return res;
                 })
-                .cath(err => {
+                .catch(err => {
                     return err;
                 });
         }
@@ -100,7 +100,7 @@
                 .then(res => {
                     return res;
                 })
-                .cath(err => {
+                .catch(err => {
                     return err;
                 });
         }
@@ -110,7 +110,7 @@
                 .then(res => {
                     return res;
                 })
-                .cath(err => {
+                .catch(err => {
                     return err;
                 });
         }
@@ -120,7 +120,7 @@
                 .then(res => {
                     return res;
                 })
-                .cath(err => {
+                .catch(err => {
                     return err;
                 });
         }

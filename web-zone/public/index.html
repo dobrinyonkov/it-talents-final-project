@@ -10,27 +10,27 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-css/1.0.8/angular-css.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.min.js"></script>
-    <script src="vendors/jquery.min.js"></script>
-    <script src="vendors/bootstrap/js/popper.min.js"></script>
-    <script src="vendors/bootstrap/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="vendors/bootstrap/css/bootstrap.min.css" />
-
+    
     <!--  -->
     <!-- Font, Style -->
     <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet" type='text/css'>
     <link rel="stylesheet" href="css/main.css">
     <title></title>
+    <script src="vendors/jquery.min.js"></script>
+    <script src="vendors/bootstrap/js/popper.min.js"></script>
+    <script src="vendors/bootstrap/js/bootstrap.min.js"></script>
 </head>
 
 <body ng-app="app">
-
+    
     <navigation></navigation>
-
+    
     <main ng-view>
-
+        
     </main>
-
-
+    
+    
 </body>
 
 <!-- ANGULAR APP -->
@@ -39,6 +39,7 @@
 <!-- ANGULAR SERVICES -->
 <script src="js/login/loginService.js"></script>
 <script src="js/post/postService.js"></script>
+<script src="js/profile/userService.js"></script>
 
 <!-- ANGULAR CONTROLLERS -->
 <script src="js/login/loginController.js"></script>

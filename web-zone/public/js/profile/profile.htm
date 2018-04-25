@@ -25,7 +25,7 @@
                                     <img data-no-retina="" class="rounded-circle img-fluid img-bordered-primary" src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="John Doe">
                                 </li>
                                 <li class="text-xs-center">
-                                    <h6 class="text-capitalize">John Doe</h6>
+                                    <h6 class="text-capitalize">{{currentUser.firstName}} {{currentUser.lastName}}</h6>
                                     <p class="text-muted text-capitalize">web designer</p>
                                 </li>
                                 <li>
@@ -55,10 +55,24 @@
                         </div>
                         <div class="clearfix"></div>
                     </div><!-- /.panel-heading -->
-                    <div class="card-block m-4 no-padding rounded">
-                        <ul class="list-group no-margin">
-                            <li class="list-group-item"><i class="fa fa-envelope"></i> support@bootdey.com</li>
-                            <li class="list-group-item"><i class="fa fa-globe"></i> www.bootdey.com</li>
+                    <div class="card-block m-3 no-padding rounded">
+                        <span ng-click="onChangeContact()" class="link">change</span>
+                        <ul ng-if="!changeTriggered" class="list-group no-margin">
+                            <li class="list-group-item"><i class="fa fa-envelope"></i> {{currentUser.email}}</li>
+                            <li ng-if='currentUser.site' class="list-group-item"><i class="fa fa-globe"></i> www.bootdey.com</li>
+                            <li ng-if='!currentUser.site' class="list-group-item"><i class="fa fa-globe"></i><input ng-model="currentUser" class="float-right d-inline form-control" type="text"></li>
+                            <li class="list-group-item"><i class="fa fa-phone"></i> +6281 903 xxx xxx</li>
+                        </ul>
+                        <ul ng-if="changeTriggered" class="list-group no-margin">
+                            <li class="list-group-item"><i class="fa fa-envelope"></i> {{currentUser.email}}</li>
+                            <li class="list-group-item">
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                      <div class="input-group-text">@</div>
+                                    </div>
+                                <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Username">
+                              </div>
+                            </li>
                             <li class="list-group-item"><i class="fa fa-phone"></i> +6281 903 xxx xxx</li>
                         </ul>
                     </div><!-- /.panel-body -->
