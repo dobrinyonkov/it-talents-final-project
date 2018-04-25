@@ -66,7 +66,7 @@ function ensureAuthorized(req, res, next) {
   app.use('/api/login', loginRouter);
   app.use('/api/signup', signupRouter);
   //posts
-  app.use('/api/posts', ensureAuthorized, postsRouter);
+  app.use('/api/posts',/* ensureAuthorized,*/ postsRouter);
   //add post test page
   // app.use('/addPost', addPostRouter);
 
