@@ -25,14 +25,16 @@ function calculateTimeInterval(date){
         $scope.posts = []
         postService.getPost("5ada00a6f2400423d4235f5c").then(post => $scope.posts.push(post))
         //tuka ot user servica
+        // $scope.sayhi=function(name){return "hellllo "+name}
         $scope.getUserById = function () {
-            console.log(arguments)
+            // console.log(arguments)
             return {
                 name: "Hristo Ivanov",
                 profilePic: "http://res.cloudinary.com/web-zone2/image/upload/v1524652664/profile2_gklfiw.jpg",
 
             }
         }
+        $scope.calculateTimeInterval=calculateTimeInterval
 
         var userId = $routeParams.id;
         UserService.getById(userId).then(r => {
@@ -40,10 +42,11 @@ function calculateTimeInterval(date){
             console.log($scope.currentUser.firstName);
         });
 
+
         $scope.onChangeContact = function () {
             $scope.changeTriggered = !$scope.changeTriggered;
         }
-
+        
 
     });
 })();
