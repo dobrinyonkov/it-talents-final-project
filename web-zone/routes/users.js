@@ -34,5 +34,19 @@ router.get('/:id', function (req, res, next) {
   })
 });
 
+router.put('/update/:id', function (req, res, next) {
+  var userCollection = req.db.get('users');
+  var user = req.body;
+  userCollection.findOneAndUpdate({ _id: user._id}, {$set: user}, function (err, docs) {
+    if (err) {
+      res.status(500);
+      res.json(err);
+    } else {
+      res.status(200);
+      res.json(docs);
+    }
+  })
+});
+
 
 module.exports = router;

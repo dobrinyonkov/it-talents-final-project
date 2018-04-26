@@ -22,13 +22,10 @@
                     <div class="inner-all">
                         <ul class="text-center list-unstyled">
                             <li class="text-center">
-                                <img data-no-retina="" class="rounded-circle img-fluid img-bordered-primary" src="http://bootdey.com/img/Content/avatar/avatar1.png"
+                                <img data-no-retina="" class="rounded-circle img-fluid img-bordered-primary mb-2" ng-src="{{currentUser.profilePic}}"
                                     alt="{{currentUser.firstName}} {{currentUser.lastName}}">
-                                <div class="form-group">
-                                    <label for="exampleInputFile">File input</label>
                                     <input type="file" id="selectedFile">
-                                </div>
-                                <button ng-click = "uploadFile()" ng-if="editMode" class="btn btn-success btn-sm mt-2">SAVE</button>
+                                <button ng-click="saveProfilePic(currentUser, profilePicUrl)" ng-if="profilePicUploaded" class="btn btn-success btn-sm mt-2">SAVE</button>
                             </li>
                             <li class="text-center mt-4">
                                 <h6 class="text-capitalize">{{currentUser.firstName}} {{currentUser.lastName}}</h6>

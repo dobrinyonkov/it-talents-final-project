@@ -1,7 +1,9 @@
 (function () {
-    app.controller('ProfileController', function ($firebaseStorage, fileUpload, $routeParams, $scope, postService, UserService) {
+    app.controller('ProfileController', function (fileUpload, $routeParams, $scope, postService, UserService) {
         $scope.currentUser = {};
         $scope.editMode = false;
+        $scope.profilePicUploaded = false;
+        $scope.profilePicUrl = '';
         $scope.posts = [];
         postService.getPost("5ada00a6f2400423d4235f5c").then(post => $scope.posts.push(post))
         //tuka ot user servica
@@ -17,31 +19,28 @@
         var userId = $routeParams.id;
         UserService.getById(userId).then(r => {
             $scope.currentUser = r.data[0];
-            console.log($scope.currentUser.firstName);
-        });
+        }).catch(err => console.log(err));
 
         $scope.onChangeMode = function () {
             $scope.editMode = !$scope.editMode;
         }
 
-
-        $scope.onFileSelected = function (files) {
-            console.log(files);
+        $scope.saveProfilePic = function (user, url) {
+            user.profilePic = url;
+            console.log(user);
+            UserService.update(user).then(r => console.log(r));
         }
-
-        $scope.uploadFile = function () {
-            var file = $scope.myFile;
-
-            var storageRef = firebase.storage().ref('userProfiles/physicsmarie');
-            var storage = $firebaseStorage(storageRef);
-
-            var uploadTask = storage.$put(file);
-        };
 
         var selectedFile = document.getElementById('selectedFile');
         console.log(selectedFile);
+
         selectedFile.addEventListener('change', function (event) {
-            console.log(event);
-        })
+            var file = event.target.files[0];
+            console.log(file);
+            fileUpload.uploadFileToUrl(file).then(r => {
+                $scope.profilePicUploaded = true;
+                $scope.profilePicUrl = r.data.url;
+            });
+        });
     });
 })();

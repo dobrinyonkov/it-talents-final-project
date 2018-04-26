@@ -54,6 +54,7 @@
 
     function UserService($http) {
 
+        const API_URL = 'http://localhost:9000/';
         var service = {};
 
         service.getAll = getAll;
@@ -66,7 +67,7 @@
         return service;
 
         function getAll() {
-            return $http.get(`api/users`)
+            return $http.get(`${API_URL}api/users`)
                 .then(res => {
                     return res;
                 })
@@ -76,7 +77,7 @@
         }
 
         function getById(id) {
-            return $http.get(`http://localhost:9000/api/users/${id}`)
+            return $http.get(`${API_URL}api/users/${id}`)
                 .then(res => {
                     return res;
                 })
@@ -86,7 +87,7 @@
         }
 
         function getByName(name) {
-            return $http.get(`api/users/${name}`)
+            return $http.get(`${API_URL}api/users/${name}`)
                 .then(res => {
                     return res;
                 })
@@ -96,7 +97,7 @@
         }
 
         function create(user) {
-            return $http.post(`http://localhost:9000/api/users/`, user)
+            return $http.post(`${API_URL}api/users/`, user)
                 .then(res => {
                     return res;
                 })
@@ -106,7 +107,8 @@
         }
 
         function update(user) {
-            return $http.put(`api/users/`, user._id, user)
+            console.log(user);
+            return $http.put(`${API_URL}api/users/update/${user._id}`, user)
                 .then(res => {
                     return res;
                 })
@@ -116,7 +118,7 @@
         }
 
         function remove(id) {
-            return $http.delete(`api/users/${id}`)
+            return $http.delete(`${API_URL}api/users/${id}`)
                 .then(res => {
                     return res;
                 })

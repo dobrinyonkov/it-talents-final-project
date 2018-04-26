@@ -7,7 +7,7 @@ router.post('/', function (req, res, next) {
 
     var email = req.body.email;
     var password = sha1(req.body.password);
-    console.log(email, password);
+    // console.log(email, password);
     var userCollection = req.db.get('users');
 
     userCollection.find({ email: email, password: password }, {}, function (err, docs) {

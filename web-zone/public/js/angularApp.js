@@ -1,7 +1,6 @@
 var app = angular.module("app", [
     "ngRoute",
     "angularCSS",
-    "firebase"
 ]);
 
 app.config(function ($routeProvider, $httpProvider) {
