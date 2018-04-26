@@ -128,7 +128,7 @@
                                 </div>
                             </div><!-- /.pull-left -->
                             <div class="float-right">
-                                <a href="#" class="text-white h6"><i class="fa fa-heart"></i> {{post.likes.length}}</a>
+                                <a href="#" class="text-white h6"><i title="Like this post." class="fa fa-heart"></i> <span title="{{getUserById(post.likes[0]).name}} and {{post.likes.length-1}} others like this. " >{{post.likes.length}}</span></a>
                             </div><!-- /.pull-right -->
                             <div class="clearfix"></div>
                         </div><!-- /.panel-heading -->
