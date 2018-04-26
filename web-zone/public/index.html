@@ -6,12 +6,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        // TODO: Replace with your project's customized code snippet
+        var config = {
+            apiKey: "AIzaSyCEkmjZ7Z2GWlUDbDP2IzeNVHTGvpwP_OI",
+            authDomain: "web-zone-99e64.firebaseapp.com",
+            databaseURL: "https://<DATABASE_NAME>.firebaseio.com",
+            projectId: "web-zone-99e64",
+            storageBucket: "gs://web-zone-99e64.appspot.com",
+            messagingSenderId: "49119820575",
+        };
+        firebase.initializeApp(config);
+    </script>
+
+    <script src="vendors/angular/angular.min.js"></script>
+    <script src="vendors/angular-route/angular-route.min.js"></script>
+    <script src="vendors/cloudinary-angular/dist/cloudinary-angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-css/1.0.8/angular-css.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.min.js"></script>
     <link rel="stylesheet" href="vendors/bootstrap/css/bootstrap.min.css" />
+    <script src="vendors/ng-file-upload/dist/ng-file-upload.min.js"></script>
     
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/3.6.6/firebase.js"></script>
+
+    <!-- AngularFire -->
+    <script src="https://cdn.firebase.com/libs/angularfire/2.3.0/angularfire.min.js"></script>
+
     <!--  -->
     <!-- Font, Style -->
     <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet" type='text/css'>
@@ -23,14 +46,14 @@
 </head>
 
 <body ng-app="app">
-    
+
     <navigation></navigation>
-    
+
     <main ng-view>
-        
+
     </main>
-    
-    
+
+
 </body>
 
 <!-- ANGULAR APP -->
@@ -40,6 +63,7 @@
 <script src="js/login/loginService.js"></script>
 <script src="js/post/postService.js"></script>
 <script src="js/profile/userService.js"></script>
+<script src="js/profile/fileUploadService.js"></script>
 
 <!-- ANGULAR CONTROLLERS -->
 <script src="js/login/loginController.js"></script>
@@ -50,5 +74,6 @@
 
 <!-- DIRECTIVES -->
 <script src="js/layout/nav/navDirective.js"></script>
+<script src="js/directives/uplaodFileDirective.js"></script>
 
 </html>

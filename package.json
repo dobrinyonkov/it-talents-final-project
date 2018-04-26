@@ -10,8 +10,13 @@
     "start": "node ./web-zone/bin/www"
   },
   "dependencies": {
+    "angular": "^1.6.9",
     "angular-local-storage": "^0.7.1",
+    "angular-route": "^1.6.9",
     "body-parser": "^1.18.2",
+    "cloudinary": "^1.11.0",
+    "cloudinary-angular": "^1.0.1",
+    "cloudinary_ng": "^1.1.1",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "express": "~4.16.0",
@@ -23,6 +28,8 @@
     "mongodb": "^3.0.6",
     "monk": "^6.0.5",
     "morgan": "~1.9.0",
+    "multer": "^1.3.0",
+    "ng-file-upload": "^12.2.13",
     "nodemon": "^1.17.3",
     "save": "^2.3.2",
     "sha1": "^1.1.1"

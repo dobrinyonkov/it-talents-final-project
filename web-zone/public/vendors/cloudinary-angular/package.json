@@ -1,0 +1,65 @@
+{
+  "_from": "cloudinary-angular",
+  "_id": "cloudinary-angular@1.0.1",
+  "_inBundle": false,
+  "_integrity": "sha1-AW1BqkurhmHhJP/dw5XEHrBpjfU=",
+  "_location": "/cloudinary-angular",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "cloudinary-angular",
+    "name": "cloudinary-angular",
+    "escapedName": "cloudinary-angular",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/cloudinary-angular/-/cloudinary-angular-1.0.1.tgz",
+  "_shasum": "016d41aa4bab8661e124ffddc395c41eb0698df5",
+  "_spec": "cloudinary-angular",
+  "_where": "/it-talents/git-repos/it-talents-final-project",
+  "author": {
+    "name": "Tinus Aamand Norstved"
+  },
+  "bugs": {
+    "url": "https://github.com/tinusn/cloudinary-angular/issues"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "Cloudinary Angular module",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-ng-annotate": "^1.1.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-typescript": "^2.9.0",
+    "gulp-uglify": "^1.4.1",
+    "gulp-usemin": "^0.3.14",
+    "merge2": "^0.3.6",
+    "rimraf": "^2.4.3"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "homepage": "https://github.com/tinusn/cloudinary-angular#readme",
+  "keywords": [
+    "cloudinary"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "name": "cloudinary-angular",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/tinusn/cloudinary-angular.git"
+  },
+  "scripts": {
+    "start": "gulp"
+  },
+  "version": "1.0.1"
+}
