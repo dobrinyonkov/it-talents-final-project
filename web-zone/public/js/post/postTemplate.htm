@@ -1,0 +1,61 @@
+
+<div class="col-md-6">
+    <div class="card rounded shadow">
+        <div class="card-header no-border">
+            <div class="float-left half">
+                <div class="media">
+                    <div class="media-object float-left">
+                        <img ng-src="{{getuser({user:post.ownerId}).profilePic}}" alt="..." class="rounded-circle img-post">
+                    </div>
+                    <div class="media-body">
+                        <a href="#" class="media-heading block mb-0 h6 text-white">{{getuser({userId:post.owner}).name}} </a>
+                        <span class="text-white h6"> on {{post.date}}</span>
+                    </div>
+                </div>
+            </div><!-- /.pull-left -->
+            <div class="float-right">
+                <a href="#" class="text-white h6"><i title="Like this post." class="fa fa-heart"></i> <span title="{{getuser({userId:post.likes[0]}).name}} and {{post.likes.length-1}} others like this. " >{{post.likes.length}}</span></a>
+            </div><!-- /.pull-right -->
+            <div class="clearfix"></div>
+        </div><!-- /.panel-heading -->
+        <div class="card-block m-4 no-padding">
+                <div class="inner-all block">                                        
+                        <p>
+                        {{post.text}}
+                        </p>                                        
+                    </div>
+            <img  ng-src="{{post.photoUrl}}" alt="..." class="img-fluid full-width">
+            <div class="inner-all block">
+                view all <a href="#">{{post.comments.length}} comments</a>
+            </div><!-- /.inner-all -->
+
+            <!-- comment -->
+            <div class="line no-margin"></div><!-- /.line -->
+            <div class="card-footer">
+            <div class="media inner-all no-margin">
+                <div class="float-left">
+                    <img width="50" class="mr-2 rounded-circle img-fluid img-bordered-primary" ng-src="{{getuser({user:post.comments[0].ownerId}).profilePic}}" alt="..." class="img-post2">
+                </div><!-- /.pull-left -->
+                <div class="media-body">
+                    <a href="#" class="h6"></a>
+                    <small class="block text-muted">{{post.comments[0].text}} </small>
+                <p><em class="text-xs text-muted">Posted <span class="text-danger">{{calculatetime({date: post.comments[0].date})}} </span></em></p> 
+                </div><!-- /.media-body -->
+            </div><!-- /.media -->
+            <!--end of comment -->
+        
+        </div>
+    </div>
+    <!-- /.panel-body -->
+        <div class="card-footer">
+            <form action="#" class="">
+                <div class="input-group has-feedback no-margin">
+                    <input type="text" class="form-control form-control-sm" placeholder="Your comment here...">
+                    <span class="input-group-btn">
+                        <button class="btn btn-purple" type="button">POST</button>
+                    </span>
+                </div>
+            </form>
+        </div><!-- /.panel-footer -->
+    </div><!-- /.panel -->
+</div>
