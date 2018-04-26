@@ -22,9 +22,8 @@
                     <div class="inner-all">
                         <ul class="text-center list-unstyled">
                             <li class="text-center">
-                                <img data-no-retina="" class="rounded-circle img-fluid img-bordered-primary mb-2" ng-src="{{currentUser.profilePic}}"
-                                    alt="{{currentUser.firstName}} {{currentUser.lastName}}">
-                                    <input type="file" id="selectedFile">
+                                <img data-no-retina="" class="rounded-circle img-fluid img-bordered-primary mb-2" ng-src="{{currentUser.profilePic}}" alt="{{currentUser.firstName}} {{currentUser.lastName}}">
+                                <input type="file" id="selectedFile">
                                 <button ng-click="saveProfilePic(currentUser, profilePicUrl)" ng-if="profilePicUploaded" class="btn btn-success btn-sm mt-2">SAVE</button>
                             </li>
                             <li class="text-center mt-4">
@@ -198,7 +197,7 @@
             </div>
             <!-- /.profile-cover -->
             <div class="divider"></div>
-            <div class="mb-4 rounded shadow">
+            <div class="new-post mb-4 rounded shadow">
                 <form action="...">
                     <textarea class="form-control form-control-lg no-border" rows="2" placeholder="What are you doing?..."></textarea>
                 </form>
@@ -231,187 +230,187 @@
                 <!-- /.panel-footer -->
             </div>
             <!-- /.panel -->
-            <div class="row mb-4 p-1">
-                <!-- Post -->
-                <div ng-repeat="post in posts">
-                    <div class="card rounded shadow">
-                        <div class="card-header no-border">
-                            <div class="float-left half">
-                                <div class="media">
-                                    <div class="media-object float-left">
-                                        <img ng-src="{{getUserById(post.ownerId).profilePic}}" alt="..." class="rounded-circle img-post">
-                                    </div>
-                                    <div class="media-body">
-                                        <a href="#" class="media-heading block mb-0 h6 text-white">{{getUserById(post.ownerId).name}} </a>
-                                        <span class="text-white h6"> on {{post.date}}</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- /.pull-left -->
-                            <div class="float-right">
-                                <a href="#" class="text-white h6">
-                                    <i class="fa fa-heart"></i> {{post.likes.length}}</a>
-                            </div>
-                            <!-- /.pull-right -->
-                            <div class="clearfix"></div>
-                        </div>
-                        <!-- /.panel-heading -->
-                        <div class="card-block m-4 no-padding">
-                            <div class="inner-all block">
-                                <p>
-                                    {{post.text}}
-                                </p>
-                            </div>
-                            <img ng-src="{{post.photoUrl}}" alt="..." class="img-fluid full-width">
-                            <div class="inner-all block">
-                                view all
-                                <a href="#">{{post.comments.length}} comments</a>
-                            </div>
-                            <!-- /.inner-all -->
+            <!-- Post from directive -->
+            <div ng-repeat="post in posts">
+                <post post=post getuser=getUserById(userId) calculatetime=calculateTimeInterval(date)>
 
-                            <!-- comment -->
-                            <div class="line no-margin"></div>
-                            <!-- /.line -->
-                            <div class="card-footer">
-                                <div class="media inner-all no-margin">
-                                    <div class="float-left">
-                                        <img width="50" class="mr-2 rounded-circle img-fluid img-bordered-primary" ng-src="{{getUserById(post.comments[0].ownerId).profilePic}}"
-                                            alt="..." class="img-post2">
-                                    </div>
-                                    <!-- /.pull-left -->
-                                    <div class="media-body">
-                                        <a href="#" class="h6"></a>
-                                        <small class="block text-muted">{{post.comments[0].text}} </small>
-                                        <p>
-                                            <em class="text-xs text-muted">Posted on
-                                                <span class="text-danger">{{post.comments[0].date}} </span>
-                                            </em>
-                                        </p>
-                                    </div>
-                                    <!-- /.media-body -->
-                                </div>
-                                <!-- /.media -->
-                                <!--end of comment -->
-
-                            </div>
-                        </div>
-                        <!-- /.panel-body -->
-                        <div class="card-footer">
-                            <form action="#" class="">
-                                <div class="input-group has-feedback no-margin">
-                                    <input type="text" class="form-control form-control-sm" placeholder="Your comment here...">
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-purple" type="button">POST</button>
-                                    </span>
-                                </div>
-                            </form>
-                        </div>
-                        <!-- /.panel-footer -->
-                    </div>
-                    <!-- /.panel -->
-                </div>
-
-
+                </post>
             </div>
             <!-- end of ng repeat-->
             <!-- Post -->
-            <div class="card rounded shadow">
-                <div class="card-header no-border">
-                    <div class="float-left half">
-                        <div class="media">
-                            <div class="media-object float-left">
-                                <img width="50" class="mr-2 rounded-circle img-fluid img-bordered-primary" src="http://bootdey.com/img/Content/avatar/avatar6.png"
-                                    alt="...">
-                            </div>
-                            <div class="media-body">
-                                <a href="#" class="media-heading block mb-0 h6 text-white">John Doe</a>
-                                <span class="text-white h6">on 8th June, 2014</span>
+            <div class="post">
+                <div class="card rounded shadow">
+                    <div class="card-header no-border">
+                        <div class="float-left half">
+                            <div class="media">
+                                <div class="media-object float-left">
+                                    <img width="50" class="mr-2 rounded-circle img-fluid img-bordered-primary" src="http://bootdey.com/img/Content/avatar/avatar6.png"
+                                        alt="...">
+                                </div>
+                                <div class="media-body">
+                                    <a href="#" class="media-heading block mb-0 h6 text-white">John Doe</a>
+                                    <span class="text-white h6">on 8th June, 2014</span>
+                                </div>
                             </div>
                         </div>
+                        <!-- /.pull-left -->
+                        <div class="float-right">
+                            <a href="#" class="text-white h6">
+                                <i class="fa fa-heart"></i> 15.5K</a>
+                        </div>
+                        <!-- /.pull-right -->
+                        <div class="clearfix"></div>
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="card-block m-4 no-padding">
+                        <div class="inner-all block">
+                            <h6>Upload on my album :D</h6>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita, iste omnis fugiat porro consequuntur ratione iure error
+                                reprehenderit cum est ab similique magnam molestias aperiam voluptatibus quia aliquid! Sed,
+                                minima.
+                            </p>
+                            <blockquote class="mb-10">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A, delectus!</blockquote>
+
+                            <img data-no-retina="" src="https://media.istockphoto.com/photos/plant-growing-picture-id510222832?k=6&m=510222832&s=612x612&w=0&h=Pzjkj2hf9IZiLAiXcgVE1FbCNFVmKzhdcT98dcHSdSk="
+                                alt="..." width="100">
+                            <img data-no-retina="" src="https://media.istockphoto.com/photos/plant-growing-picture-id510222832?k=6&m=510222832&s=612x612&w=0&h=Pzjkj2hf9IZiLAiXcgVE1FbCNFVmKzhdcT98dcHSdSk="
+                                alt="..." width="100">
+                            <img data-no-retina="" src="https://media.istockphoto.com/photos/plant-growing-picture-id510222832?k=6&m=510222832&s=612x612&w=0&h=Pzjkj2hf9IZiLAiXcgVE1FbCNFVmKzhdcT98dcHSdSk="
+                                alt="..." width="100">
+                        </div>
+                        <!-- /.inner-all -->
+                        <div class="inner-all">
+                            view all
+                            <a href="#">7 comments</a>
+                        </div>
+                    </div>
+                    <!-- /.panel-body -->
+                    <div class="card-footer no-padding no-border">
+                        <div class="comment media inner-all no-margin">
+                            <div class="float-left">
+                                <img width="50" class="mx-2 rounded-circle img-fluid img-bordered-primary" src="http://bootdey.com/img/Content/avatar/avatar3.png"
+                                    alt="..." class="img-post2">
+                            </div>
+                            <!-- /.pull-left -->
+                            <div class="media-body">
+                                <a href="#" class="h6">John Doe</a>
+                                <small class="block text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. </small>
+                                <em class="text-xs text-muted">Posted on
+                                    <span class="text-danger">Dec 08, 2014</span>
+                                </em>
+                            </div>
+                            <!-- /.media-body -->
+                        </div>
+                        <!-- /.media -->
+                        <div class="line no-margin"></div>
+                        <!-- /.line -->
+                        <div class="comment media inner-all no-margin">
+                            <div class="float-left">
+                                <img width="50" class="mx-2 rounded-circle img-fluid img-bordered-primary" src="http://bootdey.com/img/Content/avatar/avatar5.png"
+                                    alt="..." class="img-post2">
+                            </div>
+                            <!-- /.pull-left -->
+                            <div class="media-body">
+                                <a href="#" class="h6">John Doe</a>
+                                <small class="block text-muted">Quaerat, impedit minus non commodi facere doloribus nemo ea voluptate nesciunt deleniti.</small>
+                                <em class="text-xs text-muted">Posted on
+                                    <span class="text-danger">Dec 08, 2014</span>
+                                </em>
+                            </div>
+                            <!-- /.media-body -->
+                        </div>
+                        <!-- /.media -->
+                        <div class="line no-margin"></div>
+                        <!-- /.line -->
+                        <form action="#" class=" inner-all">
+                            <div class="input-group has-feedback no-margin">
+                                <input type="text" class="form-control form-control-sm" placeholder="Your comment here...">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-purple" type="button">POST</button>
+                                </span>
+                            </div>
+                        </form>
+                        <!-- /.form-horizontal -->
+                    </div>
+                    <!-- /.panel-footer -->
+                </div>
+                <!-- /.panel -->
+            </div>
+            <!-- /.panel-heading -->
+            <div class="card-block m-4 no-padding">
+                <div class="inner-all block">
+                    <h6>Upload on my album :D</h6>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita, iste omnis fugiat porro consequuntur ratione iure error
+                        reprehenderit cum est ab similique magnam molestias aperiam voluptatibus quia aliquid! Sed, minima.
+                    </p>
+                    <blockquote class="mb-10">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A, delectus!</blockquote>
+
+                    <img data-no-retina="" src="https://media.istockphoto.com/photos/plant-growing-picture-id510222832?k=6&m=510222832&s=612x612&w=0&h=Pzjkj2hf9IZiLAiXcgVE1FbCNFVmKzhdcT98dcHSdSk="
+                        alt="..." width="100">
+                    <img data-no-retina="" src="https://media.istockphoto.com/photos/plant-growing-picture-id510222832?k=6&m=510222832&s=612x612&w=0&h=Pzjkj2hf9IZiLAiXcgVE1FbCNFVmKzhdcT98dcHSdSk="
+                        alt="..." width="100">
+                    <img data-no-retina="" src="https://media.istockphoto.com/photos/plant-growing-picture-id510222832?k=6&m=510222832&s=612x612&w=0&h=Pzjkj2hf9IZiLAiXcgVE1FbCNFVmKzhdcT98dcHSdSk="
+                        alt="..." width="100">
+                </div>
+                <!-- /.inner-all -->
+                <div class="inner-all">
+                    view all
+                    <a href="#">7 comments</a>
+                </div>
+            </div>
+            <!-- /.panel-body -->
+            <div class="card-footer no-padding no-border">
+                <div class="media inner-all no-margin">
+                    <div class="float-left">
+                        <img width="50" class="mx-2 rounded-circle img-fluid img-bordered-primary" src="http://bootdey.com/img/Content/avatar/avatar3.png"
+                            alt="..." class="img-post2">
                     </div>
                     <!-- /.pull-left -->
-                    <div class="float-right">
-                        <a href="#" class="text-white h6">
-                            <i class="fa fa-heart"></i> 15.5K</a>
+                    <div class="media-body">
+                        <a href="#" class="h6">John Doe</a>
+                        <small class="block text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. </small>
+                        <em class="text-xs text-muted">Posted on
+                            <span class="text-danger">Dec 08, 2014</span>
+                        </em>
                     </div>
-                    <!-- /.pull-right -->
-                    <div class="clearfix"></div>
+                    <!-- /.media-body -->
                 </div>
-                <!-- /.panel-heading -->
-                <div class="card-block m-4 no-padding">
-                    <div class="inner-all block">
-                        <h6>Upload on my album :D</h6>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita, iste omnis fugiat porro consequuntur ratione iure error
-                            reprehenderit cum est ab similique magnam molestias aperiam voluptatibus quia aliquid! Sed, minima.
-                        </p>
-                        <blockquote class="mb-10">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A, delectus!</blockquote>
-
-                        <img data-no-retina="" src="https://media.istockphoto.com/photos/plant-growing-picture-id510222832?k=6&m=510222832&s=612x612&w=0&h=Pzjkj2hf9IZiLAiXcgVE1FbCNFVmKzhdcT98dcHSdSk="
-                            alt="..." width="100">
-                        <img data-no-retina="" src="https://media.istockphoto.com/photos/plant-growing-picture-id510222832?k=6&m=510222832&s=612x612&w=0&h=Pzjkj2hf9IZiLAiXcgVE1FbCNFVmKzhdcT98dcHSdSk="
-                            alt="..." width="100">
-                        <img data-no-retina="" src="https://media.istockphoto.com/photos/plant-growing-picture-id510222832?k=6&m=510222832&s=612x612&w=0&h=Pzjkj2hf9IZiLAiXcgVE1FbCNFVmKzhdcT98dcHSdSk="
-                            alt="..." width="100">
+                <!-- /.media -->
+                <div class="line no-margin"></div>
+                <!-- /.line -->
+                <div class="media inner-all no-margin">
+                    <div class="float-left">
+                        <img width="50" class="mx-2 rounded-circle img-fluid img-bordered-primary" src="http://bootdey.com/img/Content/avatar/avatar5.png"
+                            alt="..." class="img-post2">
                     </div>
-                    <!-- /.inner-all -->
-                    <div class="inner-all">
-                        view all
-                        <a href="#">7 comments</a>
+                    <!-- /.pull-left -->
+                    <div class="media-body">
+                        <a href="#" class="h6">John Doe</a>
+                        <small class="block text-muted">Quaerat, impedit minus non commodi facere doloribus nemo ea voluptate nesciunt deleniti.</small>
+                        <em class="text-xs text-muted">Posted on
+                            <span class="text-danger">Dec 08, 2014</span>
+                        </em>
                     </div>
+                    <!-- /.media-body -->
                 </div>
-                <!-- /.panel-body -->
-                <div class="card-footer no-padding no-border">
-                    <div class="media inner-all no-margin">
-                        <div class="float-left">
-                            <img width="50" class="mx-2 rounded-circle img-fluid img-bordered-primary" src="http://bootdey.com/img/Content/avatar/avatar3.png"
-                                alt="..." class="img-post2">
-                        </div>
-                        <!-- /.pull-left -->
-                        <div class="media-body">
-                            <a href="#" class="h6">John Doe</a>
-                            <small class="block text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. </small>
-                            <em class="text-xs text-muted">Posted on
-                                <span class="text-danger">Dec 08, 2014</span>
-                            </em>
-                        </div>
-                        <!-- /.media-body -->
+                <!-- /.media -->
+                <div class="line no-margin"></div>
+                <!-- /.line -->
+                <form action="#" class=" inner-all">
+                    <div class="input-group has-feedback no-margin">
+                        <input type="text" class="form-control form-control-sm" placeholder="Your comment here...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-purple" type="button">POST</button>
+                        </span>
                     </div>
-                    <!-- /.media -->
-                    <div class="line no-margin"></div>
-                    <!-- /.line -->
-                    <div class="media inner-all no-margin">
-                        <div class="float-left">
-                            <img width="50" class="mx-2 rounded-circle img-fluid img-bordered-primary" src="http://bootdey.com/img/Content/avatar/avatar5.png"
-                                alt="..." class="img-post2">
-                        </div>
-                        <!-- /.pull-left -->
-                        <div class="media-body">
-                            <a href="#" class="h6">John Doe</a>
-                            <small class="block text-muted">Quaerat, impedit minus non commodi facere doloribus nemo ea voluptate nesciunt deleniti.</small>
-                            <em class="text-xs text-muted">Posted on
-                                <span class="text-danger">Dec 08, 2014</span>
-                            </em>
-                        </div>
-                        <!-- /.media-body -->
-                    </div>
-                    <!-- /.media -->
-                    <div class="line no-margin"></div>
-                    <!-- /.line -->
-                    <form action="#" class=" inner-all">
-                        <div class="input-group has-feedback no-margin">
-                            <input type="text" class="form-control form-control-sm" placeholder="Your comment here...">
-                            <span class="input-group-btn">
-                                <button class="btn btn-purple" type="button">POST</button>
-                            </span>
-                        </div>
-                    </form>
-                    <!-- /.form-horizontal -->
-                </div>
-                <!-- /.panel-footer -->
+                </form>
+                <!-- /.form-horizontal -->
             </div>
-            <!-- /.panel -->
+            <!-- /.panel-footer -->
         </div>
+        <!-- /.panel -->
     </div>
 </div>
 </div>
