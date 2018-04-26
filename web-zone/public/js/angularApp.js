@@ -10,7 +10,7 @@ app.config(function ($routeProvider, $httpProvider) {
             controller: 'LoginController',
             css: 'js/login/login.css'
         })
-        .when("/profile", {
+        .when("/profile/:id", {
             templateUrl : "js/profile/profile.htm",
             controller : "ProfileController",
             css: "js/profile/profile.css",
