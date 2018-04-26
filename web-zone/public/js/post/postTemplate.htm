@@ -1,7 +1,7 @@
 
-<div class="col-md-6">
+<div class="post col-md-6">
     <div class="card rounded shadow">
-        <div class="card-header no-border">
+        <div class="post-header card-header no-border">
             <div class="float-left half">
                 <div class="media">
                     <div class="media-object float-left">
@@ -31,10 +31,10 @@
 
             <!-- comment -->
             <div class="line no-margin"></div><!-- /.line -->
-            <div class="card-footer">
+            <div class="comment card-footer">
             <div class="media inner-all no-margin">
                 <div class="float-left">
-                    <img width="50" class="mr-2 rounded-circle img-fluid img-bordered-primary" ng-src="{{getuser({user:post.comments[0].ownerId}).profilePic}}" alt="..." class="img-post2">
+                    <img  class="mr-2 rounded-circle img-fluid img-bordered-primary" ng-src="{{getuser({user:post.comments[0].ownerId}).profilePic}}" title:"getuser({user:post.comments[0].ownerId}).name" alt="..." >
                 </div><!-- /.pull-left -->
                 <div class="media-body">
                     <a href="#" class="h6"></a>
@@ -47,7 +47,7 @@
         </div>
     </div>
     <!-- /.panel-body -->
-        <div class="card-footer">
+        <div class="your-comment card-footer">
             <form action="#" class="">
                 <div class="input-group has-feedback no-margin">
                     <input type="text" class="form-control form-control-sm" placeholder="Your comment here...">

@@ -12,11 +12,11 @@ app.controller("addPostController", function($scope, $http, postService) {
       .getElementById("fileInput")
       .addEventListener("change", function(e) {
         e.preventDefault();
-        openFile(e);
+        openFile(e); 
       });
+      
     var openFile = function(event) {
       var input = event.target;
-
       var reader = new FileReader();
       reader.onload = function() {
         var dataURL = reader.result;
