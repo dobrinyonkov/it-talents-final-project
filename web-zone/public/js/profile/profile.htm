@@ -16,7 +16,7 @@
 
 <div class="container bootstrap snippets mt-2">
     <div class="row mb-4 p-1">
-        <div class="col-lg-4 col-md-5 col-sm-4">
+        <div class="col-lg-4 col-md-5 col-sm-5">
             <div class="card rounded shadow mb-2">
                 <div class="card-block mx-5 my-3">
                     <div class="inner-all">
@@ -24,7 +24,7 @@
                             <li class="text-center">
                                 <img data-no-retina="" class="rounded-circle img-fluid img-bordered-primary mb-2" ng-src="{{currentUser.profilePic}}" alt="{{currentUser.firstName}} {{currentUser.lastName}}">
                                 <input type="file" id="selectedFile">
-                                <button ng-click="saveProfilePic(currentUser, profilePicUrl)" ng-if="profilePicUploaded" class="btn btn-success btn-sm mt-2">SAVE</button>
+                                <button ng-if="profilePicUploaded" ng-click="saveAcount(currentUser, profilePicUrl)" class="btn btn-success btn-sm mt-2">SAVE</button>
                             </li>
                             <li class="text-center mt-4">
                                 <h6 class="text-capitalize">{{currentUser.firstName}} {{currentUser.lastName}}</h6>
@@ -39,7 +39,7 @@
                             <li>
                                 <div class="btn-group-vertical btn-block">
                                     <a ng-click="onChangeMode()" href="" class="btn btn-secondary">
-                                        <i class="fa fa-cog float-right"></i>Edit Account</a>
+                                        <i class="fa fa-cog float-right"></i>{{!editMode ? 'Edit Account' : 'Save'}}</a>
                                     <a href="" class="btn btn-secondary">
                                         <i class="fa fa-sign-out float-right"></i>Logout</a>
                                 </div>

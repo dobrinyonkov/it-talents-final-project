@@ -11,7 +11,7 @@ function validatePass(password) {
 (function(params) {
   angular.module("app").controller("LoginController", LoginController);
 
-  function LoginController($scope, $location, $window, LoginService, $timeout) {
+  function LoginController($rootScope, $scope, $location, $window, LoginService, $timeout) {
     $scope.user = {};
     $scope.newUser = {};
     $scope.loginErorr = "";
@@ -35,7 +35,8 @@ function validatePass(password) {
             console.log(r);
             $scope.loginErorr = "";
             $window.localStorage.setItem("token", r.data.token);
-            window.location = `#!/profile/${r.data.data._id}`;
+            $window.location = `#!/profile/${r.data.data._id}`;
+            $rootScope.isLogged = true;
           })
           .catch(e => {
             $scope.loginErorr = "Wrong email or password";
@@ -58,6 +59,7 @@ function validatePass(password) {
         LoginService.create(newUser).then(r => {
           $window.localStorage.setItem("token", r.data.token);
           window.location = `#!/profile/${r.data.data._id}`;
+          $rootScope.isLogged = true;          
         });
       } else {
         $scope.errors[5] = true;

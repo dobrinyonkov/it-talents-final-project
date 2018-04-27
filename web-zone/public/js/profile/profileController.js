@@ -1,53 +1,56 @@
-function calculateTimeInterval(date){
-    var interval=Date.now()-Date.parse(date)
+function calculateTimeInterval(date) {
+    var interval = Date.now() - Date.parse(date)
     // console.log(interval)
-    
-    if(interval<5000)return "just now";
-    interval=Math.floor(interval/1000)
-    if(interval<60)return interval+" seconds ago";
-    interval=Math.floor(interval/60);
-    if(interval<2)return "1 minute ago";
-    if(interval<60)return interval+" minutes ago";
-    interval=Math.floor(interval/60);
-    if(interval<2)return "1 hour ago";
-    if(interval<24)return interval+" hours ago";
-    interval=Math.floor(interval/24);
-    if(interval<2)return "yesterday";
-    return interval+" days ago"
+
+    if (interval < 5000) return "just now";
+    interval = Math.floor(interval / 1000)
+    if (interval < 60) return interval + " seconds ago";
+    interval = Math.floor(interval / 60);
+    if (interval < 2) return "1 minute ago";
+    if (interval < 60) return interval + " minutes ago";
+    interval = Math.floor(interval / 60);
+    if (interval < 2) return "1 hour ago";
+    if (interval < 24) return interval + " hours ago";
+    interval = Math.floor(interval / 24);
+    if (interval < 2) return "yesterday";
+    return interval + " days ago"
 }
-// console.log(new Date)
-// console.log(calculateTimeInterval("2018-04-25T21:47:01.544Z"))
+
 
 (function () {
-    app.controller('ProfileController', function (fileUpload, $routeParams, $scope, postService, UserService) {
-        $scope.currentUser = {};
+    app.controller('ProfileController', function ($rootScope, fileUpload, $routeParams, $scope, postService, UserService) {
         $scope.editMode = false;
         $scope.profilePicUploaded = false;
         $scope.profilePicUrl = '';
         $scope.posts = [];
         postService.getPost("5ada00a6f2400423d4235f5c").then(post => $scope.posts.push(post))
         //tuka ot user servica
-        // $scope.sayhi=function(name){return "hellllo "+name}
+
         $scope.getUserById = function () {
-            // console.log(arguments)
             return {
                 name: "Hristo Ivanov",
                 profilePic: "http://res.cloudinary.com/web-zone2/image/upload/v1524652664/profile2_gklfiw.jpg",
 
             }
         }
-        $scope.calculateTimeInterval=calculateTimeInterval
+
+        $scope.calculateTimeInterval = calculateTimeInterval
 
         var userId = $routeParams.id;
-        UserService.getById(userId).then(r => {
-            $scope.currentUser = r.data[0];
-        }).catch(err => console.log(err));
+        // UserService.getById(userId)
+        // .then(r => {
+        //     $rootScope.currentUser = r.data[0];
+        // })
+        // .catch(err => console.log(err));
 
         $scope.onChangeMode = function () {
+            if ($scope.editMode) {
+                UserService.update($scope.currentUser).then(r => console.log(r));
+            }
             $scope.editMode = !$scope.editMode;
         }
 
-        $scope.saveProfilePic = function (user, url) {
+        $scope.saveAcount = function (user, url) {
             user.profilePic = url;
             console.log(user);
             UserService.update(user).then(r => console.log(r));
@@ -55,11 +58,6 @@ function calculateTimeInterval(date){
 
         var selectedFile = document.getElementById('selectedFile');
         console.log(selectedFile);
-
-        $scope.onChangeContact = function () {
-            $scope.changeTriggered = !$scope.changeTriggered;
-        }
-        
 
         selectedFile.addEventListener('change', function (event) {
             var file = event.target.files[0];
