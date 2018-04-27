@@ -5,21 +5,11 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 // var session = require('express-session');
 var jwt = require("jsonwebtoken");
-var cloudinary = require('cloudinary');
-var multer = require('multer');
-
 
 //database configuration
 var mongo = require('mongodb');
 var monk = require('monk');
 var db = monk('mongodb://heroku_nf9l5q4b:2618qlen71ent4qhgcpug2522a@ds247619.mlab.com:47619/heroku_nf9l5q4b');
-
-//image cloud configuration
-cloudinary.config({
-  cloud_name: 'adminwebzone',
-  api_key: '297967479729564',
-  api_secret: 'HqxTSNSDB0JR8KyHs2m-zi0EwDw'
-});
 
 var usersRouter = require('./routes/users');
 var loginRouter = require('./routes/login');

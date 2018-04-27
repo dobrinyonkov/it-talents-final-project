@@ -15,18 +15,16 @@ function calculateTimeInterval(date) {
   if (interval < 2) return "yesterday";
   return interval + " days ago";
 }
-// console.log(new Date)
-// console.log(calculateTimeInterval("2018-04-25T21:47:01.544Z"))
 
 (function() {
   app.controller("ProfileController", function(
+    $rootScope,
     fileUpload,
     $routeParams,
     $scope,
     PostService,
     UserService
   ) {
-    $scope.currentUser = {};
     $scope.editMode = false;
     $scope.profilePicUploaded = false;
     $scope.profilePicUrl = "";
@@ -36,14 +34,12 @@ function calculateTimeInterval(date) {
     $scope.newComment = { placeholder: "Write a comment" };
     $scope.addComment = addComment;
     $scope.calculateTimeInterval = calculateTimeInterval;
-    console.log($scope.currentUser)
     PostService.getPost("5ada00a6f2400423d4235f5c").then(post =>
       $scope.posts.push(post)
     );
     //tuka ot user servica
-    // $scope.sayhi=function(name){return "hellllo "+name}
+
     $scope.getUserById = function() {
-      // console.log(arguments)
       return {
         name: "Hristo Ivanov",
         profilePic:
@@ -51,31 +47,30 @@ function calculateTimeInterval(date) {
       };
     };
 
+    $scope.calculateTimeInterval = calculateTimeInterval;
 
     var userId = $routeParams.id;
-    UserService.getById(userId)
-      .then(r => {
-        $scope.currentUser = r.data[0];
-      })
-      .catch(err => console.log(err));
+    // UserService.getById(userId)
+    // .then(r => {
+    //     $rootScope.currentUser = r.data[0];
+    // })
+    // .catch(err => console.log(err));
 
     $scope.onChangeMode = function() {
+      if ($scope.editMode) {
+        UserService.update($scope.currentUser).then(r => console.log(r));
+      }
       $scope.editMode = !$scope.editMode;
     };
 
-    $scope.saveProfilePic = function(user, url) {
+    $scope.saveAcount = function(user, url) {
       user.profilePic = url;
       console.log(user);
       UserService.update(user).then(r => console.log(r));
     };
-
+    // PROFILE PICTURE UPLOAD
     var selectedFile = document.getElementById("selectedFile");
-    console.log(selectedFile);
-
-    $scope.onChangeContact = function() {
-      $scope.changeTriggered = !$scope.changeTriggered;
-    };
-
+    // console.log(selectedFile);
     selectedFile.addEventListener("change", function(event) {
       var file = event.target.files[0];
       console.log(file);
@@ -84,7 +79,6 @@ function calculateTimeInterval(date) {
         $scope.profilePicUrl = r.data.url;
       });
     });
-
     function addPost() {
       if (!$scope.newPost.text || $scope.newPost.text.trim().length < 2) {
         $scope.newPost.placeholder = "Can't post an empty post.";
@@ -109,7 +103,11 @@ function calculateTimeInterval(date) {
         $scope.newComment.placeholder = "Can't post an empty comment.";
         return;
       }
-      PostService.addComment(postId,$scope.currentUser._id, $scope.newComment.text)
+      PostService.addComment(
+        postId,
+        $scope.currentUser._id,
+        $scope.newComment.text
+      );
     }
   });
 })();

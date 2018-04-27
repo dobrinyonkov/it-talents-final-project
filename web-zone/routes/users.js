@@ -35,17 +35,33 @@ router.get('/:id', function (req, res, next) {
 });
 
 router.put('/update/:id', function (req, res, next) {
-  var userCollection = req.db.get('users');
   var user = req.body;
-  userCollection.findOneAndUpdate({ _id: user._id}, {$set: user}, function (err, docs) {
+  var userCollection = req.db.get('users');
+
+  userCollection.find({ _id: user._id }, {}, function (err, docs) {
     if (err) {
-      res.status(500);
-      res.json(err);
+      res.status(404).send({
+        message: "Not Found"
+      })
     } else {
-      res.status(200);
-      res.json(docs);
+      if (docs[0].token !== req.token) {
+        res.status(403).send({
+          message : 'Not Authorized'
+        });
+      } else {
+        userCollection.findOneAndUpdate({ _id: user._id }, { $set: user }, function (err, docs) {
+          if (err) {
+            res.status(500);
+            res.json(err);
+          } else {
+            res.status(200);
+            res.json(docs);
+          }
+        })
+      }
     }
   })
+
 });
 
 

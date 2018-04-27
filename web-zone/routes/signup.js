@@ -7,45 +7,48 @@ var jwt = require("jsonwebtoken");
 
 /* post login page. */
 router.post('/', function (req, res, next) {
-    var userCollection = req.db.get('users');
-    var user = req.body;
-    user.password = sha1(user.pass1);
-    delete user.pass1;
-    delete user.pass2;
-    var passToReturn = user.pass1;
-    user.token = jwt.sign(user, JWT_SECRET);
-  
-    userCollection.find({ email: user.email, password: user.password }, function (err, docs) {
-      if (err) {
+  var userCollection = req.db.get('users');
+  var user = req.body;
+  user.password = sha1(user.pass1);
+  delete user.pass1;
+  delete user.pass2;
+  var passToReturn = user.pass1;
+  user.token = jwt.sign({
+    exp: Math.floor(Date.now() / 1000) + (60 * 60),
+    data: user
+  }, JWT_SECRET);
+
+  userCollection.find({ email: user.email, password: user.password }, function (err, docs) {
+    if (err) {
+      res.json({
+        type: false,
+        data: "Error occured: " + err
+      });
+    } else {
+      if (docs.length > 0) {
         res.json({
           type: false,
-          data: "Error occured: " + err
+          data: "User already exists!"
         });
       } else {
-        if (docs.length > 0) {
-          res.json({
-            type: false,
-            data: "User already exists!"
-          });
-        } else {
-          userCollection.insert(user, function (err, user) {
-            if (err) {
-              res.json({
-                type: false,
-                data: "Error occured: " + err
-              })
-            } else {
-              res.json({
-                type: true,
-                data: user,
-                token: user.token
-              });
-            } 
-          })
-        }
+        userCollection.insert(user, function (err, user) {
+          if (err) {
+            res.json({
+              type: false,
+              data: "Error occured: " + err
+            })
+          } else {
+            res.json({
+              type: true,
+              data: user,
+              token: user.token
+            });
+          }
+        })
       }
-    });
+    }
   });
-  
+});
+
 
 module.exports = router;

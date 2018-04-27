@@ -18,16 +18,21 @@ router.post('/', function (req, res, next) {
             });
         } else {
             if (docs.length > 0) {
-               res.json({
+                // user.token = jwt.sign({
+                //     exp: Math.floor(Date.now() / 1000) + (60 * 60),
+                //     data: user
+                // }, JWT_SECRET);
+                console.log(req.token);
+                res.json({
                     type: true,
                     data: docs[0],
                     token: docs[0].token
-                }); 
+                });
             } else {
                 res.json({
                     type: false,
                     data: "Incorrect email/password"
-                });    
+                });
             }
         }
     })

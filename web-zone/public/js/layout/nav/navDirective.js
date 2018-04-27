@@ -5,7 +5,9 @@ app.directive('navigation', function () {
         css: 'js/layout/nav/navTemplate.css',
         restrict: 'E',
         scope: {
-            user: '='
+            user: '=',
+            userName: '=',
+            searchUser: '&'
         }
     };
 });

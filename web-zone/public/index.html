@@ -24,11 +24,12 @@
 
 <body ng-app="app">
 
-    <navigation></navigation>
 
-    <main ng-view>
-
-    </main>
+    <div ng-controller="RootController">
+            <navigation ng-if="isLogged" user="currentUser" user-name="userName" search-user="searchUser()"></navigation>
+        <main ng-view>
+        </main>
+    </div>
 
 
 </body>
@@ -43,6 +44,7 @@
 <script src="js/profile/fileUploadService.js"></script>
 
 <!-- ANGULAR CONTROLLERS -->
+<script src="js/rootController.js"></script>
 <script src="js/login/loginController.js"></script>
 <script src="js/post/postController.js"></script>
 <script src="js/post/addPostController.js"></script>
