@@ -199,10 +199,10 @@
             <div class="divider"></div>
             <div class="new-post mb-4 rounded shadow">
                 <form action="...">
-                    <textarea class="form-control form-control-lg no-border" rows="2" placeholder="What are you doing?..."></textarea>
+                    <textarea ng-model=newPost.text class="form-control form-control-lg no-border" rows="2" placeholder="{{newPost.placeholder}}"></textarea>
                 </form>
                 <div class="card-footer">
-                    <button class="btn btn-purple float-right">POST</button>
+                    <button ng-click=addPost() class="btn btn-purple float-right">POST</button>
                     <ul class="nav nav-pills">
                         <li>
                             <a href="#">
@@ -232,7 +232,7 @@
             <!-- /.panel -->
             <!-- Post from directive -->
             <div ng-repeat="post in posts">
-                <post post=post getuser=getUserById(userId) calculatetime=calculateTimeInterval(date)>
+                <post post=post newcomment=newComment addcomment=addComment(postId) getuser=getUserById(userId) calculatetime=calculateTimeInterval(date)>
 
                 </post>
             </div>

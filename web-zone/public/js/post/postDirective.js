@@ -4,8 +4,11 @@ app.directive('post', function () {
         restrict: 'E',
         scope: {
             post: '=',
+            newcomment: '=',
             getuser: '&',
+            addcomment:'&',
             calculatetime:'&'
+
         }
     };
 });

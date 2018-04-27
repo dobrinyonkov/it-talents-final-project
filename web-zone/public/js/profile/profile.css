@@ -219,3 +219,7 @@ border-radius: 0.7em
   /* height: 2em; */
   padding: 6px 10px;
 }
+p.date{
+font-style: italic;
+font-size: 0.8rem
+}

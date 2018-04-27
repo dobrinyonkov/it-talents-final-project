@@ -1,4 +1,4 @@
-app.service("postService", function ($http) {
+app.service("PostService", function($http) {
   this.greeting1 = "hi from the angular service";
 
   // POST CONSTRUCTOR
@@ -9,11 +9,13 @@ app.service("postService", function ($http) {
       this.photo = photo;
     }
     this.date = new Date();
-    this.comments = [{
-      ownerId: 42,
-      text: "nqkav komentar",
-      date: "dneska v 6 bez 10"
-    }];
+    this.comments = [
+      {
+        ownerId: 42,
+        text: "nqkav komentar",
+        date: "dneska v 6 bez 10"
+      }
+    ];
     this.likes = [];
   }
   //COMMENT CONSTRUCTOR
@@ -23,18 +25,30 @@ app.service("postService", function ($http) {
     this.date = new Date();
   }
   //ADD COMMENT  on the post for the moment
-  this.addComment = function (postId, ownerId, text) {
-    //find that post  in db
-    getPost(postId).then(post => {
-      console.log(post)
-   //push the new comment
-      var newC=new Comment(ownerId,text)
-    }).then(updatedPost=>{
-       //update in db
-    })
- 
-
-   
+  this.addComment = function(postId, ownerId, text) {
+    console.log("poluchih tez argumenti---> ");
+    console.log(arguments);
+    var newC = new Comment(ownerId, text);
+    newC = JSON.stringify(newC);
+    return $http.put("/api/posts/", {
+      postId: postId,
+      newComment: newC
+    });
+    // getPost(postId)
+    //   .then(post => {
+    //     console.log("namerih posta s tva id")
+    //     console.log(post);
+    //     //push the new comment
+    //     var newC = new Comment(ownerId, text);
+    //     post.comments.push(newC)
+    //     return post
+    //   })
+    //   .then(updatedPost => {
+    //     //update in db
+    //    return $http.put("/api/posts/",updatedPost)
+    //   }).then(res=>{
+    //     console.log(res)
+    //   })
 
     // this.comments.push(new Comment(ownerId, text));
     // var newPost = this;
@@ -56,7 +70,7 @@ app.service("postService", function ($http) {
     //   post.comments.push(newC)
     //   //db.posts.save(post)
   };
-  Post.prototype.deleteComment = function (id) {};
+  Post.prototype.deleteComment = function(id) {};
 
   // ADD POST
   this.addPost = addPost;
@@ -66,12 +80,13 @@ app.service("postService", function ($http) {
     newP = JSON.stringify(newP);
     // newR=JSON.stringify(newP)
     return $http.post("http://localhost:9000/api/posts", newP);
-  };
+  }
 
-  this.deletePost = function (id) {};
+  this.deletePost = function(id) {
+    return $http.delete("http://localhost:9000/api/posts" + id);
+  };
   //GET POST BY ID
   this.getPost = getPost;
-
   function getPost(id) {
     return $http.get("/api/posts/" + id).then(r => r.data);
     // .then(postData => {
@@ -88,6 +103,5 @@ app.service("postService", function ($http) {
     // console.log(post);
     // return post;
     // });
-  };
-
+  }
 });

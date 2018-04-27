@@ -1,4 +1,4 @@
-app.controller("addPostController", function($scope, $http, postService) {
+app.controller("addPostController", function($scope, $http, PostService) {
   $scope.detectFiles = function() {
     console.log("files");
   };
@@ -8,7 +8,7 @@ app.controller("addPostController", function($scope, $http, postService) {
   };
 
   window.addEventListener("load", function() {
-       document
+    document
       .getElementById("fileInput")
       .addEventListener("change", function(e) {
         e.preventDefault();
@@ -16,7 +16,7 @@ app.controller("addPostController", function($scope, $http, postService) {
       });
     var openFile = function(event) {
       var input = event.target;
-
+      console.log("vliza v taz funkciq");
       var reader = new FileReader();
       reader.onload = function() {
         var dataURL = reader.result;
