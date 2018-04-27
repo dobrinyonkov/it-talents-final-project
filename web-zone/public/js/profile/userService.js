@@ -127,6 +127,16 @@
                 });
         }
 
+        function addPost(userId, postId) {
+            return $http.put(`${API_URL}api/users/${id}/posts`, postId)
+            .then(res => {
+                return res;
+            })
+            .catch(err => {
+                return err;
+            });
+        }
+
     }
 
 })();

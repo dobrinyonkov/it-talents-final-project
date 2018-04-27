@@ -3,6 +3,7 @@
         .module('app')
         .controller('RootController', function ($routeParams, $scope, $timeout, $location, UserService) {
             $scope.currentUser = {};
+            $scope.userName = 'dd';
             $scope.isLogged = $location.url().split('/').indexOf('login') === -1;
 
             $scope.searchUser = function () {
@@ -19,6 +20,6 @@
                         $scope.currentUser = data.data[0];
                     });
                 })
-            });
+            }, 0);
         });
 })();

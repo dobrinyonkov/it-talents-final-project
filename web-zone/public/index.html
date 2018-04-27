@@ -11,22 +11,43 @@
     <script src="vendors/cloudinary-angular/dist/cloudinary-angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-css/1.0.8/angular-css.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.min.js"></script>
-    <link rel="stylesheet" href="vendors/bootstrap/css/bootstrap.min.css" />
 
     <!-- Font, Style -->
     <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet" type='text/css'>
     <link rel="stylesheet" href="css/main.css">
-    <title></title>
+    <title>Web-Zone The Social Network</title>
     <script src="vendors/jquery.min.js"></script>
     <script src="vendors/bootstrap/js/popper.min.js"></script>
-    <script src="vendors/bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="vendors/bootstrap/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="https://bootswatch.com/4/sandstone/bootstrap.min.css"> -->
+
+    <!-- ANGULAR APP -->
+    <script src="js/angularApp.js"></script>
+
+    <!-- ANGULAR SERVICES -->
+    <script src="js/login/loginService.js"></script>
+    <script src="js/post/postService.js"></script>
+    <script src="js/profile/userService.js"></script>
+    <script src="js/profile/fileUploadService.js"></script>
+
+    <!-- ANGULAR CONTROLLERS -->
+    <script src="js/rootController.js"></script>
+    <script src="js/login/loginController.js"></script>
+    <script src="js/post/postController.js"></script>
+    <script src="js/post/addPostController.js"></script>
+    <script src="js/profile/profileController.js"></script>
+    <script src="js/news-feed/news-feedController.js"></script>
+
+    <!-- DIRECTIVES -->
+    <script src="js/layout/nav/navDirective.js"></script>
+    <script src='js/post/postDirective.js'></script>
 </head>
 
 <body ng-app="app">
 
 
     <div ng-controller="RootController">
-            <navigation ng-if="isLogged" user="currentUser" user-name="userName" search-user="searchUser()"></navigation>
+        <navigation ng-if="isLogged" user="currentUser" user-name="userName" search-user="searchUser()"></navigation>
         <main ng-view>
         </main>
     </div>
@@ -34,25 +55,6 @@
 
 </body>
 
-<!-- ANGULAR APP -->
-<script src="js/angularApp.js"></script>
 
-<!-- ANGULAR SERVICES -->
-<script src="js/login/loginService.js"></script>
-<script src="js/post/PostService.js"></script>
-<script src="js/profile/userService.js"></script>
-<script src="js/profile/fileUploadService.js"></script>
-
-<!-- ANGULAR CONTROLLERS -->
-<script src="js/rootController.js"></script>
-<script src="js/login/loginController.js"></script>
-<script src="js/post/postController.js"></script>
-<script src="js/post/addPostController.js"></script>
-<script src="js/profile/profileController.js"></script>
-<script src="js/news-feed/news-feedController.js"></script>
-
-<!-- DIRECTIVES -->
-<script src="js/layout/nav/navDirective.js"></script>
-<script src='js/post/postDirective.js'></script>
 
 </html>

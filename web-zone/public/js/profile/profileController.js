@@ -48,7 +48,7 @@ function calculateTimeInterval(date) {
     };
 
     $scope.calculateTimeInterval = calculateTimeInterval;
-
+    console.log($scope.currentUser);
     var userId = $routeParams.id;
     // UserService.getById(userId)
     // .then(r => {

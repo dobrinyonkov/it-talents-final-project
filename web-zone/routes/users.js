@@ -46,7 +46,7 @@ router.put('/update/:id', function (req, res, next) {
     } else {
       if (docs[0].token !== req.token) {
         res.status(403).send({
-          message : 'Not Authorized'
+          message: 'Not Authorized'
         });
       } else {
         userCollection.findOneAndUpdate({ _id: user._id }, { $set: user }, function (err, docs) {
@@ -61,7 +61,36 @@ router.put('/update/:id', function (req, res, next) {
       }
     }
   })
+});
 
+router.put('/update/:id', function (req, res, next) {
+  var postId = req.body.postId;
+  var userId = req.params.id;
+  var userCollection = req.db.get('users');
+
+  userCollection.find({ _id: userId }, {}, function (err, docs) {
+    if (err) {
+      res.status(404).send({
+        message: "Not Found"
+      })
+    } else {
+      if (docs[0].token !== req.token) {
+        res.status(403).send({
+          message: 'Not Authorized'
+        });
+      } else {
+        userCollection.findOneAndUpdate({ _id: user._id }, { $push: { posts: postId } }, function (err, docs) {
+          if (err) {
+            res.status(500);
+            res.json(err);
+          } else {
+            res.status(200);
+            res.json(docs);
+          }
+        })
+      }
+    }
+  })
 });
 
 
