@@ -87,7 +87,8 @@
         }
 
         function getByName(name) {
-            return $http.get(`${API_URL}api/users/${name}`)
+            console.log(name);
+            return $http.get(`${API_URL}api/users/name/${name}`)
                 .then(res => {
                     return res;
                 })

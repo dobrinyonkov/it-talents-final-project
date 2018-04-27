@@ -34,6 +34,21 @@ router.get('/:id', function (req, res, next) {
   })
 });
 
+router.get('/name/:name', function (req, res, next) {
+  var userCollection = req.db.get('users');
+  var name = req.params.name;
+  console.log(name);
+  userCollection.find({ "firstName": {$regex : `.*${name}.*`}}, {}, function (err, docs) {
+    if (err) {
+      res.status(500);
+      res.json(err);
+    } else {
+      res.status(200);
+      res.json(docs);
+    }
+  })
+});
+
 router.put('/update/:id', function (req, res, next) {
   var user = req.body;
   var userCollection = req.db.get('users');

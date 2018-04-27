@@ -3,16 +3,31 @@
         .module('app')
         .controller('RootController', function ($routeParams, $scope, $timeout, $location, UserService) {
             $scope.currentUser = {};
-            $scope.userName = 'dd';
+            $scope.foundUsers = [];
+            $scope.selectedUserId = '';
+            $scope.userName;
             $scope.isLogged = $location.url().split('/').indexOf('login') === -1;
 
             $scope.searchUser = function () {
                 $timeout(function () {
                     $scope.$apply(function () {
-                        console.log($scope.userName);
+                        var name = $scope.userName;
+                        if ((name.length !== 0)) {
+                            UserService.getByName(name)
+                            .then(r => {
+                                console.log(r.data);
+                                $scope.foundUsers = r.data;
+                            })
+                            .catch(err => console.log(err));
+                        }
                     })
                 }, 0);
             }
+
+            $scope.selectUser = function () {
+                console.log('test');
+            }
+
             $timeout(function () {
                 $scope.$apply(function () {
                     UserService.getById($routeParams.id).then(data => {

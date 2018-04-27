@@ -47,7 +47,7 @@
 
 
     <div ng-controller="RootController">
-        <navigation ng-if="isLogged" user="currentUser" user-name="userName" search-user="searchUser()"></navigation>
+        <navigation select-user="selectUser()" found-users="foundUsers" user="currentUser" user-name="userName" search-user="searchUser()"></navigation>
         <main ng-view>
         </main>
     </div>

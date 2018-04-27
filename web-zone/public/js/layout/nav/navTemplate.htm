@@ -10,7 +10,12 @@
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<form class="form-inline my-1 mx-sm-3 mr-auto">
 				<div class="input-group">
-					<input ng-change="searchUser()" ng-model="userName" type="text" class="form-control form-control-sm" placeholder="Search for...">
+					<input ng-change="searchUser()" list="users" ng-model="userName" type="text" class="form-control form-control-sm" placeholder="Search for...">
+
+					<datalist id="users">
+						<option ng-repeat="foundUser in foundUsers track by $index" ng-click="selectUser()" id="{{foundUser.id}}" value="{{foundUser.firstName + ' ' + foundUser.lasName }}"></option>
+					</datalist>
+
 					<span class="input-group-btn">
 						<button class="btn btn-secondary" type="button">Go!</button>
 					</span>
@@ -20,7 +25,8 @@
 		<div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
 			<ul class="navbar-nav ml-auto">
 				<li class="nav-item">
-					<img width="30" data-no-retina="" class="rounded-circle img-fluid img-bordered-primary mb-2" ng-src="{{user.profilePic}}" alt="{{currentUser.firstName}} {{currentUser.lastName}}">
+					<img width="30" data-no-retina="" class="rounded-circle img-fluid img-bordered-primary mb-2" ng-src="{{user.profilePic}}"
+					 alt="{{currentUser.firstName}} {{currentUser.lastName}}">
 				</li>
 				<li class="nav-item">
 					<a class="nav-link font-weight-bold" href="#">{{user.firstName}}</a>
