@@ -37,19 +37,7 @@ router.post("/", function(req, res, next) {
   // console.log("=========toz post request bachka")
   var postsCollection = req.db.get("posts");
   var newPost = req.body;
-  console.log(req.body);
-  // var obj=JSON.parse(req.body)
-  // console.log(obj)
-  // for (const key in obj) {
-  //   if (obj.hasOwnProperty(key)) {
-  //     newPost=key
-  //   }
-  // }
-  // console.log("============v post na requesta bodyto")
-  // var newPost=req.query
-  // console.log("======= v request-a query-to")
-  // console.log(newPost)
-  // res.json("chakai")
+
   postsCollection.insert(newPost, function(err, data) {
     if (!err) {
       res.json({ id: data._id });
@@ -61,14 +49,12 @@ router.post("/", function(req, res, next) {
 });
 
 router.put("/", function(req, res, next) {
-  console.log("put zaqvakata bachka")
   var postsCollection = req.db.get("posts");
 
   var comment = req.body.newComment;
   var postId=req.body.postId;
-  console.log(comment)
-  console.log(postId)
   comment=JSON.parse(comment)
+
   postsCollection.update({ _id:postId},{ $push:{comments:comment} }, function(err, data) {
     if (!err) {
       res.json({ id: data._id });

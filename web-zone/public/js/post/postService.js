@@ -26,49 +26,12 @@ app.service("PostService", function($http) {
   }
   //ADD COMMENT  on the post for the moment
   this.addComment = function(postId, ownerId, text) {
-    console.log("poluchih tez argumenti---> ");
-    console.log(arguments);
     var newC = new Comment(ownerId, text);
     newC = JSON.stringify(newC);
     return $http.put("/api/posts/", {
       postId: postId,
       newComment: newC
     });
-    // getPost(postId)
-    //   .then(post => {
-    //     console.log("namerih posta s tva id")
-    //     console.log(post);
-    //     //push the new comment
-    //     var newC = new Comment(ownerId, text);
-    //     post.comments.push(newC)
-    //     return post
-    //   })
-    //   .then(updatedPost => {
-    //     //update in db
-    //    return $http.put("/api/posts/",updatedPost)
-    //   }).then(res=>{
-    //     console.log(res)
-    //   })
-
-    // this.comments.push(new Comment(ownerId, text));
-    // var newPost = this;
-    // $.ajax({
-    //   type: "PUT",
-    //   url: "/api/posts",
-    //   contentType: "application/json",
-    //   data: JSON.stringify(newPost)
-    // }).done(res => {
-    //   console.log("put zaqvkata varna neshto ");
-    //   console.log(res);
-    // });
-    //   return $.post("/api/posts", post).done(response => {
-    //     console.log(response);
-    //     return response;
-    //   });
-    //   var newC=new Comment(ownerId ,text)
-    //   //var post=find that post from db
-    //   post.comments.push(newC)
-    //   //db.posts.save(post)
   };
   Post.prototype.deleteComment = function(id) {};
 
@@ -81,7 +44,7 @@ app.service("PostService", function($http) {
     // newR=JSON.stringify(newP)
     return $http.post("http://localhost:9000/api/posts", newP);
   }
-
+// DELETE POST
   this.deletePost = function(id) {
     return $http.delete("http://localhost:9000/api/posts" + id);
   };

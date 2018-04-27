@@ -24,13 +24,11 @@
 
 <body ng-app="app">
 
-
     <div ng-controller="RootController">
             <navigation ng-if="isLogged" user="currentUser" user-name="userName" search-user="searchUser()"></navigation>
         <main ng-view>
         </main>
     </div>
-
 
 </body>
 
@@ -39,7 +37,7 @@
 
 <!-- ANGULAR SERVICES -->
 <script src="js/login/loginService.js"></script>
-<script src="js/post/PostService.js"></script>
+<script src="js/post/postService.js"></script>
 <script src="js/profile/userService.js"></script>
 <script src="js/profile/fileUploadService.js"></script>
 

@@ -23,7 +23,8 @@ function calculateTimeInterval(date) {
     $routeParams,
     $scope,
     PostService,
-    UserService
+    UserService,
+    $timeout
   ) {
     $scope.editMode = false;
     $scope.profilePicUploaded = false;
@@ -34,10 +35,15 @@ function calculateTimeInterval(date) {
     $scope.newComment = { placeholder: "Write a comment" };
     $scope.addComment = addComment;
     $scope.calculateTimeInterval = calculateTimeInterval;
-    PostService.getPost("5ada00a6f2400423d4235f5c").then(post =>
-      $scope.posts.push(post)
-    );
+    // PostService.getPost("5ada00a6f2400423d4235f5c").then(post =>
+    //   $scope.posts.push(post)
+    // );
     //tuka ot user servica
+    $timeout(function() {
+      $scope.$apply(function() {
+        console.log($scope.currentUser);
+      });
+    }, 0);
 
     $scope.getUserById = function() {
       return {
@@ -50,11 +56,22 @@ function calculateTimeInterval(date) {
     $scope.calculateTimeInterval = calculateTimeInterval;
 
     var userId = $routeParams.id;
-    // UserService.getById(userId)
-    // .then(r => {
-    //     $rootScope.currentUser = r.data[0];
-    // })
-    // .catch(err => console.log(err));
+    UserService.getById(userId)
+      .then(r => {
+        $scope.currentUser = r.data[0];
+        return r.data[0].posts;
+      })
+      .then(postIds => {
+        if (!postIds) {
+          console.log("emi ti nqmash postove , kvo iskash da vidish");
+          return;
+        }
+        console.log("imash "+postIds.length+" i shte ti go dam")
+        postIds.forEach(postId => {
+          PostService.getPost(postId).then(post => $scope.posts.push(post));
+        });
+      })
+      .catch(err => console.log(err));
 
     $scope.onChangeMode = function() {
       if ($scope.editMode) {
@@ -65,7 +82,7 @@ function calculateTimeInterval(date) {
 
     $scope.saveAcount = function(user, url) {
       user.profilePic = url;
-      console.log(user);
+      // console.log(user);
       UserService.update(user).then(r => console.log(r));
     };
     // PROFILE PICTURE UPLOAD
@@ -84,8 +101,7 @@ function calculateTimeInterval(date) {
         $scope.newPost.placeholder = "Can't post an empty post.";
         return;
       }
-      // console.log($scope.currentUser)
-      // console.log( $scope.currentUser._id+"  "+$scope.newPost.text)
+      console.log($scope.currentUser._id);
       PostService.addPost($scope.currentUser._id, $scope.newPost.text).then(
         res => {
           $scope.newPost.text = "";
