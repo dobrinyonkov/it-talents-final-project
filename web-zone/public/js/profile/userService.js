@@ -60,6 +60,7 @@
         service.getAll = getAll;
         service.getById = getById;
         service.getByName = getByName;
+        service.addPost=addPost;
         service.create = create;
         service.update = update;
         service.remove = remove;
@@ -128,7 +129,8 @@
         }
 
         function addPost(userId, postId) {
-            return $http.put(`${API_URL}api/users/${id}/posts`, postId)
+            console.log("prashtam put zaqvka s user "+ userId+" za post "+postId)
+            return $http.put(`${API_URL}api/users/addpost`, {"postId":postId,"userId":userId})
             .then(res => {
                 return res;
             })

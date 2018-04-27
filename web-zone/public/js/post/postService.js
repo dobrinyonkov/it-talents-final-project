@@ -1,4 +1,4 @@
-app.service("PostService", function($http) {
+app.service("PostService", function($http,UserService) {
   this.greeting1 = "hi from the angular service";
 
   // POST CONSTRUCTOR
@@ -42,7 +42,14 @@ app.service("PostService", function($http) {
     console.log(newP);
     newP = JSON.stringify(newP);
     // newR=JSON.stringify(newP)
-    return $http.post("http://localhost:9000/api/posts", newP);
+    return $http.post("http://localhost:9000/api/posts", newP).then(res => {
+      var newPostId=res.data.id
+      // console.log("Na noviqt post id-to" )
+      // console.log(newPostId)
+      return newPostId
+    }).then(newPostId=>{
+     return UserService.addPost(ownerId,newPostId)
+    })
   }
 // DELETE POST
   this.deletePost = function(id) {
