@@ -8,6 +8,7 @@ app.directive('navigation', function () {
             userName: '=',
             user: '=',
             foundUsers: '=',
+            selectedUserId: '=',
             searchUser: '&',
             selectUser: '&'
         }

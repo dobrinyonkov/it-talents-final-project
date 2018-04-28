@@ -26,6 +26,7 @@ function calculateTimeInterval(date) {
     UserService,
     $timeout
   ) {
+    $scope.profile = {};
     $scope.editMode = false;
     $scope.profilePicUploaded = false;
     $scope.profilePicUrl = "";
@@ -41,7 +42,7 @@ function calculateTimeInterval(date) {
     //tuka ot user servica
     $timeout(function() {
       $scope.$apply(function() {
-        console.log($scope.currentUser);
+        console.log($scope.profile);
       });
     }, 0);
 
@@ -54,11 +55,11 @@ function calculateTimeInterval(date) {
     };
 
     $scope.calculateTimeInterval = calculateTimeInterval;
-    console.log($scope.currentUser);
+    console.log($scope.profile);
     var userId = $routeParams.id;
     UserService.getById(userId)
       .then(r => {
-        $scope.currentUser = r.data[0];
+        $scope.profile = r.data[0];
         return r.data[0].posts;
       })
       .then(postIds => {
@@ -75,7 +76,7 @@ function calculateTimeInterval(date) {
 
     $scope.onChangeMode = function() {
       if ($scope.editMode) {
-        UserService.update($scope.currentUser).then(r => console.log(r));
+        UserService.update($scope.profile).then(r => console.log(r));
       }
       $scope.editMode = !$scope.editMode;
     };
@@ -101,8 +102,8 @@ function calculateTimeInterval(date) {
         $scope.newPost.placeholder = "Can't post an empty post.";
         return;
       }
-      console.log($scope.currentUser._id);
-      PostService.addPost($scope.currentUser._id, $scope.newPost.text).then(
+      console.log($scope.profile._id);
+      PostService.addPost($scope.profile._id, $scope.newPost.text).then(
         res => {
           $scope.newPost.text = "";
           if (res.status == 200) {
@@ -121,7 +122,7 @@ function calculateTimeInterval(date) {
       }
       PostService.addComment(
         postId,
-        $scope.currentUser._id,
+        $scope.profile._id,
         $scope.newComment.text
       );
     }

@@ -22,12 +22,12 @@
                     <div class="inner-all">
                         <ul class="text-center list-unstyled">
                             <li class="text-center">
-                                <img data-no-retina="" class="rounded-circle img-fluid img-bordered-primary mb-2" ng-src="{{currentUser.profilePic}}" alt="{{currentUser.firstName}} {{currentUser.lastName}}">
+                                <img data-no-retina="" class="img-thumbnail rounded img-fluid img-bordered-primary mb-2" ng-src="{{profile.profilePic}}" alt="{{profile.firstName}} {{profile.lastName}}">
                                 <input type="file" id="selectedFile">
-                                <button ng-if="profilePicUploaded" ng-click="saveAcount(currentUser, profilePicUrl)" class="btn btn-success btn-sm mt-2">SAVE</button>
+                                <button ng-if="profilePicUploaded" ng-click="saveAcount(profile, profilePicUrl)" class="btn btn-success btn-sm mt-2">SAVE</button>
                             </li>
                             <li class="text-center mt-4">
-                                <h6 class="text-capitalize">{{currentUser.firstName}} {{currentUser.lastName}}</h6>
+                                <h6 class="text-capitalize">{{profile.firstName}} {{profile.lastName}}</h6>
                                 <p class="text-muted text-capitalize">web designer</p>
                             </li>
                             <li>
@@ -73,15 +73,15 @@
                     <ul ng-if="!editMode" class="list-group no-margin">
                         <li class="list-group-item">
                             <i class="fa fa-envelope"></i>
-                            <span class="float-right">{{currentUser.email}}</span>
+                            <span class="float-right">{{profile.email}}</span>
                         </li>
                         <li class="list-group-item">
                             <i class="fa fa-globe"></i>
-                            <span class="float-right">{{currentUser.site || 'none'}}</span>
+                            <span class="float-right">{{profile.site || 'none'}}</span>
                         </li>
                         <li class="list-group-item">
                             <i class="fa fa-phone"></i>
-                            <span class="float-right">{{currentUser.phone || 'none'}}</span>
+                            <span class="float-right">{{profile.phone || 'none'}}</span>
                         </li>
                     </ul>
                     <ul ng-if="editMode" class="list-group no-margin">
@@ -90,7 +90,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-envelope"></i>
                                 </div>
-                                <input ng-model="currentUser.email" type="text" class="form-control" id="inlineFormInputGroup" value="{{currentUser.email}}">
+                                <input ng-model="profile.email" type="text" class="form-control" id="inlineFormInputGroup" value="{{profile.email}}">
                             </div>
                         </li>
                         <li class="list-group-item">
@@ -98,7 +98,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-globe"></i>
                                 </div>
-                                <input ng-model="currentUser.site" type="text" class="form-control" id="inlineFormInputGroup" value="{{currentUser.site}}">
+                                <input ng-model="profile.site" type="text" class="form-control" id="inlineFormInputGroup" value="{{profile.site}}">
                             </div>
                         </li>
                         <li class="list-group-item">
@@ -106,7 +106,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-phone"></i>
                                 </div>
-                                <input ng-model="currentUser.phone" type="text" class="form-control" id="inlineFormInputGroup" value="{{currentUser.site}}">
+                                <input ng-model="profile.phone" type="text" class="form-control" id="inlineFormInputGroup" value="{{profile.site}}">
                             </div>
                         </li>
                     </ul>

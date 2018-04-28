@@ -4,6 +4,9 @@
         .factory('LoginService', LoginService);
 
     function LoginService($http, $window) {
+        const API_URL = 'http://localhost:9000/';
+        // const API_URL = 'https://web-zone.herokuapp.com/';
+        
         var service = {};
 
         service.login = login;
@@ -54,7 +57,7 @@
 
             return $http({
                 method: 'POST',
-                url: 'http://localhost:9000/api/login',
+                url: `${API_URL}api/login`,
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -63,7 +66,7 @@
         }
 
         function create(user) {
-            return $http.post(`http://localhost:9000/api/signup/`, user);
+            return $http.post(`${API_URL}api/signu/`, user);
         }
 
         function logOut(success) {

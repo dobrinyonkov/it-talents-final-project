@@ -12,9 +12,13 @@
 				<div class="input-group">
 					<input ng-change="searchUser()" list="users" ng-model="userName" type="text" class="form-control form-control-sm" placeholder="Search for...">
 
-					<datalist id="users">
-						<option ng-repeat="foundUser in foundUsers track by $index" ng-click="selectUser()" id="{{foundUser.id}}" value="{{foundUser.firstName + ' ' + foundUser.lasName }}"></option>
-					</datalist>
+					<!-- <datalist id="users" ng-change="selectUser()" ng-model="selectedUserId">
+						<option ng-repeat="foundUser in foundUsers track by $index" ng-value="foundUser._id">{{foundUser.firstName}}</option>
+					</datalist> -->
+					{{selectedUserId}}
+					<select class="custom-select" ng-change="selectUser()" ng-model="selectedUserId">
+						<option ng-repeat="foundUser in foundUsers track by $index" ng-value="foundUser._id">{{foundUser.firstName}}</option>
+					</select>
 
 					<span class="input-group-btn">
 						<button class="btn btn-secondary" type="button">Go!</button>
@@ -32,7 +36,7 @@
 					<a class="nav-link font-weight-bold" href="#">{{user.firstName}}</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link font-weight-bold" href="#">Log out</a>
+					<a class="nav-link font-weight-bold" ng-click="selectUser()" href="#">Log out</a>
 				</li>
 			</ul>
 		</div>
