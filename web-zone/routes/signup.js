@@ -10,7 +10,7 @@ router.post('/', function (req, res, next) {
   var userCollection = req.db.get('users');
   var user = req.body;
   user.password = sha1(user.pass1);
-  delete user.pass1;
+  // delete user.pass1;
   delete user.pass2;
   var passToReturn = user.pass1;
   user.token = jwt.sign({

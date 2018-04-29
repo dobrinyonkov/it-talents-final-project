@@ -35,6 +35,7 @@ function validatePass(password) {
             console.log(r);
             $scope.loginErorr = "";
             $window.localStorage.setItem("token", r.data.token);
+            $window.localStorage.setItem("loggedUserId", r.data.data._id);            
             $window.location = `#!/profile/${r.data.data._id}`;
             $rootScope.isLogged = true;
           })

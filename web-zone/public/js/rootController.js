@@ -1,7 +1,7 @@
 (function () {
     angular
         .module('app')
-        .controller('RootController', function ($routeParams, $scope, $timeout, $location, UserService) {
+        .controller('RootController', function ($window, $routeParams, $scope, $timeout, $location, UserService) {
             $scope.currentUser = {};
             $scope.foundUsers = [];
             $scope.selectedUserId = '';
@@ -23,14 +23,19 @@
                     })
                 }, 0);
             }
-
+            
             $scope.selectUser = function () {
-                console.log('test');
+                $timeout(function () {
+                    $scope.$apply(function () {
+                        $window.location = `#!/profile/${$scope.selectedUserId}`;
+                    })
+                }, 0);
             }
-
+            
             $timeout(function () {
                 $scope.$apply(function () {
-                    UserService.getById($routeParams.id).then(data => {
+                    var userId = $window.localStorage.getItem("loggedUserId");     
+                    UserService.getById(userId).then(data => {
                         console.log(data.data[0]);
                         $scope.currentUser = data.data[0];
                     });
