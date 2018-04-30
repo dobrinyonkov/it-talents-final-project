@@ -31,6 +31,7 @@ function calculateTimeInterval(date) {
     //   console.log(this)
     // }
     $scope.profile = {};
+    $scope.profileFriends = [];
     $scope.posts = {
       displayedPosts: [],
       busy: false
@@ -68,7 +69,7 @@ function calculateTimeInterval(date) {
     // scroll
     document
       .querySelector("#postContainer")
-      .addEventListener("mousewheel", function(e) {
+      .addEventListener("mousewheel", function (e) {
         console.log("scrolling is cool!");
         // console.log(this.getBoundingClientRect())
       });
@@ -78,9 +79,26 @@ function calculateTimeInterval(date) {
     // Zarejdane na postove
     var userId = $routeParams.id;
     UserService.getById(userId)
+    //get firend list filled
+      .then(r => {
+        var friendsArr = r.data[0].friends;
+        
+        friendsArr.forEach(function (friendId) {
+          UserService.getById(friendId).then(function (user) {
+            $scope.profileFriends.push(user.data[0]);
+            console.log($scope.profileFriends);
+          })
+        })
+        
+        return r;
+      })
       .then(r => {
         $scope.profile = r.data[0];
-        return r.data[0].posts;     
+        return r.data[0].posts;
+        // $scope.profile=r 
+        console.log("tuka v kontrollera ---")
+        console.log(r)
+        return r.posts
       })
       .then(postIds => {
         if (!postIds) {
@@ -88,9 +106,9 @@ function calculateTimeInterval(date) {
           return;
         }
         console.log("imash " + postIds.length + " i shte ti gi dam");
-        postIds.forEach((postId, index)=> {
+        postIds.forEach((postId, index) => {
           PostService.getPost(postId).then(post => {
-            console.log("post nomer"+index)
+            console.log("post nomer" + index)
             // console.log(post)
             // post owner
             UserService.getById(post.ownerId).then(res => {
@@ -123,7 +141,7 @@ function calculateTimeInterval(date) {
 
             //top comment owner
             if (post.comments && post.comments.length > 0) {
-              var topComment=post.comments[0]
+              var topComment = post.comments[0]
               UserService.getById(post.comments[0].ownerId).then(res => {
                 // console.log(res.data)
                 topComment.owner = {};
@@ -133,9 +151,9 @@ function calculateTimeInterval(date) {
                 name2 = name2.charAt(0).toUpperCase() + name2.slice(1);
                 topComment.owner.name = name1 + " " + name2;
                 topComment.owner.photoUrl = res.data[0].profilePic;
-                post.topComment=topComment
+                post.topComment = topComment
               });
-            }else{
+            } else {
               console.log("nqma komentari")
             }
             $scope.posts.displayedPosts.push(post)
@@ -143,7 +161,7 @@ function calculateTimeInterval(date) {
         });
       })
       .catch(err => console.log(err));
-      // UserService.getAndSafeLoggedUser(userId)
+    // UserService.getAndSafeLoggedUser(userId)
     //add post attached to profile page
     function addPost() {
       if (!$scope.newPost.text || $scope.newPost.text.trim().length < 2) {

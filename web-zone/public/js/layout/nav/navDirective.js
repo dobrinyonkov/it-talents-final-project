@@ -9,8 +9,10 @@ app.directive('navigation', function () {
             user: '=',
             foundUsers: '=',
             selectedUserId: '=',
+            sendedFriendRequests: '=',
             searchUser: '&',
-            selectUser: '&'
+            selectUser: '&',
+            onFirendRequests: '&'
         }
     };
 });
