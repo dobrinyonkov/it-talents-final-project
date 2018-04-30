@@ -16,8 +16,8 @@ function calculateTimeInterval(date) {
   return interval + " days ago";
 }
 
-(function() {
-  app.controller("ProfileController", function(
+(function () {
+  app.controller("ProfileController", function (
     $rootScope,
     fileUpload,
     $routeParams,

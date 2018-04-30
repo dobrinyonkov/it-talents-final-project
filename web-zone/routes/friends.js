@@ -8,6 +8,10 @@ router.put('/send', function (req, res) {
     var ids = req.body.ids;
     var senderId = ids[0];
     var receiverId = ids[1];
+
+    console.log(senderId);
+    console.log(receiverId);
+
     var userCollection = req.db.get('users');
 
     // update sendedRequest array with reciverId at sender user 

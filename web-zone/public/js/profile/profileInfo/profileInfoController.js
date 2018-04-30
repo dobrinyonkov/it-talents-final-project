@@ -42,5 +42,17 @@
                 $scope.profilePicUrl = r.data.url;
             });
         });
+
+        //friendReuests
+        //send
+
+        console.log(UserService);
+
+        $scope.sendFriendRequest = function (senderId, receiverId) {
+            console.log(senderId,receiverId);
+            UserService.friendsRequests.send(senderId, receiverId)
+            .then(r => console.log(r))
+            .catch(err => console.log(err));
+        }
     });
 })();
