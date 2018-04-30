@@ -60,6 +60,7 @@
 
         service.getAll = getAll;
         service.getById = getById;
+        service.getAndSafeLoggedUser=getAndSafeLoggedUser
         service.getByName = getByName;
         service.addPost=addPost;
         service.create = create;
@@ -87,6 +88,29 @@
                     return err;
                 });
         }
+       
+        function getAndSafeLoggedUser(id) {
+            var loggedUser = null;
+            if (sessionStorage.getItem("loggedUser")) {
+              loggedUser = JSON.parse(sessionStorage.getItem("loggedUser"));
+            }
+          console.log("nova funkciq ama kat starata");
+          console.log(loggedUser)
+          if (loggedUser && loggedUser._id == id) {
+            console.log("tebe veche te takovah");
+            return new Promise(function(resolve, reject) {
+              resolve(loggedUser);
+            });
+          }
+          if (loggedUser) return new Error("Someone else has already logged ?!?");
+          return getById(id).then(res => {
+            console.log(res.data);
+            loggedUser = res.data[0];
+            sessionStorage.setItem("loggedUser", JSON.stringify(loggedUser));
+            return loggedUser;
+          });
+        }
+
 
         function getByName(name) {
             console.log(name);

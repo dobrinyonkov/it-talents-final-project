@@ -1,5 +1,5 @@
 body {
-  font-size: 14px;
+  font-size: 15px;
   background-color: #e9ebee !important;
 }
 
@@ -234,4 +234,8 @@ font-size: 0.8rem
   min-height: 400px;
   max-height: 600px;
   overflow: scroll;
+}
+.post-content{
+  font-size: 3em;
+  text-align: center;
 }
