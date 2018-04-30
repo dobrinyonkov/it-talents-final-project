@@ -223,3 +223,15 @@ p.date{
 font-style: italic;
 font-size: 0.8rem
 }
+/* #loggedUserInfo{
+  border:3px black solid;
+  position: absolute;
+}
+#profilePageWrapper{
+  position: relative;
+} */
+#postContainer{
+  min-height: 400px;
+  max-height: 600px;
+  overflow: scroll;
+}
