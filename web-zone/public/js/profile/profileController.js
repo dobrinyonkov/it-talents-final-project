@@ -58,13 +58,13 @@ function calculateTimeInterval(date) {
     //"5ae2f232f3a16839ca78f4e2"
     //Za toz kojto e kachil posta(v posta se pazi samo id )
     // $scope.getUserById=UserService.getById()
-    $scope.getUserById = function() {
-      return {
-        name: "Hristo Ivanov",
-        profilePic:
-          "http://res.cloudinary.com/web-zone2/image/upload/v1524652664/profile2_gklfiw.jpg"
-      };
-    };
+    // $scope.getUserById = function() {
+    //   return {
+    //     name: "Hristo Ivanov",
+    //     profilePic:
+    //       "http://res.cloudinary.com/web-zone2/image/upload/v1524652664/profile2_gklfiw.jpg"
+    //   };
+    // };
     // scroll
     document
       .querySelector("#postContainer")
@@ -77,11 +77,14 @@ function calculateTimeInterval(date) {
     console.log($scope.profile);
     // Zarejdane na postove
     var userId = $routeParams.id;
-    console.log(userId);
-    UserService.getById(userId)
-    .then(r => {
-        $scope.profile = r.data[0];
-        return r.data[0].posts;
+    UserService. getAndSafeLoggedUser(userId)
+      .then(r => {
+        // $scope.profile = r.data[0];
+        // return r.data[0].posts;
+        $scope.profile=r 
+        console.log("tuka v kontrollera ---")
+        console.log(r)
+        return r.posts
       })
       .then(postIds => {
         if (!postIds) {
@@ -92,7 +95,7 @@ function calculateTimeInterval(date) {
         postIds.forEach((postId, index)=> {
           PostService.getPost(postId).then(post => {
             console.log("post nomer"+index)
-            console.log(post)
+            // console.log(post)
             // post owner
             UserService.getById(post.ownerId).then(res => {
               // console.log(res.data[0])
@@ -128,7 +131,7 @@ function calculateTimeInterval(date) {
         });
       })
       .catch(err => console.log(err));
-
+      // UserService.getAndSafeLoggedUser(userId)
     //add post attached to profile page
     function addPost() {
       if (!$scope.newPost.text || $scope.newPost.text.trim().length < 2) {

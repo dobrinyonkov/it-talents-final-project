@@ -26,12 +26,23 @@
         </div>
         <!-- /.panel-heading -->
         <div class="card-block m-4 no-padding">
-            <div class="inner-all block">
-                <p>
-                    {{post.text}}
-                </p>
+            <div ng-if="post.photoUrl">
+                <div class="inner-all block">
+                    <p>
+                        {{post.text}}
+                    </p>
+                </div>
+                <img ng-src="{{post.photoUrl}}" alt="..." class="img-fluid full-width">
             </div>
-            <img ng-src="{{post.photoUrl}}" alt="..." class="img-fluid full-width">
+            <div ng-if="!post.photoUrl">
+                <div class="inner-all block post-content">
+                    <p>
+                        {{post.text}}
+                    </p>
+                </div>
+            
+            
+            </div>
             <div class="inner-all block">
                 view all
                 <a href="#">{{post.comments.length}} comments</a>
