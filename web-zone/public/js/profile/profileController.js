@@ -54,11 +54,7 @@ function calculateTimeInterval(date) {
     $scope.newComment = { placeholder: "Write a comment" };
     $scope.addComment = addComment;
     $scope.calculateTimeInterval = calculateTimeInterval;
-    // $timeout(function() {
-    //   $scope.$apply(function() {
-    //     console.log($scope.profile);
-    //   });
-    // }, 0);
+
     //"5ae2f232f3a16839ca78f4e2"
     //Za toz kojto e kachil posta(v posta se pazi samo id )
     // $scope.getUserById=UserService.getById()

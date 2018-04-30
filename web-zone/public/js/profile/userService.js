@@ -56,12 +56,12 @@
 
         const API_URL = 'http://localhost:9000/';
         // const API_URL = 'https://web-zone.herokuapp.com/';
-        
+
         var service = {};
 
         var friendsRequests = {};
         friendsRequests.send = send;
-        friendsRequests.delete = deleteFR;
+        friendsRequests.deleteFR = deleteFR;
         friendsRequests.confirm = confirm;
         
         service.friendsRequests = friendsRequests;
@@ -98,7 +98,6 @@
         }
 
         function getByName(name) {
-            console.log(name);
             return $http.get(`${API_URL}api/users/name/${name}`)
                 .then(res => {
                     return res;
@@ -119,7 +118,6 @@
         }
 
         function update(user) {
-            console.log(user);
             return $http.put(`${API_URL}api/users/update/${user._id}`, user)
                 .then(res => {
                     return res;
@@ -153,7 +151,8 @@
 
         function deleteFR(senderId, receiverId) {
             var arr = [senderId, receiverId];
-            return $http.put(`${API_URL}api/friends/delete`, { ids: arr })
+            console.log(arr);
+            return $http.delete(`${API_URL}api/friends/delete/${senderId}/${receiverId}`)
                 .then(res => {
                     return res;
                 })
