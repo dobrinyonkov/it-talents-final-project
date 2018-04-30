@@ -33,14 +33,14 @@ function calculateTimeInterval(date) {
     $scope.profile = {};
     $scope.posts = {
       displayedPosts: [],
-      busy: false,
+      busy: false
       // nextPost:function() {
       //   if(!$scope.profile)return;
       //   //show message -- please wait
       //   if (this.busy) return;
       //   this.busy = true;
       //   var totalPosts=$scope.profile.postIds.length;
-      //   var currentPosts=posts.displayedPosts.length    
+      //   var currentPosts=posts.displayedPosts.length
       //   if(currentPosts==totalPosts)return;
       //   //show message -- no more posts
       //   PostService.getPost($scope.profile.postIds[currentPosts])
@@ -48,7 +48,7 @@ function calculateTimeInterval(date) {
       //     this.busy = false;
 
       // }
-    }
+    };
     $scope.newPost = { placeholder: "What are you doing" };
     $scope.addPost = addPost;
     $scope.newComment = { placeholder: "Write a comment" };
@@ -62,7 +62,7 @@ function calculateTimeInterval(date) {
     //"5ae2f232f3a16839ca78f4e2"
     //Za toz kojto e kachil posta(v posta se pazi samo id )
     // $scope.getUserById=UserService.getById()
-    $scope.getUserById = function () {
+    $scope.getUserById = function() {
       return {
         name: "Hristo Ivanov",
         profilePic:
@@ -70,17 +70,20 @@ function calculateTimeInterval(date) {
       };
     };
     // scroll
-    document.querySelector("#postContainer").addEventListener("mousewheel", function (e) {
-      console.log("scrolling is cool!");
-      console.log(this.getBoundingClientRect())
-    });
-    console.log(document.querySelector("body"))
+    document
+      .querySelector("#postContainer")
+      .addEventListener("mousewheel", function(e) {
+        console.log("scrolling is cool!");
+        // console.log(this.getBoundingClientRect())
+      });
+    console.log(document.querySelector("body"));
 
     console.log($scope.profile);
     // Zarejdane na postove
     var userId = $routeParams.id;
+    console.log(userId);
     UserService.getById(userId)
-      .then(r => {
+    .then(r => {
         $scope.profile = r.data[0];
         return r.data[0].posts;
       })
@@ -89,9 +92,43 @@ function calculateTimeInterval(date) {
           console.log("emi ti nqmash postove , kvo iskash da vidish");
           return;
         }
-        console.log("imash " + postIds.length + " i shte ti go dam")
-        postIds.forEach(postId => {
-          PostService.getPost(postId).then(post => $scope.posts.displayedPosts.push(post));
+        console.log("imash " + postIds.length + " i shte ti gi dam");
+        postIds.forEach((postId, index)=> {
+          PostService.getPost(postId).then(post => {
+            console.log("post nomer"+index)
+            console.log(post)
+            // post owner
+            UserService.getById(post.ownerId).then(res => {
+              // console.log(res.data[0])
+              var owner = {};
+              var name1 = res.data[0].firstName;
+              name1 = name1.charAt(0).toUpperCase() + name1.slice(1);
+              var name2 = res.data[0].lastName;
+              name2 = name2.charAt(0).toUpperCase() + name2.slice(1);
+              owner.name = name1 + " " + name2;
+              owner.photoUrl = res.data[0].profilePic;
+              post.owner = owner;
+            });
+
+            //top comment owner
+            if (post.comments && post.comments.length > 0) {
+              var topComment=post.comments[0]
+              UserService.getById(post.comments[0].ownerId).then(res => {
+                // console.log(res.data)
+                topComment.owner = {};
+                var name1 = res.data[0].firstName;
+                name1 = name1.charAt(0).toUpperCase() + name1.slice(1);
+                var name2 = res.data[0].lastName;
+                name2 = name2.charAt(0).toUpperCase() + name2.slice(1);
+                topComment.owner.name = name1 + " " + name2;
+                topComment.owner.photoUrl = res.data[0].profilePic;
+                post.topComment=topComment
+              });
+            }else{
+              console.log("nqma komentari")
+            }
+            $scope.posts.displayedPosts.push(post)
+          });
         });
       })
       .catch(err => console.log(err));
@@ -103,17 +140,15 @@ function calculateTimeInterval(date) {
         return;
       }
       console.log($scope.profile._id);
-      PostService.addPost($scope.profile._id, $scope.newPost.text).then(
-        res => {
-          $scope.newPost.text = "";
-          if (res.status == 200) {
-            $scope.newPost.placeholder = "Thank you for posting.";
-          } else {
-            $scope.newPost.placeholder =
-              "Sorry we had an error, please try again later.";
-          }
+      PostService.addPost($scope.profile._id, $scope.newPost.text).then(res => {
+        $scope.newPost.text = "";
+        if (res.status == 200) {
+          $scope.newPost.placeholder = "Thank you for posting.";
+        } else {
+          $scope.newPost.placeholder =
+            "Sorry we had an error, please try again later.";
         }
-      );
+      });
     }
     function addComment(postId) {
       if (!$scope.newComment.text || $scope.newComment.text.trim().length < 2) {

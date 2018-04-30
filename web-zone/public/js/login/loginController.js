@@ -16,7 +16,7 @@ function validatePass(password) {
     $scope.newUser = {};
     $scope.loginErorr = "";
     $scope.signIn = signIn;
-    //[fistaName , lastName, email, pass1, pass2, singUp without filling the form]
+    //[fistaName , lastName, email, pass1, pass2, signUp without filling the form]
     $scope.errors = [false, false, false, false, false, false];
     $scope.hasErrors = $scope.errors.some(err => err);
     $scope.signUp = signUp;

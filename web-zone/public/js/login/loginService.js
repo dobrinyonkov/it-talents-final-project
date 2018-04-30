@@ -66,7 +66,7 @@
         }
 
         function create(user) {
-            return $http.post(`${API_URL}api/signu/`, user);
+            return $http.post(`${API_URL}api/signup/`, user);
         }
 
         function logOut(success) {

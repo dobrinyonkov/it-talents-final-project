@@ -5,7 +5,6 @@ app.directive('post', function () {
         scope: {
             post: '=',
             newcomment: '=',
-            getuser: '&',
             addcomment:'&',
             calculatetime:'&'
 
