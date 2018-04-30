@@ -1,52 +1,69 @@
-
 <div class="post">
     <div class="card rounded shadow">
         <div class="post-header card-header no-border">
             <div class="float-left half">
                 <div class="media">
                     <div class="media-object float-left">
-                        <img ng-src="{{getuser({user:post.ownerId}).profilePic}}" alt="..." class="rounded-circle img-post">
+                        <img ng-src="{{post.owner.photoUrl}}" alt="..." class="rounded-circle img-post">
                     </div>
                     <div class="media-body">
-                        <p><a href="#" class="media-heading block mb-0 h6 text-white">{{getuser({userId:post.owner}).name}} </a></p>
+                        <p>
+                            <a href="#" class="media-heading block mb-0 h6 text-white">{{post.owner.name}} </a>
+                        </p>
                         <p class="date text-white h6">{{calculatetime({date: post.date})}}</p>
                     </div>
                 </div>
-            </div><!-- /.pull-left -->
+            </div>
+            <!-- /.pull-left -->
             <div class="float-right">
-                <a href="#" class="text-white h6"><i title="Like this post." class="fa fa-heart"></i> <span title="{{getuser({userId:post.likes[0]}).name}} and {{post.likes.length-1}} others like this. " >{{post.likes.length}}</span></a>
-            </div><!-- /.pull-right -->
+                <a href="#" class="text-white h6">
+                    <i title="Like this post." class="fa fa-heart"></i>
+                    <span title="{{getuser({userId:post.likes[0]}).name}} and {{post.likes.length-1}} others like this. ">{{post.likes.length}}</span>
+                </a>
+            </div>
+            <!-- /.pull-right -->
             <div class="clearfix"></div>
-        </div><!-- /.panel-heading -->
-        <div class="card-block m-4 no-padding">
-                <div class="inner-all block">                                        
-                        <p>
-                        {{post.text}}
-                        </p>                                        
-                    </div>
-            <img  ng-src="{{post.photoUrl}}" alt="..." class="img-fluid full-width">
-            <div class="inner-all block">
-                view all <a href="#">{{post.comments.length}} comments</a>
-            </div><!-- /.inner-all -->
-
-            <!-- comment -->
-            <div class="line no-margin"></div><!-- /.line -->
-            <div class="comment card-footer">
-            <div class="media inner-all no-margin">
-                <div class="float-left">
-                    <img  class="mr-2 rounded-circle img-fluid img-bordered-primary" ng-src="{{getuser({user:post.comments[0].ownerId}).profilePic}}" title:"getuser({user:post.comments[0].ownerId}).name" alt="..." >
-                </div><!-- /.pull-left -->
-                <div class="media-body">
-                    <a href="#" class="h6"></a>
-                    <small class="block text-muted">{{post.comments[0].text}} </small>
-                <p><em class="text-xs text-muted">Posted <span class="text-danger">{{calculatetime({date: post.comments[0].date})}} </span></em></p> 
-                </div><!-- /.media-body -->
-            </div><!-- /.media -->
-            <!--end of comment -->
-        
         </div>
-    </div>
-    <!-- /.panel-body -->
+        <!-- /.panel-heading -->
+        <div class="card-block m-4 no-padding">
+            <div class="inner-all block">
+                <p>
+                    {{post.text}}
+                </p>
+            </div>
+            <img ng-src="{{post.photoUrl}}" alt="..." class="img-fluid full-width">
+            <div class="inner-all block">
+                view all
+                <a href="#">{{post.comments.length}} comments</a>
+            </div>
+            <!-- /.inner-all -->
+
+            <!-- COMMENT -->
+            <div class="line no-margin"></div>
+            <!-- /.line -->
+            <div ng-if="post.topComment" class="comment card-footer">
+                <div class="media inner-all no-margin">
+                    <div class="float-left">
+                        <img class="mr-2 rounded-circle img-fluid img-bordered-primary" ng-src="{{post.topComment.owner.photoUrl}}" title:
+                            "{{post.topComment.owner.name}}" alt="...">
+                    </div>
+                    <!-- /.pull-left -->
+                    <div class="media-body">
+                        <a href="#" class="h6"></a>
+                        <small class="block text-muted">{{post.topComment.text}} </small>
+                        <p>
+                            <em class="text-xs text-muted">Posted
+                                <span class="text-danger">{{calculatetime({date: post.topComment.date})}} </span>
+                            </em>
+                        </p>
+                    </div>
+                    <!-- /.media-body -->
+                </div>
+                <!-- /.media -->
+            </div>
+            <!--end of comment -->
+        </div>
+        <!-- /.panel-body -->
         <div class="your-comment card-footer">
             <form action="#" class="">
                 <div class="input-group has-feedback no-margin">
@@ -56,6 +73,8 @@
                     </span>
                 </div>
             </form>
-        </div><!-- /.panel-footer -->
-    </div><!-- /.panel -->
+        </div>
+        <!-- /.panel-footer -->
+    </div>
+    <!-- /.panel -->
 </div>

@@ -164,7 +164,8 @@
                                 </li>
                             </ul>
                         </div>
-                        <img src="http://bootdey.com/img/Content/flores-amarillas-wallpaper.jpeg" class="img-fluid full-width" alt="cover" style="max-height:200px;">
+                        <!-- Cover photo -->
+                        <img  ng-src="{{profile.coverPhoto}}" class="img-fluid full-width" alt="cover" style="max-height:200px;">
                     </div>
                     <ul class="list-unstyled no-padding hidden-sm hidden-xs cover-menu">
                         <li class="active">
@@ -237,7 +238,7 @@
            
                 <!-- Post from directive -->
                 <div ng-repeat="post in posts.displayedPosts">
-                    <post post=post newcomment=newComment addcomment=addComment(postId) getuser=getUserById(userId) calculatetime=calculateTimeInterval(date)>
+                    <post post=post  newcomment=newComment addcomment=addComment(postId) calculatetime=calculateTimeInterval(date)>
                     </post>
                 </div>
                 <!-- end of ng repeat-->

@@ -9,13 +9,7 @@ app.service("PostService", function($http,UserService) {
       this.photo = photo;
     }
     this.date = new Date();
-    this.comments = [
-      {
-        ownerId: 42,
-        text: "nqkav komentar",
-        date: "dneska v 6 bez 10"
-      }
-    ];
+    this.comments = [];
     this.likes = [];
   }
   //COMMENT CONSTRUCTOR
