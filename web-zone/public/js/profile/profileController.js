@@ -16,8 +16,8 @@ function calculateTimeInterval(date) {
   return interval + " days ago";
 }
 
-(function() {
-  app.controller("ProfileController", function(
+(function () {
+  app.controller("ProfileController", function (
     $rootScope,
     fileUpload,
     $routeParams,
@@ -32,8 +32,8 @@ function calculateTimeInterval(date) {
     // }
     $scope.profile = {};
     $scope.posts = {
-      displayedPosts:[],
-      busy:false,
+      displayedPosts: [],
+      busy: false,
       // nextPost:function() {
       //   if(!$scope.profile)return;
       //   //show message -- please wait
@@ -46,7 +46,7 @@ function calculateTimeInterval(date) {
       //   PostService.getPost($scope.profile.postIds[currentPosts])
       //   .then(post => $scope.posts.displayedPosts.push(post));
       //     this.busy = false;
-        
+
       // }
     }
     $scope.newPost = { placeholder: "What are you doing" };
@@ -61,20 +61,20 @@ function calculateTimeInterval(date) {
     // }, 0);
     //"5ae2f232f3a16839ca78f4e2"
     //Za toz kojto e kachil posta(v posta se pazi samo id )
-// $scope.getUserById=UserService.getById()
-    $scope.getUserById = function() {
+    // $scope.getUserById=UserService.getById()
+    $scope.getUserById = function () {
       return {
         name: "Hristo Ivanov",
         profilePic:
           "http://res.cloudinary.com/web-zone2/image/upload/v1524652664/profile2_gklfiw.jpg"
       };
     };
-// scroll
-document.querySelector("#postContainer").addEventListener("mousewheel", function(e) {
-  console.log("scrolling is cool!");
-  console.log(this.getBoundingClientRect())
-});
-console.log(document.querySelector("body"))
+    // scroll
+    document.querySelector("#postContainer").addEventListener("mousewheel", function (e) {
+      console.log("scrolling is cool!");
+      console.log(this.getBoundingClientRect())
+    });
+    console.log(document.querySelector("body"))
 
     console.log($scope.profile);
     // Zarejdane na postove
@@ -89,7 +89,7 @@ console.log(document.querySelector("body"))
           console.log("emi ti nqmash postove , kvo iskash da vidish");
           return;
         }
-        console.log("imash "+postIds.length+" i shte ti go dam")
+        console.log("imash " + postIds.length + " i shte ti go dam")
         postIds.forEach(postId => {
           PostService.getPost(postId).then(post => $scope.posts.displayedPosts.push(post));
         });

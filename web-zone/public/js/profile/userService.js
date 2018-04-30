@@ -56,12 +56,21 @@
 
         const API_URL = 'http://localhost:9000/';
         // const API_URL = 'https://web-zone.herokuapp.com/';
+        
         var service = {};
+
+        var friendsRequests = {};
+        friendsRequests.send = send;
+        friendsRequests.delete = deleteFR;
+        friendsRequests.confirm = confirm;
+        
+        service.friendsRequests = friendsRequests;
+
 
         service.getAll = getAll;
         service.getById = getById;
         service.getByName = getByName;
-        service.addPost=addPost;
+        service.addPost = addPost;
         service.create = create;
         service.update = update;
         service.remove = remove;
@@ -130,15 +139,61 @@
                 });
         }
 
+        // friend request AJAX's
+        function send(senderId, receiverId) {
+            var arr = [senderId, receiverId];
+            return $http.put(`${API_URL}api/friends/send`, { ids: arr })
+                .then(res => {
+                    return res;
+                })
+                .catch(err => {
+                    return err;
+                });
+        }
+
+        function deleteFR(senderId, receiverId) {
+            var arr = [senderId, receiverId];
+            return $http.put(`${API_URL}api/friends/delete`, { ids: arr })
+                .then(res => {
+                    return res;
+                })
+                .catch(err => {
+                    return err;
+                });
+        }
+
+        function confirm(senderId, receiverId) {
+            var arr = [senderId, receiverId];
+            return $http.put(`${API_URL}api/friends/confirm`, { ids: arr })
+                .then(res => {
+                    return res;
+                })
+                .catch(err => {
+                    return err;
+                });
+        }
+
+        function unfriend(senderId, receiverId) {
+            var arr = [senderId, receiverId];
+            return $http.delete(`${API_URL}api/friends/unfriend`, { ids: arr })
+                .then(res => {
+                    return res;
+                })
+                .catch(err => {
+                    return err;
+                });
+        }
+
+
         function addPost(userId, postId) {
-            console.log("prashtam put zaqvka s user "+ userId+" za post "+postId)
-            return $http.put(`${API_URL}api/users/addpost`, {"postId":postId,"userId":userId})
-            .then(res => {
-                return res;
-            })
-            .catch(err => {
-                return err;
-            });
+            console.log("prashtam put zaqvka s user " + userId + " za post " + postId)
+            return $http.put(`${API_URL}api/users/addpost`, { "postId": postId, "userId": userId })
+                .then(res => {
+                    return res;
+                })
+                .catch(err => {
+                    return err;
+                });
         }
 
     }
