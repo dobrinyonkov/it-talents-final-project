@@ -46,8 +46,12 @@ app.service("PostService", function($http,UserService) {
     })
   }
 // DELETE POST
-  this.deletePost = function(id) {
-    return $http.delete("http://localhost:9000/api/posts" + id);
+  this.deletePost = function( userId,postId) {
+    // deleting from the post data collection
+    console.log("post services poluchi zaqvka za triene nat toz post--"+postId+" na toz user "+ userId)
+    $http.delete("http://localhost:9000/api/posts/" + postId);
+    //updating the user
+     return UserService.deletePost(userId,postId)
   };
   //GET POST BY ID
   this.getPost = getPost;

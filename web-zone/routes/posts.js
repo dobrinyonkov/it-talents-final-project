@@ -67,8 +67,7 @@ router.put("/", function(req, res, next) {
 
 router.delete("/:id" ,function(req,res){
   var postId= req.params.id
-  // console.log("shte triq "+postId)
-  // res.send("shte triq "+postId)
+  console.log("shte triq "+postId)
   var postsCollection = req.db.get("posts");
   postsCollection.remove({ _id: postId},function(err, data) {
     console.log("error with delete request "+err)

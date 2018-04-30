@@ -185,6 +185,25 @@ body {
 .fa-heart:hover {
   color: red;
 }
+.fa-cog{
+  margin-left: 2em;
+}
+.editPostOptions{
+  background: white;
+  color: black;
+  position: absolute;
+  top:2.5em;
+  /* left: 80px; */
+  padding: 0.2em;
+  margin: none;
+  z-index: 300;
+  list-style: none;
+  width: 100px
+}
+.editPostOptions>p{
+ margin: 0px 0px 0px 1em !important;
+ cursor: pointer;
+}
 .comment {
   border-bottom: #563d7c 1px solid;
   margin-bottom: 0.7em;

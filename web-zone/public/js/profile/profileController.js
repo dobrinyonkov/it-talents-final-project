@@ -77,14 +77,10 @@ function calculateTimeInterval(date) {
     console.log($scope.profile);
     // Zarejdane na postove
     var userId = $routeParams.id;
-    UserService. getAndSafeLoggedUser(userId)
+    UserService.getById(userId)
       .then(r => {
-        // $scope.profile = r.data[0];
-        // return r.data[0].posts;
-        $scope.profile=r 
-        console.log("tuka v kontrollera ---")
-        console.log(r)
-        return r.posts
+        $scope.profile = r.data[0];
+        return r.data[0].posts;     
       })
       .then(postIds => {
         if (!postIds) {
@@ -107,6 +103,22 @@ function calculateTimeInterval(date) {
               owner.name = name1 + " " + name2;
               owner.photoUrl = res.data[0].profilePic;
               post.owner = owner;
+              console.log(res.data[0]._id)
+              post.canEdit=(res.data[0]._id==localStorage.getItem("loggedUserId"))
+              // DELETING A POST
+              post.delete = function() {
+                if (!confirm("Are you sure you want to delete this post")) return;
+                console.log("shte iztiq");
+                PostService.deletePost(userId, post._id).then(
+                  resposne => {
+                    console.log(
+                      "zaqvkata varna neshto--------=============---------....."
+                    );
+                    console.log(resposne);
+                    // sessionStorage.clear("loggedUser")
+                  }
+                );
+              };
             });
 
             //top comment owner
@@ -143,6 +155,7 @@ function calculateTimeInterval(date) {
         $scope.newPost.text = "";
         if (res.status == 200) {
           $scope.newPost.placeholder = "Thank you for posting.";
+          // sessionStorage.clear("loggedUser")
         } else {
           $scope.newPost.placeholder =
             "Sorry we had an error, please try again later.";
@@ -158,7 +171,8 @@ function calculateTimeInterval(date) {
         postId,
         $scope.profile._id,
         $scope.newComment.text
-      );
+      ).then(sessionStorage.clear("loggedUser"))
+      
     }
   });
 })();

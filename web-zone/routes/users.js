@@ -1,3 +1,5 @@
+// import { request } from 'https';
+
 const JWT_SECRET = 'abcd1234';
 
 var express = require('express');
@@ -77,7 +79,7 @@ router.put('/update/:id', function (req, res, next) {
     }
   })
 });
-
+// ADD POST
 router.put('/addpost', function (req, res, next) {
   console.log("taz zaqvka hvashta tekish")
   var postId = req.body.postId;
@@ -108,6 +110,62 @@ router.put('/addpost', function (req, res, next) {
     }
   })
 });
+//DELETE POST
+router.post("/deletepost",function(req,res,next){
+  console.log("taz zaqvka za trie ne det ne ee deleete hvashta tekish")
+  // console.log(req.body);
+  var postId = req.body.postId;
+  var userId = req.body.userId;
+  var userCollection = req.db.get('users');
+// console.log(postId)
+// console.log(userId)
+  userCollection.find({ _id: userId }, {}, function (err, docs) {
+    if (err) {
+      res.status(404).send({
+        message: "Not Found"
+      })
+    } else {
+      if (docs[0].token !== req.token) {
+        res.status(403).send({
+          message: 'Not Authorized'
+        });
+      } else {
+        var user =docs[0]
+        console.log(user.posts)
+        console.log("post---"+postId)
+        console.log("user---"+userId)
+        var index=user.posts.indexOf(postId)
+        console.log("index----------")
+        console.log(index)
+        // user.posts=user.posts.filter(p=>p!=postId)
+        console.log(user.posts)
+        userCollection.findOneAndUpdate({ _id: userId }, { $set: user }, function (err, docs) {
+          if (err) {
+            res.status(500);
+            res.json(err);
+          } else {
+            res.status(200);
+            res.json(docs);
+          }
+        })
+        // userCollection.findOneAndUpdate(
+        //   { _id: userId },
+        //   { $filter: { input: docs[0].posts, as: "pId", cond: "$$pId" == postId } },
+        //   function(err, docs) {
+        //     if (err) {
+        //       res.status(500);
+        //       res.json(err);
+        //     } else {
+        //       res.status(200);
+        //       res.json(docs);
+        //     }
+        //   }
+        // );
+      
+      }
+    }
+  })
 
+})
 
 module.exports = router;
