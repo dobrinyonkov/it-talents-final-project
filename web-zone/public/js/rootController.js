@@ -7,6 +7,7 @@
             $scope.selectedUserId = '';
             $scope.userName;
             $scope.isLogged = $location.url().split('/').indexOf('login') === -1;
+            $scope.sendedFriendRequests = [];
 
 
             $scope.searchUser = function () {
@@ -33,14 +34,19 @@
                 }, 0);
             }
 
+
+ 
             // $timeout(function () {
             //     $scope.$apply(function () {
                     var userId = $window.localStorage.getItem("loggedUserId");
                     UserService.getById(userId).then(data => {
                         console.log(data.data[0]);
                         $scope.currentUser = data.data[0];
-                        
-
+                        $scope.currentUser.sendedReqeusts.forEach(userId => {
+                            UserService.getById(userId).then(data => {
+                             $scope.sendedFriendRequests.push(data.data[0]);
+                            });
+                         });
                     });
             //     })
             // }, 0);

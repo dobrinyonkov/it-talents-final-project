@@ -13,6 +13,7 @@ router.post('/', function (req, res, next) {
   // delete user.pass1;
   delete user.pass2;
   var passToReturn = user.pass1;
+  user.profilePic = 'http://res.cloudinary.com/adminwebzone/image/upload/v1525103035/noprofile_nniohu.png';
   user.token = jwt.sign({
     exp: Math.floor(Date.now() / 1000) + (60 * 60),
     data: user

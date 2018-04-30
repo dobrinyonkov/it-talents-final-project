@@ -1,3 +1,28 @@
 $font-size-base: 1rem !default !important;
 $font-size-lg:   ($font-size-base * 1.25) !default !important;
 $font-size-sm:   ($font-size-base * 0.875) !default !important;
+
+.w-20 {
+    width: 20 !important;
+    height: 20 !important; 
+}
+
+.w-30 {
+    width: 30 !important;
+    height: 30 !important; 
+}
+
+.w-40 {
+    width: 40 !important;
+    height: 40 !important; 
+}
+
+.w-55 {
+    width: 55 !important;
+    height: 55 !important; 
+}
+
+.w-60 {
+    width: 60 !important;
+    height: 60 !important; 
+}

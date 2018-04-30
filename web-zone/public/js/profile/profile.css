@@ -239,3 +239,59 @@ font-size: 0.8rem
   font-size: 3em;
   text-align: center;
 }
+
+.img-fit {
+  object-fit: cover; 
+  object-position: center; /* Center the image within the element */
+  height: 200px;
+  width: 200px;
+}
+
+.memberblock {
+	width: 100%;
+	float: left;
+	clear: both;
+	margin-bottom: 15px
+}
+.member {
+	width: 30%;
+	float: left;
+	margin: 2px 1% 2px 0;
+	background: #ffffff;
+	border: 1px solid #d8d0c3;
+	padding: 3px;
+	position: relative;
+	overflow: hidden
+}
+.memmbername {
+	position: absolute;
+	bottom: -30px;
+	background: rgba(0, 0, 0, 0.8);
+	color: #ffffff;
+	line-height: 30px;
+	padding: 0 5px;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	width: 100%;
+	font-size: 11px;
+  transition: 0.5s ease all;
+}
+.member:hover .memmbername {
+	bottom: 0
+}
+.member img {
+	width: 100%;
+	transition: 0.5s ease all;
+}
+.member:hover img {
+	opacity: 0.8;
+	transform: scale(1.8)
+}
+memberblock {
+  max-height: 100%;
+}
+
+.card-content {
+  height: 20% !important;  
+}

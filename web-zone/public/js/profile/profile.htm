@@ -14,7 +14,7 @@
 <!-- <script src="//code.jquery.com/jquery-1.11.1.min.js"></script> -->
 
 
-<div id="profilePageWrapper"  ng-controller="ProfileController" class="container bootstrap snippets mt-2">
+<div id="profilePageWrapper" ng-controller="ProfileController" class="container bootstrap snippets mt-2">
     <div class="row mb-4 p-1">
         <!-- aside logged user info and photo -->
         <!-- <div ng-controller="ProfileInfoController"></div> -->
@@ -24,7 +24,10 @@
                     <div class="inner-all">
                         <ul class="text-center list-unstyled">
                             <li class="text-center">
-                                <img data-no-retina="" class="img-thumbnail rounded img-fluid img-bordered-primary mb-2" ng-src="{{profile.profilePic}}"
+                                <div>
+
+                                </div>
+                                <img data-no-retina="" class="img-fit img-thumbnail img-fluid d-block mx-auto img-bordered-primary mb-2" ng-src="{{profile.profilePic}}"
                                     alt="{{profile.firstName}} {{profile.lastName}}">
                                 <input type="file" id="selectedFile">
                                 <button ng-if="profilePicUploaded" ng-click="saveAcount(profile, profilePicUrl)" class="btn btn-success btn-sm mt-2">SAVE</button>
@@ -44,7 +47,7 @@
                                     <a ng-click="onChangeMode()" href="" class="btn btn-secondary">
                                         <i class="fa fa-cog float-right"></i>{{!editMode ? 'Edit Account' : 'Save'}}</a>
                                     <a href="" class="btn btn-secondary">
-                                        <i class="fa fa-sign-out float-right"></i>Logout</a>
+                                        <i class="fas fa-sign-in-alt float-right"></i>Logout</a>
                                 </div>
                             </li>
                         </ul>
@@ -53,20 +56,20 @@
             </div>
             <!-- /.panel -->
 
-            <div class="card panel-theme rounded shadow">
+            <div class="mb-2 card panel-theme rounded shadow">
                 <div class="card-header">
                     <div class="float-left">
                         <h3 class="card-header h5">Contact</h3>
                     </div>
                     <div class="float-right mt-2">
                         <a href="#" class="btn btn-sm btn-purple">
-                            <i class="fa fa-facebook"></i>
+                            <i class="fab fa-facebook"></i>
                         </a>
                         <a href="#" class="btn btn-sm btn-purple">
-                            <i class="fa fa-twitter"></i>
+                            <i class="fab fa-twitter"></i>
                         </a>
                         <a href="#" class="btn btn-sm btn-purple">
-                            <i class="fa fa-google-plus"></i>
+                            <i class="fab fa-google-plus"></i>
                         </a>
                     </div>
                     <div class="clearfix"></div>
@@ -118,6 +121,20 @@
             </div>
             <!-- /.panel -->
 
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="h5 page-header small">Recently Connected</h3>
+                    <p class="page-subtitle small">You have recemtly connected with {{profileFriends.length}} friends</p>
+                </div>
+                <div class="col-lg-12 mt-2">
+                    <div class="card-content memberblock">
+                        <a  ng-repeat="friend in profileFriends" href="#!/profile/{{friend._id}}" class="w-55 member">
+                            <img class="img-fluid d-block mx-auto" ng-src="{{friend.profilePic}}" alt="">
+                            <div class="memmbername">{{friend.firstName}} {{friend.lastName}}</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="col-lg-8 col-md-7 col-sm-8">
@@ -166,7 +183,7 @@
                             </ul>
                         </div>
                         <!-- Cover photo -->
-                        <img  ng-src="{{profile.coverPhoto}}" class="img-fluid full-width" alt="cover" style="max-height:200px;">
+                        <img ng-src="{{profile.coverPhoto}}" class="img-fluid full-width" alt="cover" style="max-height:200px;">
                     </div>
                     <ul class="list-unstyled no-padding hidden-sm hidden-xs cover-menu">
                         <li class="active">
@@ -204,7 +221,8 @@
             <div class="divider"></div>
             <div class="new-post mb-4 rounded shadow">
                 <form action="...">
-                    <textarea ng-model=newPost.text class="form-control form-control-lg no-border" rows="2" placeholder="{{newPost.placeholder}}" maxlength="30"></textarea>
+                    <textarea ng-model=newPost.text class="form-control form-control-lg no-border" rows="2" placeholder="{{newPost.placeholder}}"
+                        maxlength="30"></textarea>
                 </form>
                 <div class="card-footer">
                     <button ng-click=addPost() class="btn btn-purple float-right">POST</button>
@@ -235,15 +253,15 @@
                 <!-- /.panel-footer -->
             </div>
             <!-- /.panel -->
-            <div  id="postContainer">
-           
+            <div id="postContainer">
+
                 <!-- Post from directive -->
                 <div ng-repeat="post in posts.displayedPosts track by $index">
                     <post post=post newcomment=newComment addcomment=addComment(postId) getuser=getUserById(userId) calculatetime=calculateTimeInterval(date)>
                     </post>
                 </div>
                 <!-- end of ng repeat-->
-  
+
             </div>
             <!-- /.panel -->
         </div>

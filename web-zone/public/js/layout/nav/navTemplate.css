@@ -25,3 +25,9 @@ body {
   #friends-req-icon {
     background-color: #e9ebee
   }
+
+  .dropdown-menu {
+    width: 500px !important;
+    font-size: 0.8em;
+    box-shadow: 0px 0px 10px #0000004b;
+}
