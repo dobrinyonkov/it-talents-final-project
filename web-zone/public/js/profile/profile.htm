@@ -14,15 +14,17 @@
 <!-- <script src="//code.jquery.com/jquery-1.11.1.min.js"></script> -->
 
 
-<div ng-controller="ProfileController" class="container bootstrap snippets mt-2">
+<div id="profilePageWrapper"  ng-controller="ProfileController" class="container bootstrap snippets mt-2">
     <div class="row mb-4 p-1">
-        <div class="col-lg-4 col-md-5 col-sm-5">
+        <!-- aside logged user info and photo -->
+        <div id="loggedUserInfo" class="col-lg-4 col-md-5 col-sm-5">
             <div class="card rounded shadow mb-2">
                 <div class="card-block mx-5 my-3">
                     <div class="inner-all">
                         <ul class="text-center list-unstyled">
                             <li class="text-center">
-                                <img data-no-retina="" class="img-thumbnail rounded img-fluid img-bordered-primary mb-2" ng-src="{{profile.profilePic}}" alt="{{profile.firstName}} {{profile.lastName}}">
+                                <img data-no-retina="" class="img-thumbnail rounded img-fluid img-bordered-primary mb-2" ng-src="{{profile.profilePic}}"
+                                    alt="{{profile.firstName}} {{profile.lastName}}">
                                 <input type="file" id="selectedFile">
                                 <button ng-if="profilePicUploaded" ng-click="saveAcount(profile, profilePicUrl)" class="btn btn-success btn-sm mt-2">SAVE</button>
                             </li>
@@ -116,6 +118,7 @@
             <!-- /.panel -->
 
         </div>
+
         <div class="col-lg-8 col-md-7 col-sm-8">
             <div class="profile-cover">
                 <div class="cover rounded shadow no-overflow">
@@ -230,16 +233,17 @@
                 <!-- /.panel-footer -->
             </div>
             <!-- /.panel -->
-            <!-- Post from directive -->
-            <div ng-repeat="post in posts">
-                <post post=post newcomment=newComment addcomment=addComment(postId) getuser=getUserById(userId) calculatetime=calculateTimeInterval(date)>
-
-                </post>
+            <div  id="postContainer">
+           
+                <!-- Post from directive -->
+                <div ng-repeat="post in posts.displayedPosts">
+                    <post post=post newcomment=newComment addcomment=addComment(postId) getuser=getUserById(userId) calculatetime=calculateTimeInterval(date)>
+                    </post>
+                </div>
+                <!-- end of ng repeat-->
+  
             </div>
-            <!-- end of ng repeat-->
-            <!-- Post -->
-   
-        <!-- /.panel -->
+            <!-- /.panel -->
+        </div>
     </div>
-</div>
 </div>

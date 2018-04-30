@@ -26,26 +26,45 @@ function calculateTimeInterval(date) {
     UserService,
     $timeout
   ) {
+    // $scope.sayHi=function(e){
+    //   console.log("hiii")
+    //   console.log(this)
+    // }
     $scope.profile = {};
     $scope.editMode = false;
     $scope.profilePicUploaded = false;
     $scope.profilePicUrl = "";
-    $scope.posts = [];
+    $scope.posts = {
+      displayedPosts:[],
+      busy:false,
+      // nextPost:function() {
+      //   if(!$scope.profile)return;
+      //   //show message -- please wait
+      //   if (this.busy) return;
+      //   this.busy = true;
+      //   var totalPosts=$scope.profile.postIds.length;
+      //   var currentPosts=posts.displayedPosts.length    
+      //   if(currentPosts==totalPosts)return;
+      //   //show message -- no more posts
+      //   PostService.getPost($scope.profile.postIds[currentPosts])
+      //   .then(post => $scope.posts.displayedPosts.push(post));
+      //     this.busy = false;
+        
+      // }
+    }
     $scope.newPost = { placeholder: "What are you doing" };
     $scope.addPost = addPost;
     $scope.newComment = { placeholder: "Write a comment" };
     $scope.addComment = addComment;
     $scope.calculateTimeInterval = calculateTimeInterval;
-    // PostService.getPost("5ada00a6f2400423d4235f5c").then(post =>
-    //   $scope.posts.push(post)
-    // );
-    //tuka ot user servica
-    $timeout(function() {
-      $scope.$apply(function() {
-        console.log($scope.profile);
-      });
-    }, 0);
-
+    // $timeout(function() {
+    //   $scope.$apply(function() {
+    //     console.log($scope.profile);
+    //   });
+    // }, 0);
+    //"5ae2f232f3a16839ca78f4e2"
+    //Za toz kojto e kachil posta(v posta se pazi samo id )
+// $scope.getUserById=UserService.getById()
     $scope.getUserById = function() {
       return {
         name: "Hristo Ivanov",
@@ -53,9 +72,15 @@ function calculateTimeInterval(date) {
           "http://res.cloudinary.com/web-zone2/image/upload/v1524652664/profile2_gklfiw.jpg"
       };
     };
+// scroll
+document.querySelector("#postContainer").addEventListener("mousewheel", function(e) {
+  console.log("scrolling is cool!");
+  console.log(this.getBoundingClientRect())
+});
+console.log(document.querySelector("body"))
 
-    $scope.calculateTimeInterval = calculateTimeInterval;
     console.log($scope.profile);
+    // Zarejdane na postove
     var userId = $routeParams.id;
     UserService.getById(userId)
       .then(r => {
@@ -69,7 +94,7 @@ function calculateTimeInterval(date) {
         }
         console.log("imash "+postIds.length+" i shte ti go dam")
         postIds.forEach(postId => {
-          PostService.getPost(postId).then(post => $scope.posts.push(post));
+          PostService.getPost(postId).then(post => $scope.posts.displayedPosts.push(post));
         });
       })
       .catch(err => console.log(err));
@@ -88,7 +113,6 @@ function calculateTimeInterval(date) {
     };
     // PROFILE PICTURE UPLOAD
     var selectedFile = document.getElementById("selectedFile");
-    // console.log(selectedFile);
     selectedFile.addEventListener("change", function(event) {
       var file = event.target.files[0];
       console.log(file);
@@ -97,6 +121,7 @@ function calculateTimeInterval(date) {
         $scope.profilePicUrl = r.data.url;
       });
     });
+    //add post attached to profile page
     function addPost() {
       if (!$scope.newPost.text || $scope.newPost.text.trim().length < 2) {
         $scope.newPost.placeholder = "Can't post an empty post.";
