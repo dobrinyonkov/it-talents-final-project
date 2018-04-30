@@ -31,9 +31,6 @@ function calculateTimeInterval(date) {
     //   console.log(this)
     // }
     $scope.profile = {};
-    $scope.editMode = false;
-    $scope.profilePicUploaded = false;
-    $scope.profilePicUrl = "";
     $scope.posts = {
       displayedPosts:[],
       busy:false,
@@ -99,28 +96,6 @@ console.log(document.querySelector("body"))
       })
       .catch(err => console.log(err));
 
-    $scope.onChangeMode = function() {
-      if ($scope.editMode) {
-        UserService.update($scope.profile).then(r => console.log(r));
-      }
-      $scope.editMode = !$scope.editMode;
-    };
-
-    $scope.saveAcount = function(user, url) {
-      user.profilePic = url;
-      // console.log(user);
-      UserService.update(user).then(r => console.log(r));
-    };
-    // PROFILE PICTURE UPLOAD
-    var selectedFile = document.getElementById("selectedFile");
-    selectedFile.addEventListener("change", function(event) {
-      var file = event.target.files[0];
-      console.log(file);
-      fileUpload.uploadFileToUrl(file).then(r => {
-        $scope.profilePicUploaded = true;
-        $scope.profilePicUrl = r.data.url;
-      });
-    });
     //add post attached to profile page
     function addPost() {
       if (!$scope.newPost.text || $scope.newPost.text.trim().length < 2) {
