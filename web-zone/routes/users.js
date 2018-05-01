@@ -131,13 +131,15 @@ router.post("/deletepost",function(req,res,next){
         });
       } else {
         var user =docs[0]
+        console.log("na usera postovete predi tarkaneto")
         console.log(user.posts)
-        console.log("post---"+postId)
-        console.log("user---"+userId)
+        // console.log("post---"+postId)
+        // console.log("user---"+userId)
         var index=user.posts.indexOf(postId)
-        console.log("index----------")
+        user.posts.splice(index,1)
+        console.log("indexa na toz post ----------")
         console.log(index)
-        // user.posts=user.posts.filter(p=>p!=postId)
+        console.log("na usera postovete sled tarkaneto")
         console.log(user.posts)
         userCollection.findOneAndUpdate({ _id: userId }, { $set: user }, function (err, docs) {
           if (err) {
