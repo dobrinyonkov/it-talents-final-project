@@ -63,6 +63,7 @@
         friendsRequests.send = send;
         friendsRequests.deleteFR = deleteFR;
         friendsRequests.confirm = confirm;
+        friendsRequests.unfriend = unfriend;
 
         service.friendsRequests = friendsRequests;
 
@@ -199,7 +200,8 @@
 
         function unfriend(senderId, receiverId) {
             var arr = [senderId, receiverId];
-            return $http.delete(`${API_URL}api/friends/unfriend`, { ids: arr })
+            console.log(arr);
+            return $http.delete(`${API_URL}api/friends/unfriend/${senderId}/${receiverId}`, )
                 .then(res => {
                     return res;
                 })
@@ -220,66 +222,66 @@
         //         });
         // }
 
-    function remove(id) {
-      return $http
-        .delete(`${API_URL}api/users/${id}`)
-        .then(res => {
-          return res;
-        })
-        .catch(err => {
-          return err;
-        });
-    }
+        function remove(id) {
+            return $http
+                .delete(`${API_URL}api/users/${id}`)
+                .then(res => {
+                    return res;
+                })
+                .catch(err => {
+                    return err;
+                });
+        }
 
-    // friend request AJAX's
-    function send(senderId, receiverId) {
-      var arr = [senderId, receiverId];
-      return $http
-        .put(`${API_URL}api/friends/send`, { ids: arr })
-        .then(res => {
-          return res;
-        })
-        .catch(err => {
-          return err;
-        });
-    }
+        // friend request AJAX's
+        function send(senderId, receiverId) {
+            var arr = [senderId, receiverId];
+            return $http
+                .put(`${API_URL}api/friends/send`, { ids: arr })
+                .then(res => {
+                    return res;
+                })
+                .catch(err => {
+                    return err;
+                });
+        }
 
-    function deleteFR(senderId, receiverId) {
-      var arr = [senderId, receiverId];
-      console.log(arr);
-      return $http
-        .delete(`${API_URL}api/friends/delete/${senderId}/${receiverId}`)
-        .then(res => {
-          return res;
-        })
-        .catch(err => {
-          return err;
-        });
-    }
+        function deleteFR(senderId, receiverId) {
+            var arr = [senderId, receiverId];
+            console.log(arr);
+            return $http
+                .delete(`${API_URL}api/friends/delete/${senderId}/${receiverId}`)
+                .then(res => {
+                    return res;
+                })
+                .catch(err => {
+                    return err;
+                });
+        }
 
-    function confirm(senderId, receiverId) {
-      var arr = [senderId, receiverId];
-      return $http
-        .put(`${API_URL}api/friends/confirm`, { ids: arr })
-        .then(res => {
-          return res;
-        })
-        .catch(err => {
-          return err;
-        });
-    }
+        function confirm(senderId, receiverId) {
+            var arr = [senderId, receiverId];
+            return $http
+                .put(`${API_URL}api/friends/confirm`, { ids: arr })
+                .then(res => {
+                    return res;
+                })
+                .catch(err => {
+                    return err;
+                });
+        }
 
-    function unfriend(senderId, receiverId) {
-      var arr = [senderId, receiverId];
-      return $http
-        .delete(`${API_URL}api/friends/unfriend`, { ids: arr })
-        .then(res => {
-          return res;
-        })
-        .catch(err => {
-          return err;
-        });
-    }
+        function unfriend(senderId, receiverId) {
+            var arr = [senderId, receiverId];
+            return $http
+                .delete(`${API_URL}api/friends/unfriend/${senderId}/${receiverId}`)
+                .then(res => {
+                    return res;
+                })
+                .catch(err => {
+                    return err;
+                });
+        }
 
     function addPost(userId, postId) {
       console.log("prashtam put zaqvka s user " + userId + " za post " + postId);
@@ -294,21 +296,21 @@
         });
     }
 
-    function deletePost(userId, postId) {
-      console.log(
-        "prashtam delete zaqvka s user " + userId + " za post " + postId
-      );
-      return $http  
-        .post(`${API_URL}api/users/deletepost`, {
-          postId: postId,
-          userId: userId
-        })
-        .then(res => {
-          return res;
-        })
-        .catch(err => {
-          return err;
-        });
+        function deletePost(userId, postId) {
+            console.log(
+                "prashtam delete zaqvka s user " + userId + " za post " + postId
+            );
+            return $http
+                .post(`${API_URL}api/users/deletepost`, {
+                    postId: postId,
+                    userId: userId
+                })
+                .then(res => {
+                    return res;
+                })
+                .catch(err => {
+                    return err;
+                });
+        }
     }
-  }
 })();

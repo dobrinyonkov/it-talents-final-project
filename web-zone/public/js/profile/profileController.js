@@ -133,7 +133,6 @@ function calculateTimeInterval(date) {
         friendsArr.forEach(function (friendId) {
           UserService.getById(friendId).then(function (user) {
             $scope.profileFriends.push(user.data[0]);
-            console.log($scope.profileFriends);
           })
         })
         

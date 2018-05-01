@@ -112,10 +112,9 @@ router.put('/confirm', function (req, res) {
 //         });
 // });
 
-router.put('/unfriend', function (req, res) {
-    var ids = req.body.ids;
-    var senderId = ids[0];
-    var receiverId = ids[1];
+router.delete('/unfriend/:senderId/:receiverId', function (req, res) {
+    var senderId = req.params.senderId;;
+    var receiverId = req.params.receiverId;;
     var userCollection = req.db.get('users');
 
     // remove receiverId from friends array at sender user

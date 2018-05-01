@@ -6,6 +6,33 @@
         $scope.userName;
         $scope.isLogged = $location.url().split('/').indexOf('login') === -1;
 
+        $scope.onConfirmFriendReuest = function ($event, senderId, receiverId) {
+            $event.stopPropagation();
+            $event.preventDefault();
+            UserService.friendsRequests.confirm(senderId, receiverId).then(r => {
+                var index = $scope.receivedFriendRequests.findIndex(u => u._id === receiverId);
+                var user = $scope.receivedFriendRequests.find(u => u._id === receiverId);
+                $scope.receivedFriendRequests.splice(index, 1);
+                // $scope.friendsRequestSended = false;
+                // $scope.areFriends = null;
+            }).catch(err => {
+                console.log(err);
+            });
+        }
+
+        $scope.onDeleteFriendReuest = function ($event, senderId, receiverId) {
+            $event.stopPropagation();
+            $event.preventDefault();
+            UserService.friendsRequests.deleteFR(senderId, receiverId).then(r => {
+                $scope.friendsRequestSended = false;
+                $scope.areFriends = true;
+                var index = $scope.sendedFriendRequests.findIndex(u => u._id === receiverId);
+                var user = $scope.sendedFriendRequests.find(u => u._id === receiverId);
+                $scope.sendedFriendRequests.splice(index, 1);
+            }).catch(err => {
+                console.log(err);
+            });
+        }
 
         $scope.searchUser = function () {
             $timeout(function () {

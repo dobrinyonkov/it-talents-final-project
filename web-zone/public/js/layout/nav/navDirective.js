@@ -5,14 +5,18 @@ app.directive('navigation', function () {
         css: 'js/layout/nav/navTemplate.css',
         restrict: 'E',
         scope: {
+            currentUser: '=',
             userName: '=',
             user: '=',
             foundUsers: '=',
             selectedUserId: '=',
             sendedFriendRequests: '=',
+            receivedFriendRequests: '=',
             searchUser: '&',
             selectUser: '&',
-            onFirendRequests: '&'
+            onFirendRequests: '&',
+            onConfirmFriendReuest: '&',
+            onDeleteFriendReuest: '&'
         }
     };
 });

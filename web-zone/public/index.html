@@ -36,7 +36,7 @@
 
     <!-- ANGULAR CONTROLLERS -->
     <script src="js/rootController.js"></script>
-    <!-- <script src="js/layout/nav/navigationController.js"></script> -->
+    <script src="js/layout/nav/navigationController.js"></script>
     <script src="js/login/loginController.js"></script>
     <script src="js/post/postController.js"></script>
     <script src="js/post/addPostController.js"></script>
@@ -55,9 +55,9 @@
 
     <div ng-controller="RootController">
         
-        <!-- <div ng-controller="NavigationController"> -->
-            <navigation sended-friend-requests="sendedFriendRequests" on-firend-requests="onFirendRequests(test)" selected-user-id="selectedUserId" select-user="selectUser()" found-users="foundUsers" user="currentUser" user-name="userName" search-user="searchUser()"></navigation>
-        <!-- </div> -->
+        <div ng-controller="NavigationController">
+            <navigation on-delete-friend-reuest="onDeleteFriendReuest($event, senderId,receiverId)" on-confirm-friend-reuest="onConfirmFriendReuest($event, senderId,receiverId)" received-friend-requests="receivedFriendRequests" sended-friend-requests="sendedFriendRequests" on-firend-requests="onFirendRequests(test)" selected-user-id="selectedUserId" select-user="selectUser()" found-users="foundUsers" user="currentUser" user-name="userName" search-user="searchUser()"></navigation>
+        </div>
     
         <main ng-view>
         </main>

@@ -8,6 +8,9 @@
             $scope.userName;
             $scope.isLogged = $location.url().split('/').indexOf('login') === -1;
             $scope.sendedFriendRequests = [];
+            $scope.receivedFriendRequests = [];
+            $scope.friendsRequestSended = false;
+            $scope.areFriends = null;
 
 
             $scope.searchUser = function () {
@@ -35,20 +38,35 @@
             }
 
 
- 
-            // $timeout(function () {
-            //     $scope.$apply(function () {
+
+            $timeout(function () {
+                $scope.$apply(function () {
                     var userId = $window.localStorage.getItem("loggedUserId");
                     UserService.getById(userId).then(data => {
                         console.log(data.data[0]);
                         $scope.currentUser = data.data[0];
+                        $scope.currentUser.receivedReqeusts.forEach(userId => {
+                            // UserService.getById(userId).then(data => {
+                            //     $scope.sendedFriendRequests.push(data.data[0]);
+                            //     console.log($scope.sendedFriendRequests);
+                            // });
+                            UserService.getById(userId).then(data => {
+                                $scope.receivedFriendRequests.push(data.data[0]);
+                                console.log($scope.receivedFriendRequests);
+                            });
+                        });
                         $scope.currentUser.sendedReqeusts.forEach(userId => {
                             UserService.getById(userId).then(data => {
-                             $scope.sendedFriendRequests.push(data.data[0]);
+                                $scope.sendedFriendRequests.push(data.data[0]);
+                                console.log($scope.sendedFriendRequests);
                             });
-                         });
+                            // UserService.getById(userId).then(data => {
+                            //     $scope.receivedFriendRequests.push(data.data[0]);
+                            //     console.log($scope.receivedFriendRequests);
+                            // });
+                        });
                     });
-            //     })
-            // }, 0);
+                })
+            }, 0);
         });
 })();
