@@ -26,7 +26,7 @@ function calculateTimeInterval(date) {
   ) {
     $scope.profile = {};
     $scope.profileFriends = [];
-    $scope.posts = { displayedPosts: [] };
+    $scope.posts = { displayedPosts: []};
     $scope.newPost = { placeholder: "What are you doing" };
     $scope.addPost = addPost;
     $scope.newComment = { placeholder: "Write a comment" };
@@ -48,6 +48,7 @@ function calculateTimeInterval(date) {
       });
 
     console.log($scope.profile);
+
     // takes an post id loads its date and that for the associated users,
     // forms it as a post and pushes that post to $scope.posts.displayedPosts
     $scope.posts.displayPost=function(postId) {
@@ -64,18 +65,39 @@ function calculateTimeInterval(date) {
           owner.name = name1 + " " + name2;
           owner.photoUrl = res.data[0].profilePic;
           post.owner = owner;
-          // console.log(res.data[0]._id)
-          post.canEdit = res.data[0]._id == localStorage.getItem("loggedUserId");
+          // console.log("owner id za toz post++=="+post.ownerId)
+          // console.log("lognat user===="+localStorage.getItem("loggedUserId") )
+          post.canEdit =(post.ownerId== localStorage.getItem("loggedUserId"));
+          // console.log("zarejdam ti sq toz post, no dali mojesh da go iztriesh--- "+post.canEdit)
+          post.editMode=false ;
+          // post.toggleEditMode=function(){
+          //   this.editMode=!this.editMode
+          // }
           // DELETING A POST
           post.delete = function() {
             if (!confirm("Are you sure you want to delete this post")) return;
             console.log("shte iztiq");
-            PostService.deletePost(userId, post._id).then(resposne => {
-              console.log("zaqvkata varna neshto--------=============---------.....");
-              console.log(resposne);
-              // sessionStorage.clear("loggedUser")
+            PostService.deletePost(userId, post._id).then(response => {
+              if(response.status=200){
+                console.log("deleted")
+                $scope.posts.displayedPosts=$scope.posts.displayedPosts.filter(p=>p!=post)
+              }else{
+                alert("Sorry, we expirienced a problem and couldn't delete the post, please try againg later.")
+              }
             });
           };
+          // LIKING A POST
+          post.liked=(post.likes.indexOf(localStorage.getItem("loggedUserId"))!=-1)
+          post.like=function(){
+            console.log("me gusta -- "+post._id)
+            PostService.likePost(localStorage.getItem("loggedUserId"),post._id).then(res=>{
+              // console.log(res)
+              post.likes=res.data.likes;
+              console.log("toz post sega ima "+post.likes.length+" likes.")
+              post.liked=!post.liked
+            })
+            
+          }
         });
 
         //top comment owner

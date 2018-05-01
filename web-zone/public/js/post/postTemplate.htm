@@ -16,12 +16,12 @@
             </div>
             <!-- /.pull-left -->
             <div class="float-right">
-                <a href="#" class="text-white h6">
-                    <i title="Like this post." class="fa fa-heart"></i>
-                    <span title="{{getuser({userId:post.likes[0]}).name}} and {{post.likes.length-1}} others like this. ">{{post.likes.length}}</span>
-                </a>
-                <i ng-show="post.canEdit" class="fa fa-cog float-right" title="Edit post."></i>
-                <div class="editPostOptions">
+                <span class="text-white h6">
+                    <i ng-click="post.like()" ng-class="post.liked?'likedPost':''" title="Like this post." class="fa fa-heart"></i>
+                    <span title=" ">{{post.likes.length}}</span>
+                </span>
+                <i ng-show="post.canEdit" ng-click="post.editMode=!post.editMode" class="fa fa-cog float-right" title="Edit post."></i>
+                <div ng-show="post.editMode" class="editPostOptions">
                     <p ng-click="post.delete()">Delete post</p>
                 </div>
             </div>

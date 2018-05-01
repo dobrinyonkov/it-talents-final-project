@@ -182,8 +182,11 @@ body {
   height: 50px;
 }
 
-.fa-heart:hover {
-  color: red;
+.fa-heart:hover  {
+  color: orangered
+}
+.likedPost{
+  color: firebrick;
 }
 .fa-cog{
   margin-left: 2em;

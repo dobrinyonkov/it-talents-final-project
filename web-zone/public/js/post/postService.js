@@ -60,19 +60,13 @@ app.service("PostService", function($http,UserService) {
   this.getPost = getPost;
   function getPost(id) {
     return $http.get("/api/posts/" + id).then(r => r.data);
-    // .then(postData => {
-    //   return postData
+  }
 
-    // console.log("i sq tva api kvo vrashta")
-    // console.log(postData)
-    // var post = Object.create(Post.prototype);
-    // for (const key in postData) {
-    //   if (postData.hasOwnProperty(key)) {
-    //     post[key] = postData[key];
-    //   }
-    // }
-    // console.log(post);
-    // return post;
-    // });
+  // LIKE POST
+  this.likePost=function(userId,postId){
+    return $http.put("http://localhost:9000/api/posts/like",{
+      userId:userId,
+      postId:postId
+    });
   }
 });
