@@ -36,14 +36,17 @@ app.service("PostService", function($http,UserService) {
     console.log(newP);
     newP = JSON.stringify(newP);
     // newR=JSON.stringify(newP)
-    return $http.post("http://localhost:9000/api/posts", newP).then(res => {
-      var newPostId=res.data.id
-      // console.log("Na noviqt post id-to" )
-      // console.log(newPostId)
-      return newPostId
-    }).then(newPostId=>{
-     return UserService.addPost(ownerId,newPostId)
-    })
+    return $http
+      .post("http://localhost:9000/api/posts", newP)
+      .then(res => {
+        var newPostId = res.data.id;
+        // console.log("Na noviqt post id-to" )
+        // console.log(newPostId)
+        return newPostId;
+      })
+      .then(newPostId => {
+        return UserService.addPost(ownerId, newPostId);
+      });
   }
 // DELETE POST
   this.deletePost = function( userId,postId) {

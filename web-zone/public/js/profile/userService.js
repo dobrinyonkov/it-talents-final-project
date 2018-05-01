@@ -283,19 +283,18 @@
                 });
         }
 
-        function addPost(userId, postId) {
-            console.log(
-                "prashtam put zaqvka s user " + userId + " za post " + postId
-            );
-            return $http
-                .put(`${API_URL}api/users/addpost`, { postId: postId, userId: userId })
-                .then(res => {
-                    return res;
-                })
-                .catch(err => {
-                    return err;
-                });
-        }
+    function addPost(userId, postId) {
+      console.log("prashtam put zaqvka s user " + userId + " za post " + postId);
+      return $http
+        .put(`${API_URL}api/users/addpost`, { postId: postId, userId: userId })
+        .then(res => {
+            res.newPostId=postId
+          return res;
+        })
+        .catch(err => {
+          return err;
+        });
+    }
 
         function deletePost(userId, postId) {
             console.log(
