@@ -4,9 +4,10 @@
         $scope.foundUsers = [];
         $scope.selectedUserId = '';
         $scope.userName;
-        $scope.isLogged = $location.url().split('/').indexOf('login') === -1;
 
         $scope.onConfirmFriendReuest = function ($event, senderId, receiverId) {
+            console.log(senderId);
+            console.log(receiverId);
             $event.stopPropagation();
             $event.preventDefault();
             UserService.friendsRequests.confirm(senderId, receiverId).then(r => {
@@ -26,9 +27,8 @@
             UserService.friendsRequests.deleteFR(senderId, receiverId).then(r => {
                 $scope.friendsRequestSended = false;
                 $scope.areFriends = true;
-                var index = $scope.sendedFriendRequests.findIndex(u => u._id === receiverId);
-                var user = $scope.sendedFriendRequests.find(u => u._id === receiverId);
-                $scope.sendedFriendRequests.splice(index, 1);
+                var index = $scope.receivedFriendRequests.findIndex(u => u._id === receiverId);
+                $scope.receivedFriendRequests.splice(index, 1);
             }).catch(err => {
                 console.log(err);
             });
