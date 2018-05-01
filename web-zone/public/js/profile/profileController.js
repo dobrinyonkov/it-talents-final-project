@@ -26,7 +26,7 @@ function calculateTimeInterval(date) {
   ) {
     $scope.profile = {};
     $scope.profileFriends = [];
-    $scope.posts = { displayedPosts: []};
+    $scope.posts = { displayedPosts: [], busy: false, allPostsLoaded: false };
     $scope.newPost = { placeholder: "What are you doing" };
     $scope.addPost = addPost;
     $scope.newComment = { placeholder: "Write a comment" };
@@ -34,29 +34,47 @@ function calculateTimeInterval(date) {
     $scope.calculateTimeInterval = calculateTimeInterval;
 
   
-    // scroll
+    // SCROLL
     document
       .querySelector("#postContainer")
-      .addEventListener("wheel", function (e) {
-        if (this.scrollTop + this.clientHeight >= this.scrollHeight-10) {
-          // loadMore();
-          console.log("scrolling is cool!");
-          // posts.displayedPosts.push()
+      .addEventListener("wheel", function(e) {
+        if (this.scrollTop + this.clientHeight >= this.scrollHeight - 80) {
+          if($scope.posts.allPostsLoaded)return;
+          if ($scope.posts.busy) {
+            console.log("chkaj brat zaet sam");
+            return;
+          }
+          console.log($scope.posts.busy)
+          $scope.posts.busy = true;
+          var numberOfDisplayedPost = $scope.posts.displayedPosts.length;
+          if (!$scope.profile.posts) return;
+          var totalNumberOfPosts = $scope.profile.posts.length;
+          var position = totalNumberOfPosts - numberOfDisplayedPost - 1;
+          if (position >= 0) {
+            console.log("sq uj shte pokazvam post nomer " + position + " ot tvoq masiv");
+            let postId = $scope.profile.posts[position];
+            $scope.posts.displayPost(postId).then(res => {
+              $scope.posts.busy = false;
+            });
+          } else {
+            $scope.$apply(function() {
+              console.log("nqma poveche");
+              $scope.posts.allPostsLoaded = true;
+              console.log($scope.posts.allPostsLoaded);
+            });
+
+            // $scope.posts.busy = false;
+          }
         }
-        
-        // console.log(this.getBoundingClientRect())
       });
-
-    console.log($scope.profile);
-
+    // DISPLAY POST FUNCTION
     // takes an post id loads its date and that for the associated users,
     // forms it as a post and pushes that post to $scope.posts.displayedPosts
-    $scope.posts.displayPost=function(postId) {
-      PostService.getPost(postId).then(post => {
-        console.log(post)
-        // post owner
+    $scope.posts.displayPost=function(postId ,top) {
+     return PostService.getPost(postId).
+      then(post => {
+        // POST OWNER INFO
         UserService.getById(post.ownerId).then(res => {
-          // console.log(res.data[0])
           var owner = {};
           var name1 = res.data[0].firstName;
           name1 = name1.charAt(0).toUpperCase() + name1.slice(1);
@@ -64,16 +82,11 @@ function calculateTimeInterval(date) {
           name2 = name2.charAt(0).toUpperCase() + name2.slice(1);
           owner.name = name1 + " " + name2;
           owner.photoUrl = res.data[0].profilePic;
-          post.owner = owner;
-          // console.log("owner id za toz post++=="+post.ownerId)
-          // console.log("lognat user===="+localStorage.getItem("loggedUserId") )
-          post.canEdit =(post.ownerId== localStorage.getItem("loggedUserId"));
-          // console.log("zarejdam ti sq toz post, no dali mojesh da go iztriesh--- "+post.canEdit)
-          post.editMode=false ;
-          // post.toggleEditMode=function(){
-          //   this.editMode=!this.editMode
-          // }
+          post.owner = owner;         
+  
           // DELETING A POST
+           post.canEdit =(post.ownerId== localStorage.getItem("loggedUserId"));
+          post.editMode=false ;
           post.delete = function() {
             bootbox.confirm(
               "Are you sure you want to delete this post",
@@ -101,9 +114,7 @@ function calculateTimeInterval(date) {
           // LIKING A POST
           post.liked=(post.likes.indexOf(localStorage.getItem("loggedUserId"))!=-1)
           post.like=function(){
-            console.log("me gusta -- "+post._id)
             PostService.likePost(localStorage.getItem("loggedUserId"),post._id).then(res=>{
-              // console.log(res)
               post.likes=res.data.likes;
               console.log("toz post sega ima "+post.likes.length+" likes.")
               post.liked=!post.liked
@@ -112,11 +123,10 @@ function calculateTimeInterval(date) {
           }
         });
 
-        //top comment owner
+        //TOP COMMENT
         if (post.comments && post.comments.length > 0) {
           var topComment = post.comments[post.comments.length-1];
           UserService.getById(topComment.ownerId).then(res => {
-            // console.log(res.data)
             topComment.owner = {};
             var name1 = res.data[0].firstName;
             name1 = name1.charAt(0).toUpperCase() + name1.slice(1);
@@ -130,12 +140,15 @@ function calculateTimeInterval(date) {
           console.log("nqma komentari");
         }
         // console.log(JSON.stringify(post));
-        $scope.posts.displayedPosts.push(post);
+        if (top) {
+          $scope.posts.displayedPosts.unshift(post);
+        } else {
+          $scope.posts.displayedPosts.push(post);
+        }
+    
       });
     }
-
-
-
+    // USER
     var userId = $routeParams.id;
     UserService.getById(userId)
     //get firend list filled
@@ -150,14 +163,10 @@ function calculateTimeInterval(date) {
         
         return r;
       })
-      .then(r => {
-         //LOADING POSTS
+      //LOADING NEWEST POST OF THAT USER
+      .then(r => {         
         $scope.profile = r.data[0];
         return r.data[0].posts;
-        // $scope.profile=r 
-        console.log("tuka v kontrollera ---")
-        console.log(r)
-        return r.posts
       })
       .then(postIds => {
         if (!postIds) {
@@ -165,17 +174,17 @@ function calculateTimeInterval(date) {
           return;
         }
         console.log("imash " + postIds.length + " i shte ti gi dam");
-        postIds.forEach((postId, index) => {
-          console.log("post nomer" + index)
-          $scope.posts.displayPost(postId)
-          });
+        console.log("Ama edin po edin ..")
+        var newestPostId=postIds[postIds.length-1]
+        $scope.posts.displayPost(newestPostId)
+        // postIds.forEach((postId, index) => {
+        //   console.log("post nomer" + index)
+        //   $scope.posts.displayPost(postId)
+        //   });
       })
       .catch(err => console.log(err));
 
-
-
-    // UserService.getAndSafeLoggedUser(userId)
-    //add post attached to profile page
+    //ADD POST attached to profile page
     function addPost() {
       if (!$scope.newPost.text || $scope.newPost.text.trim().length < 2) {
         $scope.newPost.placeholder = "Can't post an empty post.";
@@ -187,7 +196,7 @@ function calculateTimeInterval(date) {
         if (res.status == 200) {
           $scope.newPost.placeholder = "Thank you for posting.";
           console.log(res.newPostId)
-          $scope.posts.displayPost(res.newPostId)
+          $scope.posts.displayPost(res.newPostId,true)
           return res.newPostId
         } else {
           $scope.newPost.placeholder =
@@ -195,6 +204,7 @@ function calculateTimeInterval(date) {
         }
       });
     }
+    //ADD COMMENT
     function addComment(postId) {
       if (!$scope.newComment.text || $scope.newComment.text.trim().length < 2) {
         $scope.newComment.placeholder = "Can't post an empty comment.";

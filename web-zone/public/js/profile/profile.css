@@ -317,3 +317,42 @@ memberblock {
 .card-content {
   height: 20% !important;  
 }
+.col-lg-8{
+  max-height: 500px !important;
+}
+.col-lg-12{
+  max-height: 180px !important;
+}
+.pleaseWait{
+  background: #ddd;
+  display: inline-block;
+  position: relative;
+  text-align: center;
+  font-size: 1.7em;
+  padding-top:0.5em;
+  border-radius: 0.2em;
+  height: 2.7em;
+  width: 100%
+}
+
+.spinner-1:before {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  margin-top: -20px;
+  margin-left: -20px;
+  border-radius: 50%;
+  border: 3px solid lightgray;
+  border-top-color: coral;
+  animation: spinner 0.7s linear infinite;
+}
+
+@keyframes spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}
