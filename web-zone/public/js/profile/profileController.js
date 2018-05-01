@@ -44,14 +44,12 @@ function calculateTimeInterval(date) {
             console.log("chkaj brat zaet sam");
             return;
           }
-          console.log($scope.posts.busy)
           $scope.posts.busy = true;
           var numberOfDisplayedPost = $scope.posts.displayedPosts.length;
           if (!$scope.profile.posts) return;
           var totalNumberOfPosts = $scope.profile.posts.length;
           var position = totalNumberOfPosts - numberOfDisplayedPost - 1;
           if (position >= 0) {
-            console.log("sq uj shte pokazvam post nomer " + position + " ot tvoq masiv");
             let postId = $scope.profile.posts[position];
             $scope.posts.displayPost(postId).then(res => {
               $scope.posts.busy = false;
@@ -60,10 +58,7 @@ function calculateTimeInterval(date) {
             $scope.$apply(function() {
               console.log("nqma poveche");
               $scope.posts.allPostsLoaded = true;
-              console.log($scope.posts.allPostsLoaded);
             });
-
-            // $scope.posts.busy = false;
           }
         }
       });
@@ -123,23 +118,19 @@ function calculateTimeInterval(date) {
           }
         });
 
-        //TOP COMMENT
-        if (post.comments && post.comments.length > 0) {
-          var topComment = post.comments[post.comments.length-1];
-          UserService.getById(topComment.ownerId).then(res => {
-            topComment.owner = {};
-            var name1 = res.data[0].firstName;
-            name1 = name1.charAt(0).toUpperCase() + name1.slice(1);
-            var name2 = res.data[0].lastName;
-            name2 = name2.charAt(0).toUpperCase() + name2.slice(1);
-            topComment.owner.name = name1 + " " + name2;
-            topComment.owner.photoUrl = res.data[0].profilePic;
-            post.topComment = topComment;
-          });
-        } else {
-          console.log("nqma komentari");
-        }
+        //COMMENTS
+        post.displayedComments=[]
+        console.log(post)
+        $scope.posts.displayNextComment(post)  
+        post.displayAllComments=function($event){
+          $event.preventDefault()
+          console.log("shte pokaja vsichki comentari")
+          // while(post.comments.length>post.displayedComments.length){
+            $scope.posts.displayNextComment(post)
+          // }
+        }      
         // console.log(JSON.stringify(post));
+        //ADDING THE POST TO THE ARRAY
         if (top) {
           $scope.posts.displayedPosts.unshift(post);
         } else {
@@ -148,19 +139,43 @@ function calculateTimeInterval(date) {
     
       });
     }
+    // DISPLAY COMMENT FUNCTION
+    $scope.posts.displayNextComment = function(post) {
+      var totalComments=post.comments.length
+      var displayedComments=post.displayedComments.length
+      let position=totalComments-1-displayedComments
+      
+      if (post.comments && position>0) {
+      console.log("Shte izkaram kometra na poziciq  "+position)
+      var comment = post.comments[position];
+      console.log(comment)
+        UserService.getById(comment.ownerId).then(res => {
+         comment.owner = {};
+          var name1 = res.data[0].firstName;
+          name1 = name1.charAt(0).toUpperCase() + name1.slice(1);
+          var name2 = res.data[0].lastName;
+          name2 = name2.charAt(0).toUpperCase() + name2.slice(1);
+          comment.owner.name = name1 + " " + name2;
+          comment.owner.photoUrl = res.data[0].profilePic;
+          console.log("gotov comment")
+          console.log(comment)
+          post.displayedComments.push(comment)
+        });
+      } else {
+        console.log("nqma komentari");
+      }
+    };
     // USER
     var userId = $routeParams.id;
     UserService.getById(userId)
     //get firend list filled
       .then(r => {
-        var friendsArr = r.data[0].friends;
-        
+        var friendsArr = r.data[0].friends;        
         friendsArr.forEach(function (friendId) {
           UserService.getById(friendId).then(function (user) {
             $scope.profileFriends.push(user.data[0]);
           })
-        })
-        
+        })        
         return r;
       })
       //LOADING NEWEST POST OF THAT USER
@@ -175,12 +190,9 @@ function calculateTimeInterval(date) {
         }
         console.log("imash " + postIds.length + " i shte ti gi dam");
         console.log("Ama edin po edin ..")
+        //First post
         var newestPostId=postIds[postIds.length-1]
         $scope.posts.displayPost(newestPostId)
-        // postIds.forEach((postId, index) => {
-        //   console.log("post nomer" + index)
-        //   $scope.posts.displayPost(postId)
-        //   });
       })
       .catch(err => console.log(err));
 

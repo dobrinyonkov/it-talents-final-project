@@ -49,26 +49,26 @@
             </div>
             <div class="inner-all block">
                 view all
-                <a href="#">{{post.comments.length}} comments</a>
+                <a href="#" ng-click=post.displayAllComments($event)>{{post.comments.length}} comments</a>
             </div>
             <!-- /.inner-all -->
 
             <!-- COMMENT -->
             <div class="line no-margin"></div>
             <!-- /.line -->
-            <div ng-if="post.topComment" class="comment card-footer">
+            <div ng-repeat="comment in post.displayedComments" class="comment card-footer">
                 <div class="media inner-all no-margin">
                     <div class="float-left">
-                        <img class="mr-2 rounded-circle img-fluid img-bordered-primary" ng-src="{{post.topComment.owner.photoUrl}}" title:
-                            "{{post.topComment.owner.name}}" alt="...">
+                        <img class="mr-2 rounded-circle img-fluid img-bordered-primary" ng-src="{{comment.owner.photoUrl}}" title:
+                            "{{comment.owner.name}}" alt="...">
                     </div>
                     <!-- /.pull-left -->
                     <div class="media-body">
                         <a href="#" class="h6"></a>
-                        <small class="block text-muted">{{post.topComment.text}} </small>
+                        <small class="block text-muted">{{comment.text}} </small>
                         <p>
                             <em class="text-xs text-muted">Posted
-                                <span class="text-danger">{{calculatetime({date: post.topComment.date})}} </span>
+                                <span class="text-danger">{{calculatetime({date: comment.date})}} </span>
                             </em>
                         </p>
                     </div>
