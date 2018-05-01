@@ -30,7 +30,7 @@
 			<ul class="navbar-nav ml-auto mt-1">
 				<li class="nav-item">
 					<img data-no-retina="" class="img-fit w-40 img-fluid rounded-circle d-block mx-auto img-bordered-primary mt-1 mb-2" ng-src="{{user.profilePic}}"
-					 alt="{{currentUser.firstName}} {{currentUser.lastName}}">
+					 alt="{{user.firstName}} {{user.lastName}}">
 				</li>
 				<li class="nav-item">
 					<a class="nav-link font-weight-bold" href="#!/profile/{{user._id}}">{{user.firstName}}</a>
@@ -46,20 +46,37 @@
 							<i class="fas fa-users mt-1"></i>
 						</button>
 						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-							<p class="ml-2 font-weight-bold">Friend Requests</p>
-							<div ng-repeat="user in sendedFriendRequests track by $index">
+							<p class="ml-2 font-weight-bold">Received Friend Requests</p>
+							<div ng-repeat="friendReq in receivedFriendRequests track by $index">
 								<hr>
-								<a class="dropdown-item" href="#!/profile/{{user._id}}">
+								<a class="dropdown-item" href="#!/profile/{{friendReq._id}}">
 									<div class="row">
 										<div class="col- mr-2">
-											<img class="img-fit w-40 img-fluid rounded-circle d-block mx-auto" width="40" ng-src="{{user.profilePic}}" alt="">
+											<img class="img-fit w-40 img-fluid rounded-circle d-block mx-auto" width="40" ng-src="{{friendReq.profilePic}}" alt="">
 										</div>
 										<div class="col- mr-auto mt-2">
-											<p class="font-weight-bold">{{user.firstName}} {{user.lastName}}</p>
+											<p class="font-weight-bold">{{friendReq.firstName}} {{friendReq.lastName}}</p>
 										</div>
 										<div class="col- ml-auto">
-											<button class="btn btn-secondary btn-sm font-weight-bold">Confirm</button>
-											<button class="btn btn-primary btn-sm font-weight-bold">Delete</button>
+											<button ng-click="onConfirmFriendReuest({$event: $event, senderId:user._id, receiverId: friendReq._id})" class="btn btn-secondary btn-sm font-weight-bold">Confirm</button>
+											<button ng-click="onDeleteFriendReuest({$event: $event, senderId:user._id, receiverId: friendReq._id})" class="btn btn-primary btn-sm font-weight-bold">Delete</button>
+										</div>
+									</div>
+								</a>
+							</div>
+							<p class="ml-2 font-weight-bold">Sended Friend Requests</p>
+							<div ng-repeat="friendReq in sendedFriendRequests track by $index">
+								<hr>
+								<a class="dropdown-item" href="#!/profile/{{friendReq._id}}">
+									<div class="row">
+										<div class="col- mr-2">
+											<img class="img-fit w-40 img-fluid rounded-circle d-block mx-auto" width="40" ng-src="{{friendReq.profilePic}}" alt="">
+										</div>
+										<div class="col- mr-auto mt-2">
+											<p class="font-weight-bold">{{friendReq.firstName}} {{friendReq.lastName}}</p>
+										</div>
+										<div class="col- ml-auto">
+											<button ng-click="onDeleteFriendReuest({$event: $event, senderId:user._id, receiverId: friendReq._id})" class="btn btn-primary btn-sm font-weight-bold">Delete</button>
 										</div>
 									</div>
 								</a>
