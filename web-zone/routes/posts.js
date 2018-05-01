@@ -47,7 +47,7 @@ router.post("/", function(req, res, next) {
     }
   });
 });
-
+//ADDING COMMENTS
 router.put("/", function(req, res, next) {
   var postsCollection = req.db.get("posts");
 
@@ -57,7 +57,7 @@ router.put("/", function(req, res, next) {
 
   postsCollection.update({ _id:postId},{ $push:{comments:comment} }, function(err, data) {
     if (!err) {
-      res.json({ id: data._id });
+      res.json({});
     } else {
       res.status(500);
       res.json({ err: err });

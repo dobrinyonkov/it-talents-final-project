@@ -75,16 +75,28 @@ function calculateTimeInterval(date) {
           // }
           // DELETING A POST
           post.delete = function() {
-            if (!confirm("Are you sure you want to delete this post")) return;
-            console.log("shte iztiq");
-            PostService.deletePost(userId, post._id).then(response => {
-              if(response.status=200){
-                console.log("deleted")
-                $scope.posts.displayedPosts=$scope.posts.displayedPosts.filter(p=>p!=post)
-              }else{
-                alert("Sorry, we expirienced a problem and couldn't delete the post, please try againg later.")
+            bootbox.confirm(
+              "Are you sure you want to delete this post",
+              res => {
+                console.log(res);
+                if (!res) return;
+                console.log("shte iztiq");
+                PostService.deletePost(userId, post._id).then(
+                  response => {
+                    if ((response.status = 200)) {
+                      console.log("deleted");
+                      $scope.posts.displayedPosts = $scope.posts.displayedPosts.filter(
+                        p => p != post
+                      );
+                    } else {
+                      alert(
+                        "Sorry, we expirienced a problem and couldn't delete the post, please try againg later."
+                      );
+                    }
+                  }
+                );
               }
-            });
+            );
           };
           // LIKING A POST
           post.liked=(post.likes.indexOf(localStorage.getItem("loggedUserId"))!=-1)
@@ -102,8 +114,8 @@ function calculateTimeInterval(date) {
 
         //top comment owner
         if (post.comments && post.comments.length > 0) {
-          var topComment = post.comments[0];
-          UserService.getById(post.comments[0].ownerId).then(res => {
+          var topComment = post.comments[post.comments.length-1];
+          UserService.getById(topComment.ownerId).then(res => {
             // console.log(res.data)
             topComment.owner = {};
             var name1 = res.data[0].firstName;
@@ -170,7 +182,7 @@ function calculateTimeInterval(date) {
         return;
       }
       console.log($scope.profile._id);
-      PostService.addPost($scope.profile._id, $scope.newPost.text).then(res => {
+      PostService.addPost(localStorage.getItem("loggedUserId") , $scope.newPost.text, $scope.profile._id).then(res => {
         $scope.newPost.text = "";
         if (res.status == 200) {
           $scope.newPost.placeholder = "Thank you for posting.";
@@ -190,9 +202,16 @@ function calculateTimeInterval(date) {
       }
       PostService.addComment(
         postId,
-        $scope.profile._id,
+        localStorage.getItem("loggedUserId"),
         $scope.newComment.text
-      ).then(sessionStorage.clear("loggedUser"))
+      ).then(res=>{
+        res=JSON.parse(res)
+        var postWithSuchId=$scope.posts.displayedPosts.find(p=>p._id==postId);
+        postWithSuchId.comments.push(res)
+        postWithSuchId.topComment=res
+        $scope.newComment.text=""
+        $scope.newComment.placeholder="Thanks for the comment."
+      })
       
     }
   });

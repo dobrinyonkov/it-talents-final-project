@@ -25,13 +25,17 @@ app.service("PostService", function($http,UserService) {
     return $http.put("/api/posts/", {
       postId: postId,
       newComment: newC
+    })
+    .then(res=>{
+    //  emi po hubavo tva da vrashta ama neka e vaa then che da sigurno che drugoto si svarshilo rabotata
+      return newC
     });
   };
   Post.prototype.deleteComment = function(id) {};
 
   // ADD POST
   this.addPost = addPost;
-  function addPost(ownerId, text) {
+  function addPost(ownerId, text, friendId) {
     var newP = new Post(ownerId, text);
     console.log(newP);
     newP = JSON.stringify(newP);
@@ -45,7 +49,11 @@ app.service("PostService", function($http,UserService) {
         return newPostId;
       })
       .then(newPostId => {
-        return UserService.addPost(ownerId, newPostId);
+        if (friendId) {
+          return UserService.addPost(friendId, newPostId);
+        } else {
+          return UserService.addPost(ownerId, newPostId);
+        }
       });
   }
 // DELETE POST

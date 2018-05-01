@@ -80,35 +80,25 @@ router.put('/update/:id', function (req, res, next) {
   })
 });
 // ADD POST
-router.put('/addpost', function (req, res, next) {
-  console.log("taz zaqvka hvashta tekish")
+router.put("/addpost", function(req, res, next) {
+  console.log("taz zaqvka hvashta tekish");
   var postId = req.body.postId;
   var userId = req.body.userId;
-  var userCollection = req.db.get('users');
+  var userCollection = req.db.get("users");
 
-  userCollection.find({ _id: userId }, {}, function (err, docs) {
-    if (err) {
-      res.status(404).send({
-        message: "Not Found"
-      })
-    } else {
-      if (docs[0].token !== req.token) {
-        res.status(403).send({
-          message: 'Not Authorized'
-        });
+  userCollection.findOneAndUpdate(
+    { _id: userId },
+    { $push: { posts: postId } },
+    function(err, docs) {
+      if (err) {
+        res.status(500);
+        res.json(err);
       } else {
-        userCollection.findOneAndUpdate({ _id: userId }, { $push: { posts: postId } }, function (err, docs) {
-          if (err) {
-            res.status(500);
-            res.json(err);
-          } else {
-            res.status(200);
-            res.json(docs);
-          }
-        })
+        res.status(200);
+        res.json(docs);
       }
     }
-  })
+  );
 });
 //DELETE POST
 router.post("/deletepost",function(req,res,next){
