@@ -58,13 +58,13 @@
 											<p class="font-weight-bold">{{friendReq.firstName}} {{friendReq.lastName}}</p>
 										</div>
 										<div class="col- ml-auto">
-											<button ng-click="onConfirmFriendReuest({$event: $event, senderId:user._id, receiverId: friendReq._id})" class="btn btn-secondary btn-sm font-weight-bold">Confirm</button>
-											<button ng-click="onDeleteFriendReuest({$event: $event, senderId:user._id, receiverId: friendReq._id})" class="btn btn-primary btn-sm font-weight-bold">Delete</button>
+											<button ng-click="onConfirmFriendReuest({$event: $event, senderId:friendReq._id, receiverId: user._id})" class="btn btn-secondary btn-sm font-weight-bold">Confirm</button>
+											<button ng-click="onDeleteFriendReuest({$event: $event, senderId:friendReq._id, receiverId: user._id})" class="btn btn-primary btn-sm font-weight-bold">Delete</button>
 										</div>
 									</div>
 								</a>
 							</div>
-							<p class="ml-2 font-weight-bold">Sended Friend Requests</p>
+							<!-- <p class="ml-2 font-weight-bold">Sended Friend Requests</p>
 							<div ng-repeat="friendReq in sendedFriendRequests track by $index">
 								<hr>
 								<a class="dropdown-item" href="#!/profile/{{friendReq._id}}">
@@ -76,11 +76,11 @@
 											<p class="font-weight-bold">{{friendReq.firstName}} {{friendReq.lastName}}</p>
 										</div>
 										<div class="col- ml-auto">
-											<button ng-click="onDeleteFriendReuest({$event: $event, senderId:user._id, receiverId: friendReq._id})" class="btn btn-primary btn-sm font-weight-bold">Delete</button>
+											<button ng-click="onDeleteFriendReuest({$event: $event, senderId:friendReq._id, receiverId: user._id})" class="btn btn-primary btn-sm font-weight-bold">Delete</button>
 										</div>
 									</div>
 								</a>
-							</div>
+							</div> -->
 						</div>
 					</div>
 				</li>

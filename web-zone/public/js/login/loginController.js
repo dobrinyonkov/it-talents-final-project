@@ -33,11 +33,11 @@ function validatePass(password) {
         LoginService.login($scope.user.email, $scope.user.password)
           .then(r => {
             console.log(r);
+            $scope.isLogged = true;
             $scope.loginErorr = "";
             $window.localStorage.setItem("token", r.data.token);
             $window.localStorage.setItem("loggedUserId", r.data.data._id);            
             $window.location = `#!/profile/${r.data.data._id}`;
-            $rootScope.isLogged = true;
           })
           .catch(e => {
             $scope.loginErorr = "Wrong email or password";
@@ -59,8 +59,8 @@ function validatePass(password) {
       ) {
         LoginService.create(newUser).then(r => {
           $window.localStorage.setItem("token", r.data.token);
+          $window.localStorage.setItem("loggedUserId", r.data.data._id);                      
           window.location = `#!/profile/${r.data.data._id}`;
-          $rootScope.isLogged = true;          
         });
       } else {
         $scope.errors[5] = true;

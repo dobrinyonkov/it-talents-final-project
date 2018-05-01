@@ -39,6 +39,8 @@ router.delete('/delete/:senderId/:receiverId', function (req, res) {
     var senderId = req.params.senderId;
     var receiverId = req.params.receiverId;
     var userCollection = req.db.get('users');
+    console.log(senderId);
+    console.log(receiverId);
 
     // remove reciverId sendedRequest array at sender user 
     Promise.all([userCollection.findOneAndUpdate(
@@ -69,15 +71,14 @@ router.put('/confirm', function (req, res) {
     // push receiverId to friends array at sender user
     Promise.all([userCollection.findOneAndUpdate(
         { _id: senderId },
-        { $push: { friends: receiverId } },
-        { $pull: { sendedReqeusts: receiverId } }
+        { $push: { friends: receiverId }, $pull: { sendedReqeusts: receiverId } }
+        
     ),
     // remove senderId from receivedReqeusts array at receiver user 
     // push senderId to friends array at receiver user
     userCollection.findOneAndUpdate(
         { _id: receiverId },
-        { $push: { friends: senderId } },
-        { $pull: { receivedReqeusts: senderId } }
+        { $push: { friends: senderId }, $pull: { receivedReqeusts: senderId }  }
     )
     ])
         .then(function (values) {
