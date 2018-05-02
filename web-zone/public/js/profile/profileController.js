@@ -68,6 +68,11 @@ function calculateTimeInterval(date) {
     $scope.posts.displayPost=function(postId ,top) {
      return PostService.getPost(postId).
       then(post => {
+
+        // p = new Post();
+        // for (var prop in post) {
+        //   p[prop] = post[prop];
+        // }
         // POST OWNER INFO
         UserService.getById(post.ownerId).then(res => {
           var owner = {};
@@ -78,9 +83,11 @@ function calculateTimeInterval(date) {
           owner.name = name1 + " " + name2;
           owner.photoUrl = res.data[0].profilePic;
           post.owner = owner;         
+
+
   
           // DELETING A POST
-           post.canEdit =(post.ownerId== localStorage.getItem("loggedUserId"));
+          post.canEdit =(post.ownerId== localStorage.getItem("loggedUserId"));
           post.editMode=false ;
           post.delete = function() {
             bootbox.confirm(
@@ -119,16 +126,16 @@ function calculateTimeInterval(date) {
         });
 
         //COMMENTS
-        post.displayedComments=[]
+        post.displayedComments = []
         console.log(post)
-        $scope.posts.displayNextComment(post)  
-        post.displayAllComments=function($event){
+        $scope.posts.displayNextComment(post)
+        //function attached "onClick" on "view all Comments"
+        post.displayAllComments = function ($event) {
           $event.preventDefault()
-          console.log("shte pokaja vsichki comentari")
-          // while(post.comments.length>post.displayedComments.length){
-            $scope.posts.displayNextComment(post)
-          // }
-        }      
+          var remaining = post.comments.length - post.displayedComments.length
+          if (remaining<=0)return
+          return $scope.posts.displayNextComment(post).then(()=>{post.displayAllComments($event)})         
+        }
         // console.log(JSON.stringify(post));
         //ADDING THE POST TO THE ARRAY
         if (top) {
@@ -136,35 +143,35 @@ function calculateTimeInterval(date) {
         } else {
           $scope.posts.displayedPosts.push(post);
         }
-    
-      });
-    }
-    // DISPLAY COMMENT FUNCTION
-    $scope.posts.displayNextComment = function(post) {
-      var totalComments=post.comments.length
-      var displayedComments=post.displayedComments.length
-      let position=totalComments-1-displayedComments
-      
-      if (post.comments && position>0) {
-      console.log("Shte izkaram kometra na poziciq  "+position)
-      var comment = post.comments[position];
-      console.log(comment)
-        UserService.getById(comment.ownerId).then(res => {
-         comment.owner = {};
-          var name1 = res.data[0].firstName;
-          name1 = name1.charAt(0).toUpperCase() + name1.slice(1);
-          var name2 = res.data[0].lastName;
-          name2 = name2.charAt(0).toUpperCase() + name2.slice(1);
-          comment.owner.name = name1 + " " + name2;
-          comment.owner.photoUrl = res.data[0].profilePic;
-          console.log("gotov comment")
-          console.log(comment)
-          post.displayedComments.push(comment)
+
         });
-      } else {
-        console.log("nqma komentari");
-      }
-    };
+        }
+        // DISPLAY COMMENT FUNCTION
+        $scope.posts.displayNextComment = function (post) {
+          var totalComments = post.comments.length
+          var displayedComments = post.displayedComments.length
+          let position = totalComments - 1 - displayedComments
+
+          if (post.comments && position >= 0) {
+            console.log("#####Shte izkaram kometra na poziciq  " + position)
+            var comment = post.comments[position];
+            console.log(comment)
+            return UserService.getById(comment.ownerId).then(res => {
+              comment.owner = {};
+              var name1 = res.data[0].firstName;
+              name1 = name1.charAt(0).toUpperCase() + name1.slice(1);
+              var name2 = res.data[0].lastName;
+              name2 = name2.charAt(0).toUpperCase() + name2.slice(1);
+              comment.owner.name = name1 + " " + name2;
+              comment.owner.photoUrl = res.data[0].profilePic;
+              // console.log("gotov comment")
+              // console.log(comment)
+              post.displayedComments.push(comment)
+            });
+          } else {
+            console.log("nqma komentari");
+          }
+        };
     // USER
     var userId = $routeParams.id;
     UserService.getById(userId)
@@ -188,8 +195,8 @@ function calculateTimeInterval(date) {
           console.log("emi ti nqmash postove , kvo iskash da vidish");
           return;
         }
-        console.log("imash " + postIds.length + " i shte ti gi dam");
-        console.log("Ama edin po edin ..")
+        // console.log("imash " + postIds.length + " i shte ti gi dam");
+        // console.log("Ama edin po edin ..")
         //First post
         var newestPostId=postIds[postIds.length-1]
         $scope.posts.displayPost(newestPostId)

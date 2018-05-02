@@ -13,6 +13,7 @@ app.directive('navigation', function () {
             sendedFriendRequests: '=',
             receivedFriendRequests: '=',
             searchUser: '&',
+            logout:"&",
             selectUser: '&',
             onFirendRequests: '&',
             onConfirmFriendReuest: '&',

@@ -57,5 +57,15 @@
                 })
             }, 0);
         }
+        $scope.logout=function($event){
+            $event.preventDefault()
+            console.log("dobre shte te otpisha")
+            localStorage.clear()
+            $timeout(function () {
+                $scope.$apply(function () {
+                    $window.location = `#!/login`;
+                })
+            }, 0);
+        }
     });
 })();

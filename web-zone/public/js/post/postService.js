@@ -1,6 +1,6 @@
 app.service("PostService", function($http,UserService) {
   this.greeting1 = "hi from the angular service";
-
+//constuctors dont have methots because their instances are passed to a db
   // POST CONSTRUCTOR
   function Post(ownerId, text, photo) {
     this.text = text;
@@ -18,6 +18,7 @@ app.service("PostService", function($http,UserService) {
     this.text = text;
     this.date = new Date();
   }
+
   //ADD COMMENT  on the post for the moment
   this.addComment = function(postId, ownerId, text) {
     var newC = new Comment(ownerId, text);
@@ -31,8 +32,6 @@ app.service("PostService", function($http,UserService) {
       return newC
     });
   };
-  Post.prototype.deleteComment = function(id) {};
-
   // ADD POST
   this.addPost = addPost;
   function addPost(ownerId, text, friendId) {
@@ -56,7 +55,7 @@ app.service("PostService", function($http,UserService) {
         }
       });
   }
-// DELETE POST
+  // DELETE POST
   this.deletePost = function( userId,postId) {
     // deleting from the post data collection
     console.log("post services poluchi zaqvka za triene nat toz post--"+postId+" na toz user "+ userId)
@@ -69,7 +68,6 @@ app.service("PostService", function($http,UserService) {
   function getPost(id) {
     return $http.get("/api/posts/" + id).then(r => r.data);
   }
-
   // LIKE POST
   this.likePost=function(userId,postId){
     return $http.put("http://localhost:9000/api/posts/like",{
