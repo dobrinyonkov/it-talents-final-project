@@ -182,7 +182,7 @@ function calculateTimeInterval(date) {
    };
     //ADD POST - attached to profile page
     function addPost() {
-      if (!$scope.newPost.text || $scope.newPost.text.trim().length < 2) {
+      if (!$scope.newPost.text || $scope.newPost.text.trim().length < 1) {
         $scope.newPost.placeholder = "Can't post an empty post.";
         return;
       }
@@ -196,6 +196,7 @@ function calculateTimeInterval(date) {
         $scope.newPost.text = "";
         if (res.status == 200) {
           $scope.newPost.placeholder = "Thank you for posting.";
+          $scope.newPost.photoUrl='';
           console.log(res.newPostId);
           $scope.posts.displayPost(res.newPostId, true);
           return res.newPostId;
@@ -215,7 +216,7 @@ function calculateTimeInterval(date) {
           console.log(r.data.url)
           $scope.newPost.photoUrl= r.data.url;
           $scope.newPost.busy=false
-        });
+        }).catch(()=>{alert("We couldn't locate the resource, pleace try again a different image.")})
     });
   });
 })();
