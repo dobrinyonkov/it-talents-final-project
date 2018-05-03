@@ -46,8 +46,8 @@
                                 <div ng-if="isOnwer" class="btn-group-vertical btn-block">
                                     <a ng-click="onChangeMode()" href="" class="btn btn-secondary">
                                         <i class="fa fa-cog float-right"></i>{{!editMode ? 'Edit Account' : 'Save'}}</a>
-                                    <a href="" class="btn btn-secondary">
-                                        <i class="fas fa-sign-in-alt float-right"></i>Logout</a>
+                                    <a ng-click="logout($event)" href="" class="btn btn-secondary">
+                                        <i class="fas fa-sign-in-alt float-right" ></i>Logout</a>
                                 </div>
                             </li>
                         </ul>

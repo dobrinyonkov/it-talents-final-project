@@ -67,25 +67,8 @@ function calculateTimeInterval(date) {
     // forms it as a post and pushes that post to $scope.posts.displayedPosts
     $scope.posts.displayPost=function(postId ,top) {
      return PostService.getPost(postId).
-      then(post => {
-
-        // p = new Post();
-        // for (var prop in post) {
-        //   p[prop] = post[prop];
-        // }
-        // POST OWNER INFO
-        UserService.getById(post.ownerId).then(res => {
-          var owner = {};
-          var name1 = res.data[0].firstName;
-          name1 = name1.charAt(0).toUpperCase() + name1.slice(1);
-          var name2 = res.data[0].lastName;
-          name2 = name2.charAt(0).toUpperCase() + name2.slice(1);
-          owner.name = name1 + " " + name2;
-          owner.photoUrl = res.data[0].profilePic;
-          post.owner = owner;         
-
-
-  
+      then(post =>post.loadOwnerInfo()).
+      then(post=>{
           // DELETING A POST
           post.canEdit =(post.ownerId== localStorage.getItem("loggedUserId"));
           post.editMode=false ;
@@ -98,7 +81,7 @@ function calculateTimeInterval(date) {
                 console.log("shte iztiq");
                 PostService.deletePost(localStorage.getItem("loggedUserId"), post._id).then(
                   response => {
-                    if ((response.status = 200)) {
+                    if ((response.status == 200)) {
                       console.log("deleted");
                       $scope.posts.displayedPosts = $scope.posts.displayedPosts.filter(
                         p => p != post
@@ -123,7 +106,7 @@ function calculateTimeInterval(date) {
             })
             
           }
-        });
+        // });
 
         //COMMENTS
         post.displayedComments = []
