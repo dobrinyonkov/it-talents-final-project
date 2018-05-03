@@ -67,6 +67,7 @@ router.put("/", function(req, res, next) {
 // LIKING POST
 router.put("/like",function(req,res,next){
   var postCollection = req.db.get("posts");
+
   var userId=req.body.userId;
   var postId=req.body.postId;
   console.log(" user s id "+userId+" shte haresa post s id "+postId )

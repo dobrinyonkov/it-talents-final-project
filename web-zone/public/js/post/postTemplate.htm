@@ -82,9 +82,9 @@
         <div class="your-comment card-footer">
             <form action="#" class="">
                 <div class="input-group has-feedback no-margin">
-                    <input type="text" ng-model=post.newComment.text class="form-control form-control-sm" placeholder={{post.newComment.placeholder}}>
+                    <input type="text" ng-model=newcomment.text class="form-control form-control-sm" placeholder={{newcomment.placeholder}}>
                     <span class="input-group-btn">
-                        <button ng-click=post.addNewComment() class="btn btn-purple" type="button">POST</button>
+                        <button ng-click=addcomment({postId:post._id}) class="btn btn-purple" type="button">POST</button>
                     </span>
                 </div>
             </form>
