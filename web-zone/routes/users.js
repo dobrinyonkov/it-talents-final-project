@@ -31,8 +31,29 @@ router.get('/:id', function (req, res, next) {
       res.json(err);
     } else {
       res.status(200);
-      delete docs[0].password
+      // delete docs[0].password
       res.json(docs);
+    }
+  })
+});
+
+router.get('/:id/friends', function (req, res, next) {
+  var userCollection = req.db.get('users');
+  var userId = req.params.id;
+  userCollection.find({ _id: userId }, {}, function (err, docs) {
+    if (err) {
+      res.status(500);
+      res.json(err);
+    } else {
+      userCollection.find({ _id: { $in: docs[0].friends } }, {}, function (err, docs) {
+        if (err) {
+          res.status(500);
+          res.json(err);
+        } else {
+          res.status(200);
+          res.json(docs);
+        }
+      })
     }
   })
 });

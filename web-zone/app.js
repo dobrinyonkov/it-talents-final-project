@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 // var session = require('express-session');
 var jwt = require("jsonwebtoken");
+var socket_io = require('socket.io');
 
 
 
@@ -23,10 +24,15 @@ var friendsRouter = require('./routes/friends');
 // var addPostRouter = require('./routes/addPost');
 var app = express();
 
-//socket.io
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
-var messengerRouter = require('./routes/messenger')(app,io, db);
+// Socket.io
+var io = socket_io();
+app.io = io;
+require('./routes/messenger')(app, db);
+
+
+// io.on("connection", function (socket) {
+//   console.log("A user connected");
+// });
 
 function ensureAuthorized(req, res, next) {
   var bearerToken;
@@ -61,9 +67,9 @@ app.use(function (req, res, next) {
 });
 
 // app.use(session({
-  //   secret: 'keyboard cat',
-  //   resave: false,
-  //   saveUninitialized: true,
+//   secret: 'keyboard cat',
+//   resave: false,
+//   saveUninitialized: true,
 // }));
 
 //vkarava mu bazata

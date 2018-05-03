@@ -1,0 +1,174 @@
+<div class="container bootstrap snippet">
+    <div class="tile tile-alt" id="messages-main">
+        <div class="ms-menu">
+            <div class="p-15">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                    New Message
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <input type="text" ng-change="searchUserToChat()" ng-model="nameToSearch" class="form-control">
+                                <ul ng-if="foundUsersToChat.length > 0" ng-repeat="foundUser in foundUsersToChat track by $index" class="list-group">
+                                    <li ng-click="selectUserToChat(foundUser)" class="list-group-item">{{foundUser.firstName}}</li>
+                                </ul>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="ms-user clearfix">
+                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="img-avatar pull-left">
+                <div>Signed in as
+                    <br> m-hollaway@gmail.com</div>
+            </div>
+
+
+            <div class="list-group lg-alt">
+
+                <a class="list-group-item media" href="">
+                    <div class="pull-left">
+                        <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="img-avatar">
+                    </div>
+                    <div class="media-body">
+                        <div class="list-group-item-heading">Paul Van Dack</div>
+                        <small class="list-group-item-text c-gray">Nam posuere purus sed velit auctor sodales</small>
+                    </div>
+                </a>
+
+                <a class="list-group-item media" href="">
+                    <div class="lv-avatar pull-left">
+                        <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="" class="img-avatar">
+                    </div>
+                    <div class="media-body">
+                        <div class="list-group-item-heading">James Anderson</div>
+                        <small class="list-group-item-text c-gray">Vivamus imperdiet sagittis quam</small>
+                    </div>
+                </a>
+
+                <a class="list-group-item media" href="">
+                    <div class="lv-avatar pull-left">
+                        <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="" class="img-avatar">
+                    </div>
+                    <div class="media-body">
+                        <div class="list-group-item-heading">Kane Williams</div>
+                        <small class="list-group-item-text c-gray">Suspendisse justo nulla luctus nec</small>
+                    </div>
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="ms-body">
+            <div class="action-header clearfix">
+                <div class="visible-xs" id="ms-menu-trigger">
+                    <i class="fa fa-bars"></i>
+                </div>
+
+                <div class="pull-left hidden-xs">
+                    <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="" class="img-avatar m-r-10">
+                    <div class="lv-avatar pull-left">
+
+                    </div>
+                    <span>David Parbell</span>
+                </div>
+
+                <ul class="ah-actions actions">
+                    <li>
+                        <a href="">
+                            <i class="fa fa-trash"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <i class="fa fa-check"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <i class="fa fa-clock-o"></i>
+                        </a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="" data-toggle="dropdown" aria-expanded="true">
+                            <i class="fa fa-sort"></i>
+                        </a>
+
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li>
+                                <a href="">Latest</a>
+                            </li>
+                            <li>
+                                <a href="">Oldest</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="" data-toggle="dropdown" aria-expanded="true">
+                            <i class="fa fa-bars"></i>
+                        </a>
+
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li>
+                                <a href="">Refresh</a>
+                            </li>
+                            <li>
+                                <a href="">Message Settings</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="message-feed media">
+                <div class="pull-left">
+                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="img-avatar">
+                </div>
+                <div class="media-body">
+                    <div class="mf-content">
+                        Quisque consequat arcu eget odio cursus, ut tempor arcu vestibulum. Etiam ex arcu, porta a urna non, lacinia pellentesque
+                        orci. Proin semper sagittis erat, eget condimentum sapien viverra et. Mauris volutpat magna nibh,
+                        et condimentum est rutrum a. Nunc sed turpis mi. In eu massa a sem pulvinar lobortis.
+                    </div>
+                    <small class="mf-date">
+                        <i class="fa fa-clock-o"></i> 20/02/2015 at 09:00</small>
+                </div>
+            </div>
+
+            <div class="message-feed right">
+                <div class="pull-right">
+                    <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="" class="img-avatar">
+                </div>
+                <div class="media-body">
+                    <div class="mf-content">
+                        Mauris volutpat magna nibh, et condimentum est rutrum a. Nunc sed turpis mi. In eu massa a sem pulvinar lobortis.
+                    </div>
+                    <small class="mf-date">
+                        <i class="fa fa-clock-o"></i> 20/02/2015 at 09:30</small>
+                </div>
+            </div>
+
+
+            <div class="msb-reply">
+                <textarea placeholder="What's on your mind..."></textarea>
+                <button>
+                    <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

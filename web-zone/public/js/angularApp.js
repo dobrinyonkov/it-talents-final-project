@@ -30,7 +30,11 @@ app.config(function ($routeProvider, $httpProvider) {
             controller: 'NewsFeedController',
             css: "js/news-feed/news-feed.css", 
         })
-
+        .when("/messenger", {
+            templateUrl: "js/messenger/messenger.htm",
+            controller: 'MessengerController',
+            css: "js/messenger/messenger.css", 
+        })
 
         $httpProvider.interceptors.push(function($q, $location, $window) {
             return {
