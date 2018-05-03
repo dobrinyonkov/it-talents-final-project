@@ -254,20 +254,23 @@
             </div>
             <!-- /.panel -->
             <div id="postContainer">
+                <div class="pleaseWait" ng-if="posts.displayedPosts.length==0">You don't have posts yet.</div>
                 <!-- Post from directive -->
-                <div ng-repeat="post in posts.displayedPosts track by $index">
-                    <post post=post newcomment=newComment addcomment=addComment(postId) getuser=getUserById(userId) calculatetime=calculateTimeInterval(date)>
-                    </post>
+                <div ng-if="posts.displayedPosts.length>0">
+                    <div ng-repeat="post in posts.displayedPosts track by $index">
+                        <post post=post newcomment=newComment addcomment=addComment(postId) getuser=getUserById(userId) calculatetime=calculateTimeInterval(date)>
+                        </post>
+                    </div>
+                    <!-- end of ng repeat-->
+                    <div ng-if="(posts.displayedPosts.length>1) && (!posts.allPostsLoaded)" class="pleaseWait spinner-1">
+                    </div>
+                    <div ng-if="(posts.displayedPosts.length==1)&& (!posts.allPostsLoaded)" class="pleaseWait">
+                        Scroll down for new posts.
+                    </div>
+                    <div ng-if="posts.allPostsLoaded" class="pleaseWait">
+                        No more posts.
+                    </div>
                 </div>
-                <!-- end of ng repeat-->
-                <div ng-if="(posts.displayedPosts.length>1) && (!posts.allPostsLoaded)"  class="pleaseWait spinner-1">
-                </div>
-                <div ng-if="posts.displayedPosts.length==1" class="pleaseWait">
-                   Scroll down for new posts.
-                </div>
-                <div ng-if="posts.allPostsLoaded" class="pleaseWait">
-                    No more posts.
-                 </div>
             </div>
             <!-- /.panel -->
         </div>

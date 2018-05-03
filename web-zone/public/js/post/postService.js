@@ -1,5 +1,6 @@
 
 app.service("PostService", function($http,UserService) {
+  const API_URL = 'http://localhost:9000/';
   function mergeNames(name1, name2){
     name1 = name1.charAt(0).toUpperCase() + name1.slice(1);
     name2 = name2.charAt(0).toUpperCase() + name2.slice(1);
@@ -27,6 +28,35 @@ app.service("PostService", function($http,UserService) {
       return post
     })
   }
+  Post.prototype.like = function(userId) {
+    var post = this;
+    return $http
+      .put("http://localhost:9000/api/posts/like", {
+        userId: userId,
+        postId: post._id
+      })
+      .then(res => {
+        if (res.status == 200) {
+          post.likes = res.data.likes;
+          post.liked=!post.liked
+          return post;
+        } else {
+          return new Error({ mess: "server error" });
+        }
+      });
+  };
+  Post.prototype.loadCommentWithOwnerData=function(position){
+    var post=this
+    if (position<0||position>post.comments.length)return;
+    var comment= JSON.parse(JSON.stringify(post.comments[position])) 
+    return UserService.getById(comment.ownerId).then(res => {
+      var owner = {};  
+      owner.name = mergeNames(res.data[0].firstName,res.data[0].lastName)
+      owner.photoUrl = res.data[0].profilePic;
+      comment.owner = owner; 
+      return comment
+    })    
+  }
   //COMMENT CONSTRUCTOR
   function Comment(ownerId, text) {
     this.ownerId = ownerId;
@@ -51,15 +81,11 @@ app.service("PostService", function($http,UserService) {
   this.addPost = addPost;
   function addPost(ownerId, text, friendId) {
     var newP = new Post(ownerId, text);
-    console.log(newP);
     newP = JSON.stringify(newP);
-    // newR=JSON.stringify(newP)
     return $http
       .post("http://localhost:9000/api/posts", newP)
       .then(res => {
         var newPostId = res.data.id;
-        // console.log("Na noviqt post id-to" )
-        // console.log(newPostId)
         return newPostId;
       })
       .then(newPostId => {
@@ -71,14 +97,16 @@ app.service("PostService", function($http,UserService) {
       });
   }
   // DELETE POST
-  this.deletePost = function( userId,postId) {
-    // deleting from the post data collection
-    console.log("post services poluchi zaqvka za triene nat toz post--"+postId+" na toz user "+ userId)
-
-    //updating the user
-     return UserService.deletePost(userId,postId).then(()=>{
-         $http.delete("http://localhost:9000/api/posts/" + postId);
-     }) 
+  this.deletePost = function(userId, postId) {
+    return $http
+      .post(`${API_URL}api/users/deletepost`, {
+        postId: postId,
+        userId: userId
+      })
+      .then(() => {
+      //  throw new Error("")<<--error catched succesufully
+       return $http.delete("http://localhost:9000/api/posts/" + postId);
+      });
   };
   //GET POST BY ID
   this.getPost = getPost;
@@ -92,13 +120,10 @@ app.service("PostService", function($http,UserService) {
       .get("/api/posts/" + id)
       .then(r => r.data)
       .then(post => {
-        console.log("post data given from db ");
-        console.log(post);
         p = new Post();
         for (var prop in post) {
           p[prop] = post[prop];
         }
-        console.log(p)
         return p;
       });
   }
