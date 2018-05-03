@@ -13,9 +13,13 @@ body {
   background-color: #563d7c !important;
   color: #e9ebee;
 }
-.post-header{
-  background: linear-gradient(to bottom left, #563d7c , rgb(125, 41, 146)) !important;
-  border: none !important
+.post-header {
+  background: linear-gradient(
+    to bottom left,
+    #563d7c,
+    rgb(125, 41, 146)
+  ) !important;
+  border: none !important;
 }
 
 .link {
@@ -84,17 +88,24 @@ body {
   }
 }
 @media (max-width: 560px) {
- .inner-all{
-   text-align: center;
- }
- ul.cover-menu{
-   padding-left:0 !important;
-   text-align: center !important;
-  
- }
+  .inner-all {
+    text-align: center;
+  }
+}
+ul.cover-menu {
+  padding-left: 0 !important;
+  text-align: center !important;
 }
 
+ul.cover-menu li {
+  width: 25%;
+}
 
+@media (max-width: 400px) {
+  ul.cover-menu li {
+    width: 50% !important;
+  }
+}
 /* ========================================================================
      * PROFILE
      * ======================================================================== */
@@ -145,7 +156,7 @@ body {
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
 }
-.profile-cover .cover ul.cover-menu{
+.profile-cover .cover ul.cover-menu {
   background-color: rgba(47, 20, 83, 0.493);
 }
 .profile-cover .cover ul.cover-menu li:hover {
@@ -182,37 +193,36 @@ body {
   height: 50px;
 }
 
-.fa-heart:hover  {
-  color: orangered
+.fa-heart:hover {
+  color: orangered;
 }
-.likedPost{
+.likedPost {
   color: firebrick;
 }
-.fa-cog{
+.fa-cog {
   margin-left: 2em;
 }
-.editPostOptions{
+.editPostOptions {
   background: white;
   color: black;
   position: absolute;
-  top:2.5em;
+  top: 2.5em;
   /* left: 80px; */
   padding: 0.2em;
   margin: none;
   z-index: 300;
   list-style: none;
-  width: 100px
+  width: 100px;
 }
-.editPostOptions>p{
- margin: 0px 0px 0px 1em !important;
- cursor: pointer;
+.editPostOptions > p {
+  margin: 0px 0px 0px 1em !important;
+  cursor: pointer;
 }
 .comment {
   border-bottom: #563d7c 1px solid;
   margin-bottom: 0.7em;
-
 }
-.comment img{
+.comment img {
   height: 2.5em;
   width: 2.5em;
 }
@@ -227,23 +237,23 @@ body {
   /* background-color: #e9ebee; */
   font-weight: bold;
 }
-.your-comment input{
-border-radius: 0.7em
+.your-comment input {
+  border-radius: 0.7em;
 }
-.new-post{
-  margin:auto;
+.new-post {
+  margin: auto;
   /* padding: 2px; */
   box-sizing: border-box;
   /* background-color: rgb(243, 227, 225); */
-  border: 1px solid dodgerblue
+  border: 1px solid dodgerblue;
 }
-.new-post .card-footer{
+.new-post .card-footer {
   /* height: 2em; */
   padding: 6px 10px;
 }
-p.date{
-font-style: italic;
-font-size: 0.8rem
+p.date {
+  font-style: italic;
+  font-size: 0.8rem;
 }
 /* #loggedUserInfo{
   border:3px black solid;
@@ -252,87 +262,87 @@ font-size: 0.8rem
 #profilePageWrapper{
   position: relative;
 } */
-#postContainer{
+#postContainer {
   min-height: 400px;
   max-height: 600px;
   overflow: scroll;
 }
-.post-content{
+.post-content {
   font-size: 3em;
   text-align: center;
 }
 
 .img-fit {
-  object-fit: cover; 
+  object-fit: cover;
   object-position: center; /* Center the image within the element */
   height: 200px;
   width: 200px;
 }
 
 .memberblock {
-	width: 100%;
-	float: left;
-	clear: both;
-	margin-bottom: 15px
+  width: 100%;
+  float: left;
+  clear: both;
+  margin-bottom: 15px;
 }
 .member {
-	width: 30%;
-	float: left;
-	margin: 2px 1% 2px 0;
-	background: #ffffff;
-	border: 1px solid #d8d0c3;
-	padding: 3px;
-	position: relative;
-	overflow: hidden
+  width: 30%;
+  float: left;
+  margin: 2px 1% 2px 0;
+  background: #ffffff;
+  border: 1px solid #d8d0c3;
+  padding: 3px;
+  position: relative;
+  overflow: hidden;
 }
 .memmbername {
-	position: absolute;
-	bottom: -30px;
-	background: rgba(0, 0, 0, 0.8);
-	color: #ffffff;
-	line-height: 30px;
-	padding: 0 5px;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-	overflow: hidden;
-	width: 100%;
-	font-size: 11px;
+  position: absolute;
+  bottom: -30px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #ffffff;
+  line-height: 30px;
+  padding: 0 5px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 100%;
+  font-size: 11px;
   transition: 0.5s ease all;
 }
 .member:hover .memmbername {
-	bottom: 0
+  bottom: 0;
 }
 .member img {
-	width: 100%;
-	transition: 0.5s ease all;
+  width: 100%;
+  transition: 0.5s ease all;
 }
 .member:hover img {
-	opacity: 0.8;
-	transform: scale(1.8)
+  opacity: 0.8;
+  transform: scale(1.8);
 }
 memberblock {
   max-height: 100%;
 }
 
 .card-content {
-  height: 20% !important;  
+  height: 20% !important;
 }
-.col-lg-8{
+.col-lg-8 {
   max-height: 500px !important;
 }
-.col-lg-12{
+.col-lg-12 {
   max-height: 180px !important;
 }
-.pleaseWait{
+.pleaseWait {
   background: #ddd;
   display: inline-block;
   position: relative;
   text-align: center;
   font-size: 1.7em;
-  padding-top:0.5em;
+  padding-top: 0.5em;
   border-radius: 0.2em;
   height: 2.7em;
-  width: 100%
+  width: 100%;
 }
 
 .spinner-1:before {
@@ -350,7 +360,26 @@ memberblock {
   border-top-color: coral;
   animation: spinner 0.7s linear infinite;
 }
+.image-upload > input {
+  display: none;
+}
+.image-upload img {
+  cursor: pointer;
+  height: 2em;
+}
+#photoholder {
+  position: relative;
+  width: 100%;
+}
+.big-photoholder{
+  height: 5em;  
+}
 
+#photoholder img {
+  width: 90%;
+  margin-left: 5%;
+  margin-bottom: 1em;
+}
 @keyframes spinner {
   to {
     transform: rotate(360deg);
