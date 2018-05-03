@@ -8,9 +8,9 @@
 		</button>
 			<form class="form-inline my-1 mx-sm-3 mr-auto">
 				<div class="input-group">
-					<input ng-change="searchUser()" list="users" ng-model="userName" type="text" class="form-control form-control-sm" placeholder="Search for...">
+					<input ng-change="searchUser()" list="$root.currentUsers" ng-model="$root.currentUserName" type="text" class="form-control" placeholder="Search for...">
 
-					<!-- <datalist id="users" ng-change="selectUser()" ng-model="selectedUserId">
+					<!-- <datalist id="$root.currentUsers" ng-change="selectUser()" ng-model="selectedUserId">
 						<option ng-repeat="foundUser in foundUsers track by $index" ng-value="foundUser._id">{{foundUser.firstName}}</option>
 					</datalist> -->
 					<select class="custom-select" ng-change="selectUser()" ng-model="selectedUserId">
@@ -25,11 +25,11 @@
 		<div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
 			<ul class="navbar-nav ml-auto mt-1">
 				<li class="nav-item">
-					<img data-no-retina="" class="img-fit w-40 img-fluid rounded-circle d-block mx-auto img-bordered-primary mt-1 mb-2" ng-src="{{user.profilePic}}"
-					 alt="{{user.firstName}} {{user.lastName}}">
+					<img data-no-retina="" class="img-fit w-40 img-fluid rounded-circle d-block mx-auto img-bordered-primary mt-1 mb-2" ng-src="{{$root.currentUser.profilePic}}"
+					 alt="{{$root.currentUser.firstName}} {{$root.currentUser.lastName}}">
 				</li>
 				<li class="nav-item">
-					<a class="nav-link font-weight-bold" href="#!/profile/{{user._id}}">{{user.firstName}}</a>
+					<a class="nav-link font-weight-bold" href="#!/profile/{{$root.currentUser._id}}">{{$root.currentUser.firstName}}</a>
 				</li>
 				<li class="nav-item">
 					<!-- <a class="nav-link font-weight-bold" href="#">
@@ -54,8 +54,8 @@
 											<p class="font-weight-bold">{{friendReq.firstName}} {{friendReq.lastName}}</p>
 										</div>
 										<div class="col- ml-auto">
-											<button ng-click="onConfirmFriendReuest({$event: $event, senderId:friendReq._id, receiverId: user._id})" class="btn btn-secondary btn-sm font-weight-bold">Confirm</button>
-											<button ng-click="onDeleteFriendReuest({$event: $event, senderId:friendReq._id, receiverId: user._id})" class="btn btn-primary btn-sm font-weight-bold">Delete</button>
+											<button ng-click="onConfirmFriendReuest({$event: $event, senderId:friendReq._id, receiverId: $root.currentUser._id})" class="btn btn-secondary btn-sm font-weight-bold">Confirm</button>
+											<button ng-click="onDeleteFriendReuest({$event: $event, senderId:friendReq._id, receiverId: $root.currentUser._id})" class="btn btn-primary btn-sm font-weight-bold">Delete</button>
 										</div>
 									</div>
 								</a>
@@ -72,7 +72,7 @@
 											<p class="font-weight-bold">{{friendReq.firstName}} {{friendReq.lastName}}</p>
 										</div>
 										<div class="col- ml-auto">
-											<button ng-click="onDeleteFriendReuest({$event: $event, senderId:friendReq._id, receiverId: user._id})" class="btn btn-primary btn-sm font-weight-bold">Delete</button>
+											<button ng-click="onDeleteFriendReuest({$event: $event, senderId:friendReq._id, receiverId: $root.currentUser._id})" class="btn btn-primary btn-sm font-weight-bold">Delete</button>
 										</div>
 									</div>
 								</a>

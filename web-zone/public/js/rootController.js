@@ -1,8 +1,8 @@
 (function () {
     angular
         .module('app')
-        .controller('RootController', function ($window, $routeParams, $scope, $timeout, $location, UserService) {
-            $scope.currentUser = {};
+        .controller('RootController', function ($rootScope, $window, $routeParams, $scope, $timeout, $location, UserService) {
+            $rootScope.currentUser = {};
             $scope.foundUsers = [];
             $scope.selectedUserId = '';
             $scope.userName;
@@ -48,8 +48,8 @@
                     var userId = $window.localStorage.getItem("loggedUserId");
                     UserService.getById(userId).then(data => {
                         console.log(data.data[0]);
-                        $scope.currentUser = data.data[0];
-                        $scope.currentUser.receivedReqeusts.forEach(userId => {
+                        $rootScope.currentUser = data.data[0];
+                        $rootScope.currentUser.receivedReqeusts.forEach(userId => {
                             // UserService.getById(userId).then(data => {
                             //     $scope.sendedFriendRequests.push(data.data[0]);
                             //     console.log($scope.sendedFriendRequests);
@@ -59,7 +59,7 @@
                                 console.log($scope.receivedFriendRequests);
                             });
                         });
-                        $scope.currentUser.sendedReqeusts.forEach(userId => {
+                        $rootScope.currentUser.sendedReqeusts.forEach(userId => {
                             UserService.getById(userId).then(data => {
                                 $scope.sendedFriendRequests.push(data.data[0]);
                                 console.log($scope.sendedFriendRequests);

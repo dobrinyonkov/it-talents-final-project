@@ -6,6 +6,8 @@ var logger = require('morgan');
 // var session = require('express-session');
 var jwt = require("jsonwebtoken");
 
+
+
 //database configuration
 var mongo = require('mongodb');
 var monk = require('monk');
@@ -21,6 +23,11 @@ var friendsRouter = require('./routes/friends');
 // var addPostRouter = require('./routes/addPost');
 var app = express();
 
+//socket.io
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+var messengerRouter = require('./routes/messenger')(app,io, db);
+
 function ensureAuthorized(req, res, next) {
   var bearerToken;
   var bearerHeader = req.headers["authorization"];
@@ -28,6 +35,7 @@ function ensureAuthorized(req, res, next) {
     var bearer = bearerHeader.split(" ");
     bearerToken = bearer[1];
     req.token = bearerToken;
+    //TODO jwt.verify
     next();
   } else {
     res.send(403);
@@ -53,9 +61,9 @@ app.use(function (req, res, next) {
 });
 
 // app.use(session({
-//   secret: 'keyboard cat',
-//   resave: false,
-//   saveUninitialized: true,
+  //   secret: 'keyboard cat',
+  //   resave: false,
+  //   saveUninitialized: true,
 // }));
 
 //vkarava mu bazata
@@ -71,6 +79,7 @@ app.use('/api/signup', signupRouter);
 // app.use('/api/file', ensureAuthorized, fileRouter);
 app.use('/api/friends', /*ensureAuthorized,*/ friendsRouter);
 //posts
+// app.use('/api/messenger', messengerRouter);
 app.use('/api/posts',/* ensureAuthorized,*/ postsRouter);
 //add post test page
 // app.use('/addPost', addPostRouter);

@@ -7,7 +7,6 @@ app.directive('navigation', function () {
         scope: {
             currentUser: '=',
             userName: '=',
-            user: '=',
             foundUsers: '=',
             selectedUserId: '=',
             sendedFriendRequests: '=',
