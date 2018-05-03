@@ -224,10 +224,23 @@
                     <textarea ng-model=newPost.text class="form-control form-control-lg no-border" rows="2" placeholder="{{newPost.placeholder}}"
                         maxlength="150"></textarea>
                 </form>
+                <div id="photoholder" >
+                    <div ng-class="newPost.busy?'big-photoholder spinner-1':'none'">
+                    <img ng-if=newPost.photoUrl ng-src="{{newPost.photoUrl}}" alt="">
+                </div>
+                </div>
                 <div class="card-footer">
                     <button ng-click=addPost() class="btn btn-purple float-right">POST</button>
                     <ul class="nav nav-pills">
                         <li>
+                                <div  title="Photo" class="image-upload">
+                                        <label for="file-input">
+                                            <img src="images/icons/photoUpload.png"/>
+                                        </label>                                    
+                                        <input id="file-input" ng-model="newPost.photoUrl" ng-change="newPost.procesPhoto()" type="file"/>
+                                    </div>
+                        </li>
+                        <!-- <li>
                             <a href="#">
                                 <i class="m-3 fa fa-user"></i>
                             </a>
@@ -246,7 +259,7 @@
                             <a href="#">
                                 <i class="m-3 fa fa-smile-o"></i>
                             </a>
-                        </li>
+                        </li> -->
                     </ul>
                     <!-- /.nav nav-pills -->
                 </div>

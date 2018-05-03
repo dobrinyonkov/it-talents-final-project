@@ -26,13 +26,44 @@ function calculateTimeInterval(date) {
   ) {
     $scope.profile = {};
     $scope.profileFriends = [];
-    $scope.posts = { displayedPosts: [], busy: false, allPostsLoaded: false };
-    $scope.newPost = { placeholder: "What are you doing" };
-    $scope.addPost = addPost;
-    $scope.newComment = { placeholder: "Write a comment" };
-    // $scope.addComment = addComment;
-    $scope.calculateTimeInterval = calculateTimeInterval;
+    $scope.posts = {
+      displayedPosts: [],
+      busy: false,
+      allPostsLoaded: false
+    };
 
+ 
+    $scope.addPost = addPost;
+    $scope.calculateTimeInterval = calculateTimeInterval;
+    // USER
+    var userId = $routeParams.id;
+    UserService.getById(userId)
+      //get firend list filled
+      .then(r => {
+        var friendsArr = r.data[0].friends;
+        friendsArr.forEach(function(friendId) {
+          UserService.getById(friendId).then(function(user) {
+            $scope.profileFriends.push(user.data[0]);
+          });
+        });
+        return r;
+      })
+      //LOADING NEWEST POST OF THAT USER
+      .then(r => {
+        $scope.profile = r.data[0];
+        return r.data[0].posts;
+      })
+      .then(postIds => {
+        if (postIds.length == 0) {
+          return;
+        }
+        //First post
+        var newestPostId = postIds[postIds.length - 1];
+        $scope.posts.displayPost(newestPostId);
+      })
+      .catch(err =>
+        alert("We couldn't load your profile, please login again.")
+      );
     // SCROLL
     document
       .querySelector("#postContainer")
@@ -62,8 +93,6 @@ function calculateTimeInterval(date) {
         }
       });
     // DISPLAY POST FUNCTION
-    // takes an post id loads its date and that for the associated users,
-    // forms it as a post and pushes that post to $scope.posts.displayedPosts
     $scope.posts.displayPost = function(postId, top) {
       return PostService.getPost(postId)
         .then(post => post.loadOwnerInfo())
@@ -106,7 +135,8 @@ function calculateTimeInterval(date) {
           //ALL COMMENTS
           post.displayAllComments = function($event) {
             $event.preventDefault();
-            var remaining = post.comments.length - post.displayedComments.length;
+            var remaining =
+              post.comments.length - post.displayedComments.length;
             if (remaining <= 0) return;
             return post.loadCommentWithOwnerData(remaining - 1).then(c => {
               post.displayedComments.push(c);
@@ -126,11 +156,12 @@ function calculateTimeInterval(date) {
               post.newComment.text
             ).then(res => {
               res = JSON.parse(res);
-              // var postWithSuchId=$scope.posts.displayedPosts.find(p=>p._id==postId);
               post.comments.push(res);
-              post.loadCommentWithOwnerData(post.comments.length - 1).then(c => {
-                post.displayedComments.unshift(c);
-              });
+              post
+                .loadCommentWithOwnerData(post.comments.length - 1)
+                .then(c => {
+                  post.displayedComments.unshift(c);
+                });
               post.newComment.text = "";
               post.newComment.placeholder = "Thanks for the comment.";
             });
@@ -142,39 +173,13 @@ function calculateTimeInterval(date) {
             $scope.posts.displayedPosts.push(post);
           }
         });
-
     };
-    // USER
-    var userId = $routeParams.id;
-    UserService.getById(userId)
-      //get firend list filled
-      .then(r => {
-        var friendsArr = r.data[0].friends;
-        friendsArr.forEach(function(friendId) {
-          UserService.getById(friendId).then(function(user) {
-            $scope.profileFriends.push(user.data[0]);
-          });
-        });
-        return r;
-      })
-      //LOADING NEWEST POST OF THAT USER
-      .then(r => {
-        $scope.profile = r.data[0];
-        return r.data[0].posts;
-      })
-      .then(postIds => {
-        console.log(postIds);
-        if (postIds.length == 0) {
-          return;
-        }
-        // console.log("imash " + postIds.length + " i shte ti gi dam");
-        // console.log("Ama edin po edin ..")
-        //First post
-        var newestPostId = postIds[postIds.length - 1];
-        $scope.posts.displayPost(newestPostId);
-      })
-      .catch(err => console.log(err));
-
+    $scope.newPost = { placeholder: "What are you doing",
+    text:"",
+    busy:false,
+    photoUrl:"",
+    // photoUrl:"http://en.es-static.us/upl/2018/04/moon-full-set-La-_az-city-Max-Glaser-4-30-2018-e1525172614735.jpg",
+   };
     //ADD POST - attached to profile page
     function addPost() {
       if (!$scope.newPost.text || $scope.newPost.text.trim().length < 2) {
@@ -185,7 +190,8 @@ function calculateTimeInterval(date) {
       PostService.addPost(
         localStorage.getItem("loggedUserId"),
         $scope.newPost.text,
-        $scope.profile._id
+        $scope.profile._id,
+        $scope.newPost.photoUrl
       ).then(res => {
         $scope.newPost.text = "";
         if (res.status == 200) {
@@ -199,26 +205,17 @@ function calculateTimeInterval(date) {
         }
       });
     }
-    //ADD COMMENT
-    // function addComment(postId) {
-    //   if (!$scope.newComment.text || $scope.newComment.text.trim().length < 2) {
-    //     $scope.newComment.placeholder = "Can't post an empty comment.";
-    //     return;
-    //   }
-    //   PostService.addComment(
-    //     postId,
-    //     localStorage.getItem("loggedUserId"),
-    //     $scope.newComment.text
-    //   ).then(res => {
-    //     res = JSON.parse(res);
-    //     var postWithSuchId = $scope.posts.displayedPosts.find(
-    //       p => p._id == postId
-    //     );
-    //     postWithSuchId.comments.push(res);
-    //     postWithSuchId.topComment = res;
-    //     $scope.newComment.text = "";
-    //     $scope.newComment.placeholder = "Thanks for the comment.";
-    //   });
-    // }
+    //ADD PHOTO TO POST
+    document.getElementById("file-input").
+    addEventListener("change", function (event) {
+      $scope.newPost.busy=true
+        var file = event.target.files[0];        
+        console.log(file);
+        fileUpload.uploadFileToUrl(file).then(r => {
+          console.log(r.data.url)
+          $scope.newPost.photoUrl= r.data.url;
+          $scope.newPost.busy=false
+        });
+    });
   });
 })();

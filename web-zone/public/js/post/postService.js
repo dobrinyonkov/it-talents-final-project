@@ -11,7 +11,7 @@ app.service("PostService", function($http,UserService) {
     this.text = text;
     this.ownerId = ownerId;
     if (photo) {
-      this.photo = photo;
+      this.photoUrl = photo;
     }
     this.date = new Date();
     this.comments = [];
@@ -79,8 +79,8 @@ app.service("PostService", function($http,UserService) {
   };
   // ADD POST
   this.addPost = addPost;
-  function addPost(ownerId, text, friendId) {
-    var newP = new Post(ownerId, text);
+  function addPost(ownerId, text, friendId,photoUrl) {
+    var newP = new Post(ownerId, text,photoUrl);
     newP = JSON.stringify(newP);
     return $http
       .post("http://localhost:9000/api/posts", newP)

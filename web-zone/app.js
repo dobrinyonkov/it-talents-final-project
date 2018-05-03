@@ -24,9 +24,9 @@ var friendsRouter = require('./routes/friends');
 var app = express();
 
 //socket.io
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
-var messengerRouter = require('./routes/messenger')(app,io, db);
+// var http = require('http').Server(app);
+// var io = require('socket.io')(http);
+// var messengerRouter = require('./routes/messenger')(app,io, db);
 
 function ensureAuthorized(req, res, next) {
   var bearerToken;
