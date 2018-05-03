@@ -1,4 +1,13 @@
+#loginNav {
+  position: fixed;
+  z-index: 10000;
+  width: 100%;
+  top: 0;
+}
+
+
 body {
+  margin-top: 100px;
   background-color: #e9ebee !important;
 }
 
