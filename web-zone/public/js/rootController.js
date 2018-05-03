@@ -55,16 +55,16 @@
                                 console.log($scope.receivedFriendRequests);
                             });
                         });
-                        $scope.currentUser.sendedReqeusts.forEach(userId => {
-                            UserService.getById(userId).then(data => {
-                                $scope.sendedFriendRequests.push(data.data[0]);
-                                console.log($scope.sendedFriendRequests);
-                            });
-                            // UserService.getById(userId).then(data => {
-                            //     $scope.receivedFriendRequests.push(data.data[0]);
-                            //     console.log($scope.receivedFriendRequests);
-                            // });
-                        });
+                        // $scope.currentUser.sendedReqeusts.forEach(userId => {
+                        //     UserService.getById(userId).then(data => {
+                        //         $scope.sendedFriendRequests.push(data.data[0]);
+                        //         console.log($scope.sendedFriendRequests);
+                        //     });
+                        //     // UserService.getById(userId).then(data => {
+                        //     //     $scope.receivedFriendRequests.push(data.data[0]);
+                        //     //     console.log($scope.receivedFriendRequests);
+                        //     // });
+                        // });
                     });
                 })
             }, 0);
