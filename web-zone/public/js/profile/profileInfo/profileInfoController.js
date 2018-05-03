@@ -13,6 +13,7 @@
         $scope.editMode = false;
         $scope.profilePicUploaded = false;
         $scope.profilePicUrl = "";
+        $scope.isOnwer = false;
 
         // $timeout(function () {
         //     $scope.$apply(function () {
@@ -31,6 +32,7 @@
             var userId = $window.localStorage.getItem("loggedUserId");
             UserService.getById(userId)
                 .then(r => {
+                    $scope.isOnwer = $scope.profile._id === userId;
                     $scope.currentUser = r.data[0];
                     var recievId = $scope.profile._id;
                     $scope.friendsRequestSended = $scope.currentUser.sendedReqeusts.indexOf(recievId) !== -1;

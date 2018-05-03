@@ -15,7 +15,6 @@
 					<!-- <datalist id="users" ng-change="selectUser()" ng-model="selectedUserId">
 						<option ng-repeat="foundUser in foundUsers track by $index" ng-value="foundUser._id">{{foundUser.firstName}}</option>
 					</datalist> -->
-					{{selectedUserId}}
 					<select class="custom-select" ng-change="selectUser()" ng-model="selectedUserId">
 						<option ng-repeat="foundUser in foundUsers track by $index" ng-value="foundUser._id">{{foundUser.firstName}}</option>
 					</select>

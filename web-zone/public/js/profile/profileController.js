@@ -96,7 +96,7 @@ function calculateTimeInterval(date) {
                 console.log(res);
                 if (!res) return;
                 console.log("shte iztiq");
-                PostService.deletePost(userId, post._id).then(
+                PostService.deletePost(localStorage.getItem("loggedUserId"), post._id).then(
                   response => {
                     if ((response.status = 200)) {
                       console.log("deleted");
