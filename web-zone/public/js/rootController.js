@@ -6,7 +6,11 @@
             $scope.foundUsers = [];
             $scope.selectedUserId = '';
             $scope.userName;
-            $scope.isLogged = $window.localStorage.getItem("loggedUserId") !== null;
+            $timeout(function () {
+                $scope.$apply(function () {
+                    $scope.isLogged = $window.localStorage.getItem("loggedUserId") !== null;
+                })
+            }, 0)
             $scope.sendedFriendRequests = [];
             $scope.receivedFriendRequests = [];
             $scope.friendsRequestSended = false;

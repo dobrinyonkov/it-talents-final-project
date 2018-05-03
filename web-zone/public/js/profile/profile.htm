@@ -37,13 +37,13 @@
                                 <p class="text-muted text-capitalize">web designer</p>
                             </li>
                             <li>
-                                <a href="" ng-if="areFriends !== null" ng-click="sendFriendRequest(currentUser._id, profile._id)" class="btn btn-purple text-xs-center btn-block">{{areFriends ? 'Unfriend' : friendsRequestSended ? 'Cancel Friend Request' : 'Send Friend Request'}}</a>
+                                <a href="" ng-if="areFriends !== null && !isOnwer" ng-click="sendFriendRequest(currentUser._id, profile._id)" class="btn btn-purple text-xs-center btn-block">{{areFriends ? 'Unfriend' : friendsRequestSended ? 'Cancel Friend Request' : 'Send Friend Request'}}</a>
                             </li>
                             <li>
                                 <br>
                             </li>
                             <li>
-                                <div class="btn-group-vertical btn-block">
+                                <div ng-if="isOnwer" class="btn-group-vertical btn-block">
                                     <a ng-click="onChangeMode()" href="" class="btn btn-secondary">
                                         <i class="fa fa-cog float-right"></i>{{!editMode ? 'Edit Account' : 'Save'}}</a>
                                     <a href="" class="btn btn-secondary">
