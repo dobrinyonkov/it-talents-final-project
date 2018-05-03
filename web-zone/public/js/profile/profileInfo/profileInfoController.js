@@ -61,8 +61,10 @@
         var selectedFile = document.getElementById("selectedFile");
         selectedFile.addEventListener("change", function (event) {
             var file = event.target.files[0];
+            
             // console.log(file);
             fileUpload.uploadFileToUrl(file).then(r => {
+                $scope.profile.profilePic = r.data.url;
                 $scope.profilePicUploaded = true;
                 $scope.profilePicUrl = r.data.url;
             });
@@ -110,5 +112,11 @@
             }
 
         }
+        //LOGOUT
+        $scope.logout = function($event) {
+            $event.preventDefault();
+            localStorage.clear();
+            $window.location = `#!/login`;
+          };
     });
 })();

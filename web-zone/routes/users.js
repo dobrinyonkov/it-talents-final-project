@@ -31,7 +31,7 @@ router.get('/:id', function (req, res, next) {
       res.json(err);
     } else {
       res.status(200);
-      delete docs[0].password;
+      delete docs[0].password
       res.json(docs);
     }
   })

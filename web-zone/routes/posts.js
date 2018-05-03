@@ -84,10 +84,8 @@ router.put("/like",function(req,res,next){
       post.likes.splice(post.likes.indexOf(userId),1)
     }
     else{
-      // console.log("haresvaj np")
       post.likes.push(userId)      
     }
-    // console.log(post.likes)
     postCollection.findOneAndUpdate({ _id: postId }, { $set: post }, function (err, docs) {
       if (err) {
         res.status(500);
