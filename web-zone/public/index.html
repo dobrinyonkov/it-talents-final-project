@@ -57,7 +57,7 @@
 
     <div ng-controller="RootController">
         
-        <div ng-show="isLogged" ng-controller="NavigationController">
+        <div ng-controller="NavigationController">
             <navigation logout=logout($event)  on-delete-friend-reuest="onDeleteFriendReuest($event, senderId,receiverId)" on-confirm-friend-reuest="onConfirmFriendReuest($event, senderId,receiverId)" received-friend-requests="receivedFriendRequests" sended-friend-requests="sendedFriendRequests" on-firend-requests="onFirendRequests(test)" selected-user-id="selectedUserId" select-user="selectUser()" found-users="foundUsers" user="currentUser" user-name="userName" search-user="searchUser()"></navigation>
         </div>
     
