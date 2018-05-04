@@ -1,0 +1,91 @@
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<div class="container">
+  <div class="row">
+
+    <div class="profile-cover">
+      <div class="cover rounded shadow no-overflow">
+        <div class="inner-cover">
+          <!-- Start offcanvas btn group menu: This menu will take position at the top of profile cover (mobile only). -->
+          <div class="btn-group ">
+            <ul class="dropdown-menu float-right no-border" role="menu">
+              <li class="dropdown-item">
+                <a href="#">
+                  <i class="m-2 fa fa-fw fa-clock-o"></i>
+                  <span>Timeline</span>
+                </a>
+              </li>
+              <li class="dropdown-item">
+                <a href="#">
+                  <i class="m-2 fa fa-fw fa-user"></i>
+                  <span>About</span>
+                </a>
+              </li>
+              <li class="dropdown-item">
+                <a href="#">
+                  <i class="m-2 fa fa-fw fa-photo"></i>
+                  <span>Photos</span>
+                  <small>({{profile.photos.length}})</small>
+                </a>
+              </li>
+              <li class="dropdown-item">
+                <a href="#">
+                  <i class="m-2 fa fa-fw fa-users"></i>
+                  <span> Friends </span>
+                  <small>({{profile.friends.length}})</small>
+                </a>
+              </li>
+              <li class="dropdown-item">
+                <a href="#">
+                  <i class="m-2 fa fa-fw fa-envelope"></i>
+                  <span>Messages</span>
+                  <small>(7 new)</small>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <!-- Cover photo -->
+          <img src=" https://images.pexels.com/photos/992734/pexels-photo-992734.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" class="img-fluid full-width" alt="cover" >
+         <img src="https://images.pexels.com/photos/873691/pexels-photo-873691.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="" class="profile-picture">
+           <!-- <img ng-src="{{profile.coverPhoto}}" class="img-fluid full-width" alt="cover" style="max-height:200px;">  -->
+        </div>
+        <ul class="list-unstyled no-padding  cover-menu">
+          <li class="active">
+            <a href="#">
+              <i class="fa fa-fw fa-clock-o"></i>
+              <span>Timeline</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="fa fa-fw fa-user"></i>
+              <span>About</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="fa fa-fw fa-photo"></i>
+              <span>Photos</span>
+              <small>({{profile.photos.length}})</small>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="fa fa-fw fa-users"></i>
+              <span> Friends </span>
+              <small>({{profile.friends.length}})</small>
+            </a>
+          </li>
+
+        </ul>
+      </div>
+      <!-- /.cover -->
+    </div>
+
+  </div>
+</div>

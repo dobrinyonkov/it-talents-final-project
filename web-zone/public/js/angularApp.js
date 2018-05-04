@@ -30,6 +30,11 @@ app.config(function ($routeProvider, $httpProvider) {
             controller: 'NewsFeedController',
             css: "js/news-feed/news-feed.css", 
         })
+        .when("/gallery/:id",{
+             templateUrl: "js/photoGallery/photoGallery.htm",
+             controller: 'PhotoGalleryController',
+             css: "js/photoGallery/photoGallery.css", 
+        })
         .when("/messenger", {
             templateUrl: "js/messenger/messenger.htm",
             controller: 'MessengerController',

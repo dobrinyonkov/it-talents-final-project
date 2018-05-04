@@ -46,9 +46,9 @@
             $timeout(function () {
                 $scope.$apply(function () {
                     var userId = $window.localStorage.getItem("loggedUserId");
-                    UserService.getById(userId).then(data => {
-                        console.log(data.data[0]);
-                        $rootScope.currentUser = data.data[0];
+                    UserService.getAndSafeLoggedUser(userId).then(data => {
+                        console.log(data);
+                        $rootScope.currentUser = data;
                         $rootScope.currentUser.receivedReqeusts.forEach(userId => {
                             // UserService.getById(userId).then(data => {
                             //     $scope.sendedFriendRequests.push(data.data[0]);

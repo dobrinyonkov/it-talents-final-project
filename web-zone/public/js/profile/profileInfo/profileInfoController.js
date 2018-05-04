@@ -30,8 +30,8 @@
         UserService.getById(userId).then(r => {
             $scope.profile = r.data[0];
             var userId = $window.localStorage.getItem("loggedUserId");
-            UserService.getById(userId)
-                .then(r => {
+            // UserService.getById(userId)
+            //     .then(r => {
                     $scope.isOnwer = $scope.profile._id === userId;
                     $scope.currentUser = r.data[0];
                     var recievId = $scope.profile._id;
@@ -40,7 +40,7 @@
                     console.log($scope.currentUser.friends.indexOf($scope.profile._id));
                     $scope.areFriends = $scope.currentUser.friends.indexOf($scope.profile._id) !== -1;
                     console.log($scope.areFriends);
-                })
+                // })
         });
 
         // EDIT PERSONAL INFORMATION

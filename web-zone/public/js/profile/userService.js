@@ -120,9 +120,10 @@
             console.log("nova funkciq ama kat starata");
             console.log(loggedUser)
             if (loggedUser && loggedUser._id == id) {
-                console.log("tebe veche te takovah");
+                console.log("logged user data already fetched");
                 return new Promise(function (resolve, reject) {
-                    resolve(loggedUser);
+                    // resolve(loggedUser);
+                    return loggedUser
                 });
             }
             if (loggedUser) return new Error("Someone else has already logged ?!?");
