@@ -133,12 +133,14 @@ router.put("/addphoto", function(req, res, next) {
       });
     } else {
       if (docs[0].token !== req.token) {
+        console.log("no token")
         res.status(403).send({
           message: "Not Authorized"
         });
       } else {
         var user = docs[0];
-        if (user.photos.indexOf(photoUrl)) {
+        console.log(user)
+        if (user.photos.indexOf(photoUrl)!=-1) {
           res.json({ message: "Already have such photo." });
         } else {
           userCollection.findOneAndUpdate(

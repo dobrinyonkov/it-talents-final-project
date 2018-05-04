@@ -92,7 +92,9 @@ app.service("PostService", function($http,UserService) {
         // console.log(res)      
         if (photoUrl.length > 0) {
           console.log("Ohhhooo i snimka daje");
-          return UserService.addPhoto(ownerId, photoUrl).then(()=>newPostId)
+          return UserService.addPhoto(ownerId, photoUrl).then((responce)=>{
+            console.log(responce)
+            return newPostId})
         }else{
           return newPostId
         }

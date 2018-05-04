@@ -11,8 +11,8 @@ app.config(function ($routeProvider, $httpProvider) {
             css: 'js/login/login.css'
         })
         .when("/profile/:id", {
-            templateUrl : "js/profile/profile.htm",
-            controller : "ProfileController",
+            templateUrl: "js/profile/profile.htm",
+            controller: "ProfileController",
             css: "js/profile/profile.css",
         })
         .when("/post", {
@@ -28,31 +28,36 @@ app.config(function ($routeProvider, $httpProvider) {
         .when("/newsfeed", {
             templateUrl: "js/news-feed/news-feed.htm",
             controller: 'NewsFeedController',
-            css: "js/news-feed/news-feed.css", 
+            css: "js/news-feed/news-feed.css",
+        })
+        .when("/gallery/:id", {
+            templateUrl: "js/photoGallery/photoGallery.htm",
+            controller: 'PhotoGalleryController',
+            css: "js/photoGallery/photoGallery.css"
         })
         .when("/messenger", {
             templateUrl: "js/messenger/messenger.htm",
             controller: 'MessengerController',
-            css: "js/messenger/messenger.css", 
+            css: "js/messenger/messenger.css",
         })
 
-        $httpProvider.interceptors.push(function($q, $location, $window) {
-            return {
-                'request': function (config) {
-                    config.headers = config.headers || {};
-                    if ($window.localStorage.getItem('token')) {
-                        config.headers.Authorization = 'Bearer ' + $window.localStorage.getItem('token');
-                    }
-                    return config;
-                },
-                'responseError': function(response) {
-                    if(response.status === 401 || response.status === 403) {
-                        $location.path('/login');
-                    }
-                    return $q.reject(response);
+    $httpProvider.interceptors.push(function ($q, $location, $window) {
+        return {
+            'request': function (config) {
+                config.headers = config.headers || {};
+                if ($window.localStorage.getItem('token')) {
+                    config.headers.Authorization = 'Bearer ' + $window.localStorage.getItem('token');
                 }
-            };
-        });
+                return config;
+            },
+            'responseError': function (response) {
+                if (response.status === 401 || response.status === 403) {
+                    $location.path('/login');
+                }
+                return $q.reject(response);
+            }
+        };
+    });
 });
 
 
