@@ -21,10 +21,12 @@
                                 <ul ng-if="foundUsersToChat.length > 0" ng-repeat="foundUser in foundUsersToChat track by $index" class="list-group">
                                     <li ng-click="selectUserToChat(foundUser)" class="list-group-item">{{foundUser.firstName}}</li>
                                 </ul>
+                                <hr>
+                                <textarea ng-model="modalMessageToSend" class="form-control" id="exampleTextarea" rows="3" placeholder="Message..."></textarea>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
+                                <button ng-click="sendModalMessage()" type="button" class="btn btn-primary" data-dismiss="modal">Send Message</button>
                             </div>
                         </div>
                     </div>
@@ -37,35 +39,15 @@
             </div>
 
 
-            <div class="list-group lg-alt">
+            <div ng-repeat="chatRoom in chatRoomsObjects track by $index" class="list-group lg-alt">
 
-                <a class="list-group-item media" href="">
+                <a ng-click="changeCurrentChatRoom(chatRoom)" class="list-group-item media" href="">
                     <div class="pull-left">
-                        <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="img-avatar">
+                        <img ng-src="{{chatRoom.user1.isMe ? chatRoom.user2.profilePic : chatRoom.user1.profilePic}}" alt="" class="img-avatar">
                     </div>
                     <div class="media-body">
-                        <div class="list-group-item-heading">Paul Van Dack</div>
+                        <div class="list-group-item-heading">{{chatRoom.user1.isMe ? chatRoom.user2.name : chatRoom.user1.name}}</div>
                         <small class="list-group-item-text c-gray">Nam posuere purus sed velit auctor sodales</small>
-                    </div>
-                </a>
-
-                <a class="list-group-item media" href="">
-                    <div class="lv-avatar pull-left">
-                        <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="" class="img-avatar">
-                    </div>
-                    <div class="media-body">
-                        <div class="list-group-item-heading">James Anderson</div>
-                        <small class="list-group-item-text c-gray">Vivamus imperdiet sagittis quam</small>
-                    </div>
-                </a>
-
-                <a class="list-group-item media" href="">
-                    <div class="lv-avatar pull-left">
-                        <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="" class="img-avatar">
-                    </div>
-                    <div class="media-body">
-                        <div class="list-group-item-heading">Kane Williams</div>
-                        <small class="list-group-item-text c-gray">Suspendisse justo nulla luctus nec</small>
                     </div>
                 </a>
 
@@ -134,38 +116,25 @@
                 </ul>
             </div>
 
-            <div class="message-feed media">
-                <div class="pull-left">
-                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="img-avatar">
-                </div>
-                <div class="media-body">
-                    <div class="mf-content">
-                        Quisque consequat arcu eget odio cursus, ut tempor arcu vestibulum. Etiam ex arcu, porta a urna non, lacinia pellentesque
-                        orci. Proin semper sagittis erat, eget condimentum sapien viverra et. Mauris volutpat magna nibh,
-                        et condimentum est rutrum a. Nunc sed turpis mi. In eu massa a sem pulvinar lobortis.
+            <div ng-repeat="message in currentChatRoom.content">
+                <div ng-class="currentChatRoom.user1.isMe && message.user._id === currentChatRoom.user1._id ? 'message-feed right' : currentChatRoom.user2.isMe && message.user._id === currentChatRoom.user2._id ? 'message-feed right' : 'message-feed media'">
+
+                    <div ng-class="pull-left">
+                        <img ng-src="{{message.user.profilePic}}" alt="" class="img-avatar">
                     </div>
-                    <small class="mf-date">
-                        <i class="fa fa-clock-o"></i> 20/02/2015 at 09:00</small>
-                </div>
-            </div>
-
-            <div class="message-feed right">
-                <div class="pull-right">
-                    <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="" class="img-avatar">
-                </div>
-                <div class="media-body">
-                    <div class="mf-content">
-                        Mauris volutpat magna nibh, et condimentum est rutrum a. Nunc sed turpis mi. In eu massa a sem pulvinar lobortis.
+                    <div class="media-body">
+                        <div class="mf-content">
+                            {{message.message}}
+                        </div>
+                        <small class="mf-date">
+                            <i class="fa fa-clock-o"></i> 20/02/2015 at 09:00</small>
                     </div>
-                    <small class="mf-date">
-                        <i class="fa fa-clock-o"></i> 20/02/2015 at 09:30</small>
                 </div>
+
             </div>
-
-
             <div class="msb-reply">
-                <textarea placeholder="What's on your mind..."></textarea>
-                <button>
+                <textarea ng-model="messageText" placeholder="What's on your mind..."></textarea>
+                <button ng-click="sendMessage()">
                     <i class="fa fa-paper-plane" aria-hidden="true"></i>
                 </button>
             </div>
