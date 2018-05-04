@@ -54,9 +54,7 @@ function calculateTimeInterval(date) {
         return r.data[0].posts;
       })
       .then(postIds => {
-        if (postIds.length == 0) {
-          return;
-        }
+        if (postIds.length == 0)return;
         //First post
         var newestPostId = postIds[postIds.length - 1];
         $scope.posts.displayPost(newestPostId);
@@ -71,11 +69,12 @@ function calculateTimeInterval(date) {
         if (this.scrollTop + this.clientHeight >= this.scrollHeight - 80) {
           if ($scope.posts.allPostsLoaded) return;
           if ($scope.posts.busy) {
-            console.log("chkaj brat zaet sam");
+            console.log("Please wait I'm already, loading a resource...");
             return;
           }
           $scope.posts.busy = true;
           var numberOfDisplayedPost = $scope.posts.displayedPosts.length;
+          console.log("I have shown "+numberOfDisplayedPost+" posts..")
           if (!$scope.profile.posts) return;
           var totalNumberOfPosts = $scope.profile.posts.length;
           var position = totalNumberOfPosts - numberOfDisplayedPost - 1;
@@ -106,14 +105,17 @@ function calculateTimeInterval(date) {
               res => {
                 if (!res) return;
                 console.log("shte iztiq");
-                PostService.deletePost(
-                  localStorage.getItem("loggedUserId"),
-                  post._id
-                ).catch(err => {
-                  alert(
-                    "We had a server error and couldn't delete the post, please try again later."
-                  );
-                });
+                PostService.deletePost(localStorage.getItem("loggedUserId"), post._id)
+                  .then(() => {
+                    console.log("i shte go mahna ot ekrana")
+                    console.log($scope.posts.displayedPosts)
+                    console.log(post._id)
+                    $scope.posts.displayedPosts = $scope.posts.displayedPosts.filter(p => p._id !== post._id);
+                  })
+                  .catch(err => {
+                    console.log(err)
+                    alert("We had a server error and couldn't delete the post, please try again later.");
+                  });
               }
             );
           };
@@ -174,37 +176,43 @@ function calculateTimeInterval(date) {
           }
         });
     };
+
+    
+    //ADD POST - attached to profile page
     $scope.newPost = { placeholder: "What are you doing",
     text:"",
     busy:false,
     photoUrl:"",
     // photoUrl:"http://en.es-static.us/upl/2018/04/moon-full-set-La-_az-city-Max-Glaser-4-30-2018-e1525172614735.jpg",
    };
-    //ADD POST - attached to profile page
     function addPost() {
       if (!$scope.newPost.text || $scope.newPost.text.trim().length < 1) {
         $scope.newPost.placeholder = "Can't post an empty post.";
         return;
       }
-      console.log($scope.profile._id);
       PostService.addPost(
         localStorage.getItem("loggedUserId"),
         $scope.newPost.text,
         $scope.profile._id,
         $scope.newPost.photoUrl
-      ).then(res => {
+      ).then(newPostId => {
+        console.log(newPostId)
         $scope.newPost.text = "";
-        if (res.status == 200) {
+        if (newPostId) {
           $scope.newPost.placeholder = "Thank you for posting.";
           $scope.newPost.photoUrl='';
-          console.log(res.newPostId);
-          $scope.posts.displayPost(res.newPostId, true);
-          return res.newPostId;
+          console.log("zapisah posta i id-to dojda , sq shte go pokaja "+newPostId);
+          $scope.posts.displayPost(newPostId, true);
+          return newPostId;
         } else {
-          $scope.newPost.placeholder =
-            "Sorry we had an error, please try again later.";
+          $scope.newPost.placeholder ='Sorry we had an error, please try again later.'
+            
         }
-      });
+      }).catch((err)=>{
+        alert(err)
+        console.log(err)
+        alert('Sorry we had an error, please try again later.')
+      })
     }
     //ADD PHOTO TO POST
     document.getElementById("file-input").

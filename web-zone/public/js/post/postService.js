@@ -80,27 +80,28 @@ app.service("PostService", function($http,UserService) {
   // ADD POST
   this.addPost = addPost;
   function addPost(ownerId, text, friendId, photoUrl) {
-    console.log("ot servica --"+photoUrl)
+    console.log("ot servica --" + photoUrl);
     var newP = new Post(ownerId, text, photoUrl);
     newP = JSON.stringify(newP);
-    return  $http
+    return $http
       .post("http://localhost:9000/api/posts", newP)
       .then(res => {
         var newPostId = res.data.id;
         return newPostId;
+      }).then(newPostId=>{
+        // console.log(res)      
+        if (photoUrl.length > 0) {
+          console.log("Ohhhooo i snimka daje");
+          return UserService.addPhoto(ownerId, photoUrl).then(()=>newPostId)
+        }else{
+          return newPostId
+        }
+    
       })
       .then(newPostId => {
-        console.log("zapisah posta sq chte go dobavq i na")
-  
-          return UserService.addPost(friendId, newPostId).then(()=>{
-             if (photoUrl.length>0) {
-            console.log("Ohhhooo i snimka daje")
-            return UserService.addPost(ownerId, newPostId).then(UserService.addPhoto(ownerId, photoUrl));
-             }
-          })
-         
-        
-      });
+        console.log("zapisah posta sq chte go dobavq i na "+friendId);
+        return UserService.addPost(friendId, newPostId).then(()=>newPostId)
+      })
   }
   // DELETE POST
   this.deletePost = function(userId, postId) {
