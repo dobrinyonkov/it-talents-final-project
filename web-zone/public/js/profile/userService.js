@@ -74,6 +74,7 @@
         service.getAndSafeLoggedUser = getAndSafeLoggedUser
         service.getByName = getByName;
         service.addPost = addPost;
+        service.addPhoto=addPhoto;
         // service.deletePost = deletePost;
         service.create = create;
         service.update = update;
@@ -222,17 +223,6 @@
         }
 
 
-        // function addPost(userId, postId) {
-        //     console.log("prashtam put zaqvka s user " + userId + " za post " + postId)
-        //     return $http.put(`${API_URL}api/users/addpost`, { "postId": postId, "userId": userId })
-        //         .then(res => {
-        //             return res;
-        //         })
-        //         .catch(err => {
-        //             return err;
-        //         });
-        // }
-
         function remove(id) {
             return $http
                 .delete(`${API_URL}api/users/${id}`)
@@ -295,7 +285,6 @@
         }
 
     function addPost(userId, postId) {
-      console.log("prashtam put zaqvka da sloji na toz user " + userId + " toz  post " + postId);
       return $http
         .put(`${API_URL}api/users/addpost`, { postId: postId, userId: userId })
         .then(res => {
@@ -306,16 +295,18 @@
           return err;
         });
     }
+    function addPhoto(userId, photoUrl) {
+        console.log("na toz "+userId+"  shte mu kacha taz snimka "+photoUrl)
+        return $http
+          .put(`${API_URL}api/users/addphoto`, {  userId: userId,photoUrl:photoUrl })
+        //   .then(res => {
+        //       res.newPostId=postId
+        //     return res;
+        //   })
+        //   .catch(err => {
+        //     return err;
+        //   });
+      }
 
-        // function deletePost(userId, postId) {
-        //     return $http
-        //         .post(`${API_URL}api/users/deletepost`, {
-        //             postId: postId,
-        //             userId: userId
-        //         })
-        //         .catch(err => {
-        //             return err;
-        //         });
-        // }
     }
 })();

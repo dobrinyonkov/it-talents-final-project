@@ -103,7 +103,6 @@ router.put('/update/:id', function (req, res, next) {
 });
 // ADD POST
 router.put("/addpost", function(req, res, next) {
-  console.log("taz zaqvka hvashta tekish");
   var postId = req.body.postId;
   var userId = req.body.userId;
   var userCollection = req.db.get("users");
@@ -122,15 +121,49 @@ router.put("/addpost", function(req, res, next) {
     }
   );
 });
+//ADD PHOTO
+router.put("/addphoto", function(req, res, next) {
+  var photoUrl = req.body.photoUrl;
+  var userId = req.body.userId;
+  var userCollection = req.db.get("users");
+  userCollection.find({ _id: userId }, {}, function(err, docs) {
+    if (err) {
+      res.status(404).send({
+        message: "Not Found"
+      });
+    } else {
+      if (docs[0].token !== req.token) {
+        res.status(403).send({
+          message: "Not Authorized"
+        });
+      } else {
+        var user = docs[0];
+        if (user.photos.indexOf(photoUrl)) {
+          res.json({ message: "Already have such photo." });
+        } else {
+          userCollection.findOneAndUpdate(
+            { _id: userId },
+            { $push: { photos: photoUrl } },
+            function(err, docs) {
+              if (err) {
+                res.status(500);
+                res.json(err);
+              } else {
+                res.status(200);
+                res.json(docs);
+              }
+            }
+          );
+        }
+      }
+    }
+  });
+});
 //DELETE POST
 router.post("/deletepost",function(req,res,next){
-  console.log("taz zaqvka za trie ne det ne ee deleete hvashta tekish")
-  // console.log(req.body);
   var postId = req.body.postId;
   var userId = req.body.userId;
   var userCollection = req.db.get('users');
-// console.log(postId)
-// console.log(userId)
   userCollection.find({ _id: userId }, {}, function (err, docs) {
     if (err) {
       res.status(404).send({
@@ -143,16 +176,10 @@ router.post("/deletepost",function(req,res,next){
         });
       } else {
         var user =docs[0]
-        console.log("na usera postovete predi tarkaneto")
-        console.log(user.posts)
-        // console.log("post---"+postId)
-        // console.log("user---"+userId)
+
         var index=user.posts.indexOf(postId)
         user.posts.splice(index,1)
-        console.log("indexa na toz post ----------")
-        console.log(index)
-        console.log("na usera postovete sled tarkaneto")
-        console.log(user.posts)
+
         userCollection.findOneAndUpdate({ _id: userId }, { $set: user }, function (err, docs) {
           if (err) {
             res.status(500);
@@ -162,19 +189,6 @@ router.post("/deletepost",function(req,res,next){
             res.json(docs);
           }
         })
-        // userCollection.findOneAndUpdate(
-        //   { _id: userId },
-        //   { $filter: { input: docs[0].posts, as: "pId", cond: "$$pId" == postId } },
-        //   function(err, docs) {
-        //     if (err) {
-        //       res.status(500);
-        //       res.json(err);
-        //     } else {
-        //       res.status(200);
-        //       res.json(docs);
-        //     }
-        //   }
-        // );
       
       }
     }
