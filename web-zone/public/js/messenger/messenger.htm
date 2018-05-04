@@ -40,14 +40,13 @@
 
 
             <div ng-repeat="chatRoom in chatRoomsObjects track by $index" class="list-group lg-alt">
-
                 <a ng-click="changeCurrentChatRoom(chatRoom)" class="list-group-item media" href="">
-                    <div class="pull-left">
+                    <div class="float-left">
                         <img ng-src="{{chatRoom.user1.isMe ? chatRoom.user2.profilePic : chatRoom.user1.profilePic}}" alt="" class="img-avatar">
                     </div>
-                    <div class="media-body">
-                        <div class="list-group-item-heading">{{chatRoom.user1.isMe ? chatRoom.user2.name : chatRoom.user1.name}}</div>
-                        <small class="list-group-item-text c-gray">Nam posuere purus sed velit auctor sodales</small>
+                    <div class="media-body ml-5">
+                        <div class="h6 list-group-item-heading">{{chatRoom.user1.isMe ? chatRoom.user2.name : chatRoom.user1.name}}</div>
+                        <small class="list-group-item-text c-gray">{{chatRoom.content.slice().pop().text}}</small>
                     </div>
                 </a>
 
@@ -117,14 +116,14 @@
             </div>
 
             <div ng-repeat="message in currentChatRoom.content">
-                <div ng-class="currentChatRoom.user1.isMe && message.user._id === currentChatRoom.user1._id ? 'message-feed right' : currentChatRoom.user2.isMe && message.user._id === currentChatRoom.user2._id ? 'message-feed right' : 'message-feed media'">
+                <div ng-class="currentChatRoom.user1.isMe && message.sender === currentChatRoom.user1._id ? 'message-feed right' : currentChatRoom.user2.isMe && message.sender === currentChatRoom.user2._id ? 'message-feed right' : 'message-feed media'">
 
                     <div ng-class="pull-left">
-                        <img ng-src="{{message.user.profilePic}}" alt="" class="img-avatar">
+                        <img ng-src="{{message.profilePic}}" alt="" class="img-avatar">
                     </div>
                     <div class="media-body">
                         <div class="mf-content">
-                            {{message.message}}
+                            {{message.text}}
                         </div>
                         <small class="mf-date">
                             <i class="fa fa-clock-o"></i> 20/02/2015 at 09:00</small>
