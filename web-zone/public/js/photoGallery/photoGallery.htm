@@ -5,7 +5,7 @@
 
 
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-<div class="container">
+<div ng-controller="PhotoGalleryController" class="container">
   <div class="row">
 
     <div class="profile-cover">
@@ -15,7 +15,7 @@
           <div class="btn-group ">
             <ul class="dropdown-menu float-right no-border" role="menu">
               <li class="dropdown-item">
-                <a href="#">
+                <a href="#!/profile/{{profile._id}}">
                   <i class="m-2 fa fa-fw fa-clock-o"></i>
                   <span>Timeline</span>
                 </a>
@@ -50,13 +50,13 @@
             </ul>
           </div>
           <!-- Cover photo -->
-          <img src=" https://images.pexels.com/photos/992734/pexels-photo-992734.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" class="img-fluid full-width" alt="cover" >
-         <img src="https://images.pexels.com/photos/873691/pexels-photo-873691.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="" class="profile-picture">
+          <img ng-src="{{profile.coverPhoto}}" class="img-fluid full-width" alt="cover" >
+         <img  ng-src="{{profile.profilePic}}" alt="" class="profile-picture">
            <!-- <img ng-src="{{profile.coverPhoto}}" class="img-fluid full-width" alt="cover" style="max-height:200px;">  -->
         </div>
         <ul class="list-unstyled no-padding  cover-menu">
-          <li class="active">
-            <a href="#">
+          <li>
+            <a href="#!/profile/{{profile._id}}">
               <i class="fa fa-fw fa-clock-o"></i>
               <span>Timeline</span>
             </a>
@@ -67,8 +67,8 @@
               <span>About</span>
             </a>
           </li>
-          <li>
-            <a href="#">
+          <li class="active">
+            <a href=""  >
               <i class="fa fa-fw fa-photo"></i>
               <span>Photos</span>
               <small>({{profile.photos.length}})</small>
@@ -86,6 +86,27 @@
       </div>
       <!-- /.cover -->
     </div>
+</div>
 
+<div id="gallery" class="row">
+  <span ng-repeat="photo in profile.photos">
+  <img ng-click="changePhoto(photo)" ng-src="{{photo}}" alt="">
+  </span>
+</div>
+
+  
+
+ <div ng-show="displayedPhoto.length>0" id="big-image">
+    <div ng-click="previous()" id="arrow-left" class="arrow"></div>
+    <div ng-click="displayedPhoto=''" class="close-icon"></div>
+  <img ng-src="{{displayedPhoto}}" alt="">
+  <div ng-click="next()" id="arrow-right" class="arrow"></div>
+  <div>
+   <ul>
+     <li>Image 4 of 13.</li>
+     <li>Date: 14.09.1998</li>
+     <li>Lorem ipsum dolor sit amet.</li>
+   </ul>
   </div>
+</div>
 </div>
