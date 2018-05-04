@@ -74,8 +74,12 @@
         //receiving new messages for currentChatRoom
         socket.on('message', function (data) {
             $timeout(function () {
-                $scope.currentChatRoom.content.push(data.content.pop());
-            })
+                $scope.$apply(function () {
+                    console.log($scope.currentChatRoom._id + ' received room id');
+                    var room = $scope.chatRoomsObjects.find(c => c._id === data._id)
+                    room.content.push(data.content.pop());
+                })
+            }, 0)
         })
 
         //input user name event
@@ -129,9 +133,9 @@
 
             //prepair message obj
             var message = {
-                sender: user._id,
-                profilePic: user.profilePic,
-                name: user.firstName,
+                sender: $rootScope.currentUser._id,
+                profilePic: $rootScope.currentUser.profilePic,
+                name: $rootScope.currentUser.firstName,
                 date: new Date(),
                 text: $scope.modalMessageToSend
             }
@@ -143,7 +147,7 @@
         }
 
         $scope.changeCurrentChatRoom = function (chatRoom) {
-
+            $scope.currentChatRoom = chatRoom;
         }
 
         $scope.sendMessage = function () {
@@ -159,9 +163,9 @@
                 date: new Date(),
                 text: text
             }
-            console.log(message);
 
             //emit message to socket.io chat room
+            console.log($scope.currentChatRoom._id + ' sended room id');
             socket.emit('message', message, $scope.currentChatRoom);
 
             //clean the textaria
