@@ -4,6 +4,7 @@
     $scope,
     $controller,
     UserService,
+    NewsService,
     $timeout
   ) {
     $controller("postController", { $scope: $scope });
@@ -15,6 +16,10 @@
       busy: false,
       allPostsLoaded: false
     };
+    $scope.news = [];
+    NewsService.getNews("Sofia").then(result => {
+      $scope.posts.displayedPosts.push(result)
+    });
     var userId = localStorage.getItem("loggedUserId");
     UserService.getAndSafeLoggedUser(userId) //loads logged user data
       .then(user => {
@@ -38,13 +43,34 @@
             .catch(console.error);
         }, Promise.resolve());
       })
-      .then(() => { //displays top post
-        console.log($scope.posts.allFriendsPosts)
-        var postId=$scope.posts.allFriendsPosts[0]
-        $scope.displayPost(postId, false, $scope.posts)
+      .then(() => {
+        // console.log("before sorting")
+        // console.log($scope.posts.allFriendsPosts)
+        $scope.posts.allFriendsPosts = $scope.posts.allFriendsPosts.sort(
+          (p1, p2) => {
+            //retrieving date from the mongodb object id, and sorting posts by date
+            var date1 = new Date(parseInt(p1.substring(0, 8), 16) * 1000);
+            var date2 = new Date(parseInt(p2.substring(0, 8), 16) * 1000);
+            console.log(date1 - date2);
+            return date2 - date1;
+          }
+        );
+        // console.log("after sorting")
+        // console.log($scope.posts.allFriendsPosts)
+        // $scope.posts.allFriendsPosts.forEach(p=>{
+        //   console.log(new Date(parseInt(p.substring(0, 8), 16) * 1000))
+        // })
+      })
+      .then(() => {
+        //displays top post
+        if ($scope.posts.allFriendsPosts.length > 0) {
+          var postId = $scope.posts.allFriendsPosts[0];
+          $scope.displayPost(postId, false, $scope.posts).then(() => {
+            console.log($scope.posts.displayedPosts[0]);
+          });
+        }
       });
 
-    
     // SCROLL
     document
       .querySelector("#postContainer")
