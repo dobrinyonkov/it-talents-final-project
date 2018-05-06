@@ -1,15 +1,12 @@
 (function() {
   app.controller("PhotoGalleryController", function(
-    // $window,
-    // $rootScope,
-    // fileUpload,
     $routeParams,
     $scope,
-    // $apply,
-    // PostService,
     UserService,
     $timeout
   ) {
+    $scope.isOwner=$scope.isOwner=$routeParams.id==localStorage.getItem("loggedUserId")
+    $scope.page="photos"
     $scope.displayedPhoto = "";
     $scope.changePhoto = function(photo) {
       $scope.displayedPhoto = photo;

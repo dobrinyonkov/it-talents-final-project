@@ -11,78 +11,12 @@
     <div class="profile-cover">
       <div class="cover rounded shadow no-overflow">
         <div class="inner-cover">
-          <!-- Start offcanvas btn group menu: This menu will take position at the top of profile cover (mobile only). -->
-          <div class="btn-group ">
-            <ul class="dropdown-menu float-right no-border" role="menu">
-              <li class="dropdown-item">
-                <a href="#!/profile/{{profile._id}}">
-                  <i class="m-2 fa fa-fw fa-clock-o"></i>
-                  <span>Timeline</span>
-                </a>
-              </li>
-              <li class="dropdown-item">
-                <a href="#">
-                  <i class="m-2 fa fa-fw fa-user"></i>
-                  <span>About</span>
-                </a>
-              </li>
-              <li class="dropdown-item">
-                <a href="#">
-                  <i class="m-2 fa fa-fw fa-photo"></i>
-                  <span>Photos</span>
-                  <small>({{profile.photos.length}})</small>
-                </a>
-              </li>
-              <li class="dropdown-item">
-                <a href="#">
-                  <i class="m-2 fa fa-fw fa-users"></i>
-                  <span> Friends </span>
-                  <small>({{profile.friends.length}})</small>
-                </a>
-              </li>
-              <li class="dropdown-item">
-                <a href="#">
-                  <i class="m-2 fa fa-fw fa-envelope"></i>
-                  <span>Messages</span>
-                  <small>(7 new)</small>
-                </a>
-              </li>
-            </ul>
-          </div>
           <!-- Cover photo -->
           <img ng-src="{{profile.coverPhoto}}" class="img-fluid full-width" alt="cover" >
          <img  ng-src="{{profile.profilePic}}" alt="" class="profile-picture">
            <!-- <img ng-src="{{profile.coverPhoto}}" class="img-fluid full-width" alt="cover" style="max-height:200px;">  -->
         </div>
-        <ul class="list-unstyled no-padding  cover-menu">
-          <li>
-            <a href="#!/profile/{{profile._id}}">
-              <i class="fa fa-fw fa-clock-o"></i>
-              <span>Timeline</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="fa fa-fw fa-user"></i>
-              <span>About</span>
-            </a>
-          </li>
-          <li class="active">
-            <a href=""  >
-              <i class="fa fa-fw fa-photo"></i>
-              <span>Photos</span>
-              <small>({{profile.photos.length}})</small>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="fa fa-fw fa-users"></i>
-              <span> Friends </span>
-              <small>({{profile.friends.length}})</small>
-            </a>
-          </li>
-
-        </ul>
+        <page-navigation is-Owner=isOwner profile=profile page=page></page-navigation>
       </div>
       <!-- /.cover -->
     </div>

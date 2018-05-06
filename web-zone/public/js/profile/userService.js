@@ -122,8 +122,8 @@
             if (loggedUser && loggedUser._id == id) {
                 console.log("logged user data already fetched");
                 return new Promise(function (resolve, reject) {
-                    // resolve(loggedUser);
-                    return loggedUser
+                    resolve(loggedUser);
+               
                 });
             }
             if (loggedUser) return new Error("Someone else has already logged ?!?");
