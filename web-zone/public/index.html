@@ -19,9 +19,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.min.js"></script>
 
     <!-- Font, Style -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg"
+        crossorigin="anonymous">
     <link rel="stylesheet" href="css/main.css">
-    
+
     <script src="vendors/jquery.min.js"></script>
     <!-- Bootbox -->
     <script src="vendors/bootbox.min.js"></script>
@@ -56,6 +57,7 @@
     <!-- DIRECTIVES -->
     <script src="js/layout/nav/navDirective.js"></script>
     <script src="js/layout/pageNavigation/pageNavDirective.js"></script>
+    <script src='js/layout/messengerDirective/messengerDirective.js'></script>
     <script src='js/post/postDirective.js'></script>
     <!-- <script src='js/post/infiteScrollDirective.js'></script> -->
     <title>Web-Zone The Social Network</title>
@@ -64,13 +66,21 @@
 <body ng-app="app">
 
     <div ng-controller="RootController">
-        
-        <div ng-controller="NavigationController">
-            <navigation logout=logout($event) on-delete-friend-reuest="onDeleteFriendReuest($event, senderId,receiverId)" on-confirm-friend-reuest="onConfirmFriendReuest($event, senderId,receiverId)" received-friend-requests="receivedFriendRequests" sended-friend-requests="sendedFriendRequests" on-firend-requests="onFirendRequests(test)" selected-user-id="selectedUserId" select-user="selectUser()" found-users="foundUsers" user="currentUser" user-name="userName" search-user="searchUser()"></navigation>
+        <div ng-controller="MessengerController">
+            <div ng-repeat="chatRoom in activeChatRooms track by $index">
+                    <messenger close-chat-window="closeChatWindow(chatRoom)" minimize="minimize($event)" ng-class="'fixed-sigle-window-message-' + $index" chat-room="chatRoom"></messenger>
+                </div>
+
+            <div ng-controller="NavigationController">
+                <navigation logout=logout($event) on-delete-friend-reuest="onDeleteFriendReuest($event, senderId,receiverId)" on-confirm-friend-reuest="onConfirmFriendReuest($event, senderId,receiverId)"
+                    received-friend-requests="receivedFriendRequests" sended-friend-requests="sendedFriendRequests" on-firend-requests="onFirendRequests(test)"
+                    selected-user-id="selectedUserId" select-user="selectUser()" found-users="foundUsers" user="currentUser"
+                    user-name="userName" search-user="searchUser()"></navigation>
+            </div>
+
+            <main ng-view>
+            </main>
         </div>
-    
-        <main ng-view>
-        </main>
     </div>
 
 </body>

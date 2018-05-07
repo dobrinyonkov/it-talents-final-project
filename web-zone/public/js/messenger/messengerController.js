@@ -8,7 +8,7 @@
         $scope.tempChatRoomsObjects = [];
         $scope.chatRoomsObjects = [];
         $scope.currentChatRoom = null;
-
+        $scope.activeChatRooms = JSON.parse($window.localStorage.getItem("activeChatRooms")) || [];
         //socket connection
         var socket = io();
 
@@ -16,7 +16,6 @@
         UserService.getById(userId)
             .then(data => {
                 $rootScope.currentUser = data.data[0];
-                console.log($rootScope.currentUser);
 
                 //get currently logged user chatrooms
                 $scope.chatRoomsIds = $rootScope.currentUser.chatRooms;
@@ -73,8 +72,30 @@
 
         //receiving new messages for currentChatRoom
         socket.on('message', function (data) {
+            console.log(data);
             $timeout(function () {
                 $scope.$apply(function () {
+                    var chat = $scope.activeChatRooms.find(ch => ch._id === data._id);
+                    if (data.user1._id === $rootScope.currentUser._id) {
+                        data.user1.isMe = true;
+                        data.user2.isMe = false;
+                    } else {
+                        data.user2.isMe = true;
+                        data.user1.isMe = false;
+                    }
+                    if (chat) {
+                        chat.content.push(data.content.pop());
+                    } else {
+                        $scope.activeChatRooms.push(data);  
+                    }
+                    $timeout(function () {
+                        $scope.$apply(function () {
+                            console.log('activeRooms')
+                            console.log($scope.activeChatRooms);
+                            $window.localStorage.setItem("activeChatRooms", JSON.stringify($scope.activeChatRooms));                            
+                        })
+                    }, 0);
+
                     console.log($scope.currentChatRoom._id + ' received room id');
                     var room = $scope.chatRoomsObjects.find(c => c._id === data._id)
                     room.content.push(data.content.pop());
@@ -171,6 +192,14 @@
             //clean the textaria
             $scope.messageText = '';
         }
+        
+        $scope.closeChatWindow = function (chatRoom) {
+            var index = $scope.activeChatRooms.findIndex(ch => ch._id === chatRoom._id);
+            $scope.activeChatRooms.splice(index, 1);
+            $window.localStorage.setItem("activeChatRooms", JSON.stringify($scope.activeChatRooms));                                        
+        }
 
+        $scope.minimize = function ($event) {
+        }
     });
 })();

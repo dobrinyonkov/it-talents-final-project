@@ -5,14 +5,14 @@
         $scope.selectedUserId = '';
         $scope.userName;
 
-        $scope.onConfirmFriendReuest = function ($event, senderId, receiverId) {
-            console.log(senderId);
-            console.log(receiverId);
+        $scope.onConfirmFriendReuest = function ($event, sender, receiver) {
+            console.log(sender);
+            console.log(receiver);
             $event.stopPropagation();
             $event.preventDefault();
-            UserService.friendsRequests.confirm(senderId, receiverId).then(r => {
-                var index = $scope.receivedFriendRequests.findIndex(u => u._id === receiverId);
-                var user = $scope.receivedFriendRequests.find(u => u._id === receiverId);
+            UserService.friendsRequests.confirm(sender, receiver).then(r => {
+                var index = $scope.receivedFriendRequests.findIndex(u => u._id === receiver._id);
+                var user = $scope.receivedFriendRequests.find(u => u._id === receiver._id);
                 $scope.receivedFriendRequests.splice(index, 1);
                 // $scope.friendsRequestSended = false;
                 // $scope.areFriends = null;
@@ -21,7 +21,7 @@
             });
         }
 
-        $scope.onDeleteFriendReuest = function ($event, senderId, receiverId) {
+        $scope.onDeleteFriendReuest = function ($event, sender, receiverId) {
             $event.stopPropagation();
             $event.preventDefault();
             UserService.friendsRequests.deleteFR(senderId, receiverId).then(r => {

@@ -50,8 +50,8 @@
 
     function UserService($http) {
 
-        // const API_URL = 'http://localhost:9000/';
-        const API_URL = 'http://web-zone.herokuapp.com/';
+        const API_URL = 'http://localhost:9000/';
+        // const API_URL = 'http://web-zone.herokuapp.com/';
 
         var service = {};
 
@@ -175,6 +175,7 @@
         // friend request AJAX's
         function send(senderId, receiverId) {
             var arr = [senderId, receiverId];
+            console.log(arr);
             return $http.put(`${API_URL}api/friends/send`, { ids: arr })
                 .then(res => {
                     return res;
@@ -196,9 +197,9 @@
                 });
         }
 
-        function confirm(senderId, receiverId) {
-            var arr = [senderId, receiverId];
-            return $http.put(`${API_URL}api/friends/confirm`, { ids: arr })
+        function confirm(sender, receiver) {
+            var arr = [sender, receiver];
+            return $http.put(`${API_URL}api/friends/confirm`, { users: arr })
                 .then(res => {
                     return res;
                 })

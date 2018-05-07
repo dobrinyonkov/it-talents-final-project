@@ -4,8 +4,8 @@
         .factory('LoginService', LoginService);
 
     function LoginService($http, $window) {
-        // const API_URL = 'http://localhost:9000/';
-        const API_URL = 'http://web-zone.herokuapp.com/';
+        const API_URL = 'http://localhost:9000/';
+        // const API_URL = 'http://w/eb-zone.herokuapp.com/';
         // const API_URL = 'https://web-zone.herokuapp.com/';
         
         var service = {};

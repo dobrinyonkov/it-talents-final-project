@@ -54,7 +54,7 @@
 											<p class="font-weight-bold">{{friendReq.firstName}} {{friendReq.lastName}}</p>
 										</div>
 										<div class="col- ml-auto">
-											<button ng-click="onConfirmFriendReuest({$event: $event, senderId:friendReq._id, receiverId: $root.currentUser._id})" class="btn btn-secondary btn-sm font-weight-bold">Confirm</button>
+											<button ng-click="onConfirmFriendReuest({$event: $event, senderId:friendReq, receiverId: $root.currentUser})" class="btn btn-secondary btn-sm font-weight-bold">Confirm</button>
 											<button ng-click="onDeleteFriendReuest({$event: $event, senderId:friendReq._id, receiverId: $root.currentUser._id})" class="btn btn-primary btn-sm font-weight-bold">Delete</button>
 										</div>
 									</div>

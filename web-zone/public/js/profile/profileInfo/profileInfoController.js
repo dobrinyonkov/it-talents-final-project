@@ -72,6 +72,7 @@
 
         // SEND FRIEND REQUEST, CANCEL FRIEND REQUEST, UNFRIEND
         $scope.sendFriendRequest = function (senderId, receiverId) {
+            console.log(senderId, receiverId);
             if (!$scope.areFriends && !$scope.friendsRequestSended) {
                 UserService.friendsRequests.send(senderId, receiverId)
                     .then(r => {
