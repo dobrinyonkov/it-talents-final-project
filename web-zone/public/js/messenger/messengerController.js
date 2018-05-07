@@ -53,7 +53,7 @@
                             rooms.user1.isMe = false;
                         }
                         $timeout(function () {
-                            //get a copy of the rooms on the app memory
+                            //push a single chatroom to the array 
                             $scope.chatRoomsObjects.push(rooms);
 
                             //get your last chat room

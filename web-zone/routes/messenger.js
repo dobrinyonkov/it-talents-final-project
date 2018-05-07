@@ -70,7 +70,7 @@ module.exports = function (app, db) {
                 })
             });
 
-            app.io.in('5aec64a732840b127d02b65a').emit('big-announcement', 'the game will start soon');
+            // app.io.in('5aec64a732840b127d02b65a').emit('big-announcement', 'the game will start soon');
         })
         
     })
