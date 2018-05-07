@@ -13,14 +13,6 @@ body {
   background-color: #563d7c !important;
   color: #e9ebee;
 }
-.post-header {
-  background: linear-gradient(
-    to bottom left,
-    #563d7c,
-    rgb(125, 41, 146)
-  ) !important;
-  border: none !important;
-}
 
 .link {
   color: rgb(0, 74, 212);
@@ -36,9 +28,6 @@ body {
   display: block;
 }
 
-/* ========================================================================
-     * FORM MISC
-     * ======================================================================== */
 .input-group-addon {
   -moz-border-radius: 0px;
   -webkit-border-radius: 0px;
@@ -87,25 +76,13 @@ body {
     margin-top: 15px;
   }
 }
+
 @media (max-width: 560px) {
   .inner-all {
     text-align: center;
   }
 }
-ul.cover-menu {
-  padding-left: 0 !important;
-  text-align: center !important;
-}
 
-ul.cover-menu li {
-  width: 25%;
-}
-
-@media (max-width: 400px) {
-  ul.cover-menu li {
-    width: 50% !important;
-  }
-}
 /* ========================================================================
      * PROFILE
      * ======================================================================== */
@@ -133,49 +110,7 @@ ul.cover-menu li {
 .profile-cover .cover .inner-cover .cover-menu-mobile button i {
   font-size: 17px;
 }
-.profile-cover .cover ul.cover-menu {
-  padding-left: 150px;
-  position: absolute;
-  overflow: hidden;
-  left: 1px;
-  float: left;
-  bottom: 0px;
-  width: 100%;
-  margin: 0px;
-  background: none repeat scroll 0% 0% rgba(0, 0, 0, 0.24);
-}
-.profile-cover .cover ul.cover-menu li {
-  display: block;
-  float: left;
-  margin-right: 0px;
-  padding: 0px 10px;
-  line-height: 40px;
-  height: 40px;
-  -moz-transition: all 0.3s;
-  -o-transition: all 0.3s;
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
-}
-.profile-cover .cover ul.cover-menu {
-  background-color: rgba(47, 20, 83, 0.493);
-}
-.profile-cover .cover ul.cover-menu li:hover {
-  background-color: rgba(12, 11, 78, 0.671);
-}
-.profile-cover .cover ul.cover-menu li.active {
-  background-color: rgba(25, 9, 99, 0.801);
-}
-.profile-cover .cover ul.cover-menu li a {
-  color: #fff;
-  font-weight: bold;
-  display: block;
-  height: 40px;
-  line-height: 40px;
-  text-decoration: none;
-}
-.profile-cover .cover ul.cover-menu li a i {
-  font-size: 18px;
-}
+
 .profile-cover .profile-body {
   margin: 0px auto 10px;
   position: relative;
@@ -183,72 +118,27 @@ ul.cover-menu li {
 .profile-cover .profile-timeline {
   padding: 15px;
 }
-.img-post {
-  width: 3em;
-  height: 3em;
-  margin-right: 1.2em;
-}
-.img-post2 {
-  width: 50px;
-  height: 50px;
-}
 
-.fa-heart:hover {
-  color: orangered;
-}
-.likedPost {
-  color: firebrick;
-}
-.fa-cog {
-  margin-left: 2em;
-}
-.editPostOptions {
-  background: white;
-  color: black;
-  position: absolute;
-  top: 2.5em;
-  /* left: 80px; */
-  padding: 0.2em;
-  margin: none;
-  z-index: 300;
-  list-style: none;
-  width: 100px;
-}
-.editPostOptions > p {
-  margin: 0px 0px 0px 1em !important;
-  cursor: pointer;
-}
-.comment {
-  border-bottom: #563d7c 1px solid;
-  margin-bottom: 0.7em;
-}
-.comment img {
-  height: 2.5em;
-  width: 2.5em;
-}
-.post {
+/* .post {
   box-sizing: border-box;
   margin-bottom: 1em;
-  /* float: left !important; */
-  /* display: inline-block;
- width:30% */
 }
 .your-comment button:hover {
-  /* background-color: #e9ebee; */
+
   font-weight: bold;
 }
 .your-comment input {
   border-radius: 0.7em;
-}
+} */
 .new-post {
   margin: auto;
-  /* padding: 2px; */
+
   box-sizing: border-box;
-  /* background-color: rgb(243, 227, 225); */
+
   border: 1px solid dodgerblue;
 }
 .new-post .card-footer {
-  /* height: 2em; */
+
   padding: 6px 10px;
 }
 p.date {
@@ -371,8 +261,8 @@ memberblock {
   position: relative;
   width: 100%;
 }
-.big-photoholder{
-  height: 5em;  
+.big-photoholder {
+  height: 5em;
 }
 
 #photoholder img {

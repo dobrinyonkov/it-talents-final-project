@@ -48,10 +48,10 @@
         .module('app')
         .factory('UserService', UserService);
 
-    function UserService($http) {
+    function UserService(API_URL,$http) {
 
         // const API_URL = 'http://localhost:9000/';
-        const API_URL = 'http://web-zone.herokuapp.com/';
+        // const API_URL = 'http://web-zone.herokuapp.com/';
 
         var service = {};
 

@@ -1,12 +1,12 @@
 
-app.service("PostService", function($http,UserService) {
-  // const API_URL = 'http://localhost:9000/';
-  const API_URL = 'http://web-zone.herokuapp.com/';
+app.service("PostService", function(API_URL,$http,UserService) {
+
   function mergeNames(name1, name2){
     name1 = name1.charAt(0).toUpperCase() + name1.slice(1);
     name2 = name2.charAt(0).toUpperCase() + name2.slice(1);
     return name1 + " " + name2
   }
+  
   // POST CONSTRUCTOR
   this.Post=Post
   function Post(ownerId, text, photo) {

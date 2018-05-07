@@ -22,19 +22,14 @@ body {
   font-size: 3em;
   text-align: center;
 }
-/* .post-header {
-	  font-size: 1.5em;
-  }   */
-.post-header div.media-body *
-{
+
+.post-header div.media-body *{
   font-size: 1.2em !important;
-  /* font-weight: bold; */
-  /* border:3px solid black */
+
 }
 .post-header .float-right * {
 	font-size: 1.1em ;
-	margin-top:0.8em;
-	
+	margin-top:0.8em;	
 }
 .post-header .float-right span {
 margin-right:0.8em  
@@ -48,6 +43,10 @@ margin-right:0.8em
   .inner-all {
     text-align: center;
   }
+  .list-group-item,.list-group-item *{
+    align-content: center!important;
+    text-align: center!important;
+  }
 }
 .fa-heart:hover {
   color: orangered;
@@ -58,51 +57,20 @@ margin-right:0.8em
 i.fa-cog {
 display: none;
 }
-.editPostOptions {
-  background: white;
-  color: black;
-  position: absolute;
-  top: 2.5em;
-  /* left: 80px; */
-  padding: 0.2em;
-  margin: none;
-  z-index: 300;
-  list-style: none;
-  width: 100px;
-}
-.editPostOptions > p {
-  margin: 0px 0px 0px 1em !important;
-  cursor: pointer;
-}
-.comment {
-  border-bottom: #563d7c 1px solid;
-  margin-bottom: 0.7em;
-}
-.comment img {
-  height: 2.5em;
-  width: 2.5em;
-}
+
 .post {
   box-sizing: border-box;
   margin-bottom: 1em;
-  /* float: left !important; */
-  /* display: inline-block;
- width:30% */
+
 }
 .your-comment button:hover {
-  /* background-color: #e9ebee; */
+
   font-weight: bold;
 }
 .your-comment input {
   border-radius: 0.7em;
 }
-.new-post {
-  margin: auto;
-  /* padding: 2px; */
-  box-sizing: border-box;
-  /* background-color: rgb(243, 227, 225); */
-  border: 1px solid dodgerblue;
-}
+
 .img-post {
   width: 3em;
   height: 3em;
@@ -116,6 +84,18 @@ display: none;
 .fa-cog {
   margin-left: 2em;
 }
+.list-group-item span,.list-group-item i{
+font-size: 1.5em;
+margin-right: 0.5em;
+color: rebeccapurple;
+}
+.list-group-item:hover  {
+  font-size: 1.5em;
+  margin-right: 0.5em;
+  color: rgb(82, 34, 131);
+  background: rgba(142, 142, 231, 0.452)
+  }
+
 .editPostOptions {
   background: white;
   color: black;

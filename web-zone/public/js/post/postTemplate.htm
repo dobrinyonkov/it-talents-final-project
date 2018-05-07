@@ -1,4 +1,4 @@
-<div class="post">
+<div ng-class="post.isNews?'news-aricle':'post'">
     <div class="card rounded shadow">
         <div class="post-header card-header no-border">
             <div class="float-left half">
@@ -8,14 +8,22 @@
                     </div>
                     <div class="media-body">
                         <p>
-                            <a href="#!/{{post.owner._id}}" class="media-heading block mb-0 h6 text-white">{{post.owner.name}} </a>
+                            <a href="#!/profile/{{post.owner._id}}" class="media-heading block mb-0 h6 text-white">{{post.owner.name}} </a>
+                            <span ng-if="post.isNews" class="news-source media-heading block mb-0 h6 text-white">for
+                                <a href=" {{post.owner.site}}">
+                                    <span class="">
+                                        {{post.owner.site}}
+                                    </span>
+                                </a>
+                            </span>
                         </p>
+
                         <p class="date text-white h6">{{calculatetime({date: post.date})}}</p>
                     </div>
                 </div>
             </div>
             <!-- /.pull-left -->
-            <div class="float-right">
+            <div ng-if="!post.isNews" class="float-right">
                 <span class="text-white h6">
                     <i ng-click="post.like()" ng-class="post.liked?'likedPost':''" title="Like this post." class="fa fa-heart"></i>
                     <span title=" ">{{post.likes.length}}</span>
@@ -44,10 +52,8 @@
                         {{post.text}}
                     </p>
                 </div>
-            
-            
             </div>
-            <div class="inner-all block">
+            <div ng-if="!post.isNews" class="inner-all block">
                 view all
                 <a href="#" ng-click=post.displayAllComments($event)>{{post.comments.length}} comments</a>
             </div>
@@ -76,10 +82,10 @@
                 </div>
                 <!-- /.media -->
             </div>
-            <!--end of comment -->
+            <!--end of comments -->
         </div>
-        <!-- /.panel-body -->
-        <div class="your-comment card-footer">
+        <!-- new comment -->
+        <div ng-if="!post.isNews" class="your-comment card-footer">
             <form action="#" class="">
                 <div class="input-group has-feedback no-margin">
                     <input type="text" ng-model=post.newComment.text class="form-control form-control-sm" placeholder={{post.newComment.placeholder}}>
@@ -88,6 +94,9 @@
                     </span>
                 </div>
             </form>
+        </div>
+        <div ng-if="post.isNews" class="share">
+            <i class="far fa-share-square"></i> SHARE
         </div>
         <!-- /.panel-footer -->
     </div>
