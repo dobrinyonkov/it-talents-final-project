@@ -2,7 +2,40 @@ body {
   font-size: 15px;
   background-color: #e9ebee !important;
 }
+/* body::-webkit-scrollbar {
 
+  margin-left: 22px;
+	float: left;
+	height: 300px;
+	width: 65px;
+	background: #F5F5F5;
+	overflow-y: scroll;
+	margin-bottom: 25px;
+} */
+/* .scrollbar {
+  background-color: #F5F5F5;
+  float: left;
+  height: 300px;
+  margin-bottom: 25px;
+  margin-left: 22px;
+  margin-top: 40px;
+  width: 65px;
+  overflow-y: scroll;
+}
+.force-overflow {
+  min-height: 450px;
+}
+#style-1::-webkit-scrollbar {
+  width: 6px;
+  background-color: #F5F5F5
+}
+#style-1::-webkit-scrollbar-thumb {
+  background-color: #000000;
+}
+#style-1::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  background-color: #F5F5F5;
+} */
 .btn-purple {
   background-color: #563d7c;
   color: #e9ebee;
@@ -155,7 +188,10 @@ p.date {
 #postContainer {
   min-height: 400px;
   max-height: 600px;
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  
+  /* position: relative; */
 }
 .post-content {
   font-size: 3em;

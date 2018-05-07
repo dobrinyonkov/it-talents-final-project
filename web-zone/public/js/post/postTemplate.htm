@@ -19,11 +19,13 @@
                         </p>
 
                         <p class="date text-white h6">{{calculatetime({date: post.date})}}</p>
+                        <p ng-if="post.isShared"> shared by {{post.whoShared.name}}</p>
                     </div>
+
                 </div>
             </div>
             <!-- /.pull-left -->
-            <div ng-if="!post.isNews" class="float-right">
+            <div ng-if="!post.isNews||post.isShared" class="float-right">
                 <span class="text-white h6">
                     <i ng-click="post.like()" ng-class="post.liked?'likedPost':''" title="Like this post." class="fa fa-heart"></i>
                     <span title=" ">{{post.likes.length}}</span>
@@ -53,7 +55,7 @@
                     </p>
                 </div>
             </div>
-            <div ng-if="!post.isNews" class="inner-all block">
+            <div ng-if="!post.isNews||post.isShared" class="inner-all block">
                 view all
                 <a href="#" ng-click=post.displayAllComments($event)>{{post.comments.length}} comments</a>
             </div>
@@ -85,7 +87,7 @@
             <!--end of comments -->
         </div>
         <!-- new comment -->
-        <div ng-if="!post.isNews" class="your-comment card-footer">
+        <div ng-if="!post.isNews||post.isShared" class="your-comment card-footer">
             <form action="#" class="">
                 <div class="input-group has-feedback no-margin">
                     <input type="text" ng-model=post.newComment.text class="form-control form-control-sm" placeholder={{post.newComment.placeholder}}>
@@ -95,7 +97,7 @@
                 </div>
             </form>
         </div>
-        <div ng-if="post.isNews" class="share">
+        <div ng-if="post.isNews&&!post.canEdit" ng-click="post.share()" class="share">
             <i class="far fa-share-square"></i> SHARE
         </div>
         <!-- /.panel-footer -->

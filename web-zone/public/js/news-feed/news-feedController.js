@@ -11,6 +11,7 @@
     $controller("postController", { $scope: $scope });
     $scope.isOwner = true;
     $scope.page = "newsfeed";
+
     $scope.posts = {
       allFriendsPosts: [],
       displayedPosts: [],

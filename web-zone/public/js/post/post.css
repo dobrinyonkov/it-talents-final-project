@@ -110,7 +110,7 @@ div.share:active {
   margin-bottom: 2em;
 }
 span.news-source *{
-  font-size:5px !important;
+  font-size:1em !important;
   font-style: italic;
   /* line-height: 0.5em; */
   color:white
