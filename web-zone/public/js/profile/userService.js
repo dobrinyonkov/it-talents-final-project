@@ -10,11 +10,7 @@
 //         this.receivedFriendRequests = [];
 //     }
 
-//     function getUserById(id) {
-//         return $.get(`http://localhost:9000/api/users/${id}`).then(user => {
-//             return user;
-//         })
-//     }
+
 
 //     User.prototype.login = function (email, password) {
 
@@ -54,8 +50,8 @@
 
     function UserService($http) {
 
-        const API_URL = 'http://localhost:9000/';
-        // const API_URL = 'https://web-zone.herokuapp.com/';
+        // const API_URL = 'http://localhost:9000/';
+        const API_URL = 'http://web-zone.herokuapp.com/';
 
         var service = {};
 
@@ -122,8 +118,8 @@
             if (loggedUser && loggedUser._id == id) {
                 console.log("logged user data already fetched");
                 return new Promise(function (resolve, reject) {
-                    // resolve(loggedUser);
-                    return loggedUser
+                    resolve(loggedUser);
+               
                 });
             }
             if (loggedUser) return new Error("Someone else has already logged ?!?");

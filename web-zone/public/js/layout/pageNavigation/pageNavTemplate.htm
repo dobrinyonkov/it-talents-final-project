@@ -1,0 +1,35 @@
+<ul class="list-unstyled no-padding  cover-menu">
+    <li ng-class="(page=='timeline')?'active':'none'">
+        <a href="#!/profile/{{profile._id}}">
+            <i class="fa fa-fw fa-clock-o"></i>
+            <span>Timeline</span>
+        </a>
+    </li>
+    <li ng-if="!isOwner" ng-class="(page=='about')?'active':'none'">
+        <a href="#">
+            <i class="fa fa-fw fa-user"></i>
+            <span>About</span>
+        </a>
+    </li>
+    <li ng-if="isOwner" ng-class="(page=='newsfeed')?'active':'none'">
+        <a href="#!/newsfeed">
+            <i class="fa fa-fw fa-newspaper" aria-hidden='true'></i>
+            <span>News-feed</span>
+        </a>
+    </li>
+    <li ng-class="(page=='photos')?'active':'none'">
+        <a href="#!/gallery/{{profile._id}}">
+            <i class="fa fa-fw fa-photo"></i>
+            <span>Photos</span>
+            <small>({{profile.photos.length}})</small>
+        </a>
+    </li>
+    <li ng-class="page=='friends'? 'active' : 'none'">
+        <a href="#">
+            <i class="fa fa-fw fa-users"></i>
+            <span> Friends </span>
+            <small>({{profile.friends.length}})</small>
+        </a>
+    </li>
+
+</ul>

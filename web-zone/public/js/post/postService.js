@@ -1,12 +1,14 @@
 
 app.service("PostService", function($http,UserService) {
-  const API_URL = 'http://localhost:9000/';
+  // const API_URL = 'http://localhost:9000/';
+  const API_URL = 'http://web-zone.herokuapp.com/';
   function mergeNames(name1, name2){
     name1 = name1.charAt(0).toUpperCase() + name1.slice(1);
     name2 = name2.charAt(0).toUpperCase() + name2.slice(1);
     return name1 + " " + name2
   }
   // POST CONSTRUCTOR
+  this.Post=Post
   function Post(ownerId, text, photo) {
     this.text = text;
     this.ownerId = ownerId;
@@ -23,7 +25,6 @@ app.service("PostService", function($http,UserService) {
       var owner = {};      
       owner.name = mergeNames(res.data[0].firstName,res.data[0].lastName)
       owner.photoUrl = res.data[0].profilePic;
-      owner.test="put by the prototype method"
       post.owner = owner; 
       return post
     })
@@ -31,7 +32,7 @@ app.service("PostService", function($http,UserService) {
   Post.prototype.like = function(userId) {
     var post = this;
     return $http
-      .put("http://localhost:9000/api/posts/like", {
+      .put(`${API_URL}api/posts/like`, {
         userId: userId,
         postId: post._id
       })
@@ -68,7 +69,7 @@ app.service("PostService", function($http,UserService) {
   this.addComment = function(postId, ownerId, text) {
     var newC = new Comment(ownerId, text);
     newC = JSON.stringify(newC);
-    return $http.put("/api/posts/", {
+    return $http.put(`${API_URL}api/posts/`, {
       postId: postId,
       newComment: newC
     })
@@ -84,7 +85,7 @@ app.service("PostService", function($http,UserService) {
     var newP = new Post(ownerId, text, photoUrl);
     newP = JSON.stringify(newP);
     return $http
-      .post("http://localhost:9000/api/posts", newP)
+      .post(`${API_URL}api/posts`, newP)
       .then(res => {
         var newPostId = res.data.id;
         return newPostId;
@@ -114,7 +115,7 @@ app.service("PostService", function($http,UserService) {
       })
       .then(() => {
       //  throw new Error("")<<--error catched succesufully
-       return $http.delete("http://localhost:9000/api/posts/" + postId);
+       return $http.delete(`${API_URL}api/posts/` + postId);
       });
   };
   //GET POST BY ID

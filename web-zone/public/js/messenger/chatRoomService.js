@@ -6,7 +6,8 @@
 
     function UserService($http) {
 
-        const API_URL = 'http://localhost:9000/';
+        // const API_URL = 'http://localhost:9000/';
+        const API_URL = 'http://web-zone.herokuapp.com/';
         // const API_URL = 'https://web-zone.herokuapp.com/';
 
         var service = {};

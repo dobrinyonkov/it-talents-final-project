@@ -1,18 +1,3 @@
-function calculateTimeInterval(date) {
-  var interval = Date.now() - Date.parse(date);
-  if (interval < 5000) return "just now";
-  interval = Math.floor(interval / 1000);
-  if (interval < 60) return interval + " seconds ago";
-  interval = Math.floor(interval / 60);
-  if (interval < 2) return "1 minute ago";
-  if (interval < 60) return interval + " minutes ago";
-  interval = Math.floor(interval / 60);
-  if (interval < 2) return "1 hour ago";
-  if (interval < 24) return interval + " hours ago";
-  interval = Math.floor(interval / 24);
-  if (interval < 2) return "yesterday";
-  return interval + " days ago";
-}
 
 (function() {
   app.controller("ProfileController", function(
@@ -20,6 +5,7 @@ function calculateTimeInterval(date) {
     fileUpload,
     $routeParams,
     $scope,
+    $controller,
     PostService,
     UserService,
     $timeout
@@ -31,10 +17,12 @@ function calculateTimeInterval(date) {
       busy: false,
       allPostsLoaded: false
     };
-
- 
+    $scope.page="timeline";
+    $scope.isOwner=$routeParams.id==localStorage.getItem("loggedUserId")
     $scope.addPost = addPost;
-    $scope.calculateTimeInterval = calculateTimeInterval;
+    // $scope.calculateTimeInterval = calculateTimeInterval;
+    $controller('postController', {$scope: $scope}); 
+    // console.log($scope.displayPost)
     // USER
     var userId = $routeParams.id;
     UserService.getById(userId)
@@ -57,7 +45,7 @@ function calculateTimeInterval(date) {
         if (postIds.length == 0)return;
         //First post
         var newestPostId = postIds[postIds.length - 1];
-        $scope.posts.displayPost(newestPostId);
+        $scope.displayPost(newestPostId,false,$scope.posts);
       })
       .catch(err =>
         alert("We couldn't load your profile, please login again.")
@@ -80,7 +68,7 @@ function calculateTimeInterval(date) {
           var position = totalNumberOfPosts - numberOfDisplayedPost - 1;
           if (position >= 0) {
             let postId = $scope.profile.posts[position];
-            $scope.posts.displayPost(postId).then(res => {
+            $scope.displayPost(postId,false,$scope.posts).then(res => {
               $scope.posts.busy = false;
             });
           } else {
@@ -91,91 +79,6 @@ function calculateTimeInterval(date) {
           }
         }
       });
-    // DISPLAY POST FUNCTION
-    $scope.posts.displayPost = function(postId, top) {
-      return PostService.getPost(postId)
-        .then(post => post.loadOwnerInfo())
-        .then(post => {
-          // DELETING A POST
-          post.canEdit = post.ownerId == localStorage.getItem("loggedUserId");
-          post.editMode = false;
-          post.delete = function() {
-            bootbox.confirm(
-              "Are you sure you want to delete this post",
-              res => {
-                if (!res) return;
-                console.log("shte iztiq");
-                PostService.deletePost(localStorage.getItem("loggedUserId"), post._id)
-                  .then(() => {
-                    console.log("i shte go mahna ot ekrana")
-                    console.log($scope.posts.displayedPosts)
-                    console.log(post._id)
-                    $scope.posts.displayedPosts = $scope.posts.displayedPosts.filter(p => p._id !== post._id);
-                  })
-                  .catch(err => {
-                    console.log(err)
-                    alert("We had a server error and couldn't delete the post, please try again later.");
-                  });
-              }
-            );
-          };
-          // LIKING A POST
-          post.liked =
-            post.likes.indexOf(localStorage.getItem("loggedUserId")) != -1;
-          post.like = post.like.bind(
-            post,
-            localStorage.getItem("loggedUserId")
-          );
-          //COMMENT
-          post.displayedComments = []; //binded to view
-          if (post.comments.length > 0) {
-            post.loadCommentWithOwnerData(post.comments.length - 1).then(c => {
-              //loading the top comment
-              post.displayedComments.push(c);
-            });
-          }
-          //ALL COMMENTS
-          post.displayAllComments = function($event) {
-            $event.preventDefault();
-            var remaining =
-              post.comments.length - post.displayedComments.length;
-            if (remaining <= 0) return;
-            return post.loadCommentWithOwnerData(remaining - 1).then(c => {
-              post.displayedComments.push(c);
-              post.displayAllComments($event);
-            });
-          };
-          //ADD NEW COMMENT
-          post.newComment = { placeholder: "Write a comment", text: "" };
-          post.addNewComment = function() {
-            if (post.newComment.text.trim().length < 2) {
-              post.newComment.placeholder = "Can't post an empty comment.";
-              return;
-            }
-            PostService.addComment(
-              post._id,
-              localStorage.getItem("loggedUserId"),
-              post.newComment.text
-            ).then(res => {
-              res = JSON.parse(res);
-              post.comments.push(res);
-              post
-                .loadCommentWithOwnerData(post.comments.length - 1)
-                .then(c => {
-                  post.displayedComments.unshift(c);
-                });
-              post.newComment.text = "";
-              post.newComment.placeholder = "Thanks for the comment.";
-            });
-          };
-          //ADDING THE POST TO THE ARRAY
-          if (top) {
-            $scope.posts.displayedPosts.unshift(post);
-          } else {
-            $scope.posts.displayedPosts.push(post);
-          }
-        });
-    };
 
     
     //ADD POST - attached to profile page
@@ -202,7 +105,7 @@ function calculateTimeInterval(date) {
           $scope.newPost.placeholder = "Thank you for posting.";
           $scope.newPost.photoUrl='';
           console.log("zapisah posta i id-to dojda , sq shte go pokaja "+newPostId);
-          $scope.posts.displayPost(newPostId, true);
+          $scope.displayPost(newPostId, true , $scope.posts);
           return newPostId;
         } else {
           $scope.newPost.placeholder ='Sorry we had an error, please try again later.'
