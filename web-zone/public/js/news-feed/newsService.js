@@ -6,8 +6,7 @@ app.service("NewsService", function(API_URL, $http, PostService,UserService) {
     this.owner = {
       name: article.author,
       site: article.source.name,
-      photoUrl:
-        "https://cdn3.iconfinder.com/data/icons/communication-mass-media-news/512/world_news-512.png"
+      photoUrl:"images/icons/newsIcon2.png"
     };
   }
   PostLikeNews.prototype = Object.create(PostService.Post.prototype, {

@@ -18,33 +18,6 @@
 
             if ($scope.isLogged) {
 
-
-                $scope.searchUser = function () {
-                    $timeout(function () {
-                        $scope.$apply(function () {
-                            var name = $scope.userName;
-                            if ((name.length !== 0)) {
-                                UserService.getByName(name)
-                                    .then(r => {
-                                        console.log(r.data);
-                                        $scope.foundUsers = r.data;
-                                    })
-                                    .catch(err => console.log(err));
-                            }
-                        })
-                    }, 0);
-                }
-
-                $scope.selectUser = function () {
-                    $timeout(function () {
-                        $scope.$apply(function () {
-                            $window.location = `#!/profile/${$scope.selectedUserId}`;
-                        })
-                    }, 0);
-                }
-
-
-
                 $timeout(function () {
                     $scope.$apply(function () {
                         var userId = $window.localStorage.getItem("loggedUserId");

@@ -21,9 +21,8 @@
       allPostsLoaded: false
     };
     $scope.news = [];
-    NewsService.getNews("Sofia").then(result => {
-      $scope.posts.displayedPosts.push(result)
-    });
+  
+  
     var userId = localStorage.getItem("loggedUserId");
     UserService.getAndSafeLoggedUser(userId) 
       .then(user => {//loads logged user data

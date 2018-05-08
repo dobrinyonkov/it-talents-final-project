@@ -14,7 +14,7 @@
           <!-- Cover photo -->
           <img ng-src="{{profile.coverPhoto}}" class="img-fluid full-width" alt="cover" >
          <img  ng-src="{{profile.profilePic}}" alt="" class="profile-picture">
-           <!-- <img ng-src="{{profile.coverPhoto}}" class="img-fluid full-width" alt="cover" style="max-height:200px;">  -->
+        
         </div>
         <page-navigation is-Owner=isOwner profile=profile page=page></page-navigation>
       </div>
@@ -23,24 +23,25 @@
 </div>
 
 <div id="gallery" class="row">
-  <span ng-repeat="photo in profile.photos">
-  <img ng-click="changePhoto(photo)" ng-src="{{photo}}" alt="">
+  <span ng-if="profile.photos.length>0">
+    <span ng-repeat="photo in profile.photos">
+      <img ng-click="changePhoto(photo)" ng-src="{{photo}}" alt="">
+    </span>
   </span>
+  <div class="noPhotos" ng-if="profile.photos.length==0">
+    No photos yet.
+  </div>
 </div>
 
-  
-
- <div ng-show="displayedPhoto.length>0" id="big-image">
+ <div ng-show="displayedPhoto.url.length>0" id="big-image">
     <div ng-click="previous()" id="arrow-left" class="arrow"></div>
-    <div ng-click="displayedPhoto=''" class="close-icon"></div>
-  <img ng-src="{{displayedPhoto}}" alt="">
+    <div ng-click="displayedPhoto.url=''" class="close-icon"></div>
+  <img ng-src="{{displayedPhoto.url}}" alt="">
   <div ng-click="next()" id="arrow-right" class="arrow"></div>
   <div>
-   <ul>
-     <li>Image 4 of 13.</li>
-     <li>Date: 14.09.1998</li>
-     <li>Lorem ipsum dolor sit amet.</li>
-   </ul>
+    <ul>
+      <li>Image {{displayedPhoto.number}} of {{profile.photos.length}}.</li>
+    </ul>
   </div>
 </div>
 </div>
