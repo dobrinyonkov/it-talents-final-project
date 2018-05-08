@@ -68,8 +68,6 @@
             if (sessionStorage.getItem("loggedUser")) {
                 loggedUser = JSON.parse(sessionStorage.getItem("loggedUser"));
             }
-            console.log("nova funkciq ama kat starata");
-            console.log(loggedUser)
             if (loggedUser && loggedUser._id == id) {
                 console.log("logged user data already fetched");
                 return new Promise(function (resolve, reject) {
@@ -79,7 +77,7 @@
             }
             if (loggedUser) return new Error("Someone else has already logged ?!?");
             return getById(id).then(res => {
-                console.log(res.data);
+                console.log( "loading logged user data anew");
                 loggedUser = res.data[0];
                 sessionStorage.setItem("loggedUser", JSON.stringify(loggedUser));
                 return loggedUser;

@@ -16,7 +16,6 @@
             $scope.friendsRequestSended = false;
             $scope.areFriends = null;
 
-
             $scope.searchUser = function () {
                 $timeout(function () {
                     $scope.$apply(function () {
@@ -41,19 +40,14 @@
                 }, 0);
             }
 
-
-
             $timeout(function () {
                 $scope.$apply(function () {
+                    //loading logged user data
                     var userId = $window.localStorage.getItem("loggedUserId");
-                    UserService.getById(userId).then(data => {
-                        // console.log(data.data[0]);
-                        $rootScope.currentUser = data.data[0];
+                    UserService.getAndSafeLoggedUser(userId).then(data => {
+                        $rootScope.currentUser = data
                         $rootScope.currentUser.receivedReqeusts.forEach(userId => {
-                            // UserService.getById(userId).then(data => {
-                            //     $scope.sendedFriendRequests.push(data.data[0]);
-                            //     console.log($scope.sendedFriendRequests);
-                            // });
+                            //loading data for users that have send friend request
                             UserService.getById(userId).then(data => {
                                 $scope.receivedFriendRequests.push(data.data[0]);
                                 console.log($scope.receivedFriendRequests);

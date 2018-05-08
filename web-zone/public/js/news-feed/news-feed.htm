@@ -1,10 +1,10 @@
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<!-- <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
+
 
 <link href="/js/photoGallery/photoGallery.css" rel="stylesheet">
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet"> -->
 
 
 <div class="container">
@@ -13,17 +13,12 @@
 
       <div class="profile-cover">
         <div class="cover rounded shadow no-overflow">
-          <div class="inner-cover">
-
+          <div class="inner-cover">        
             <!-- Cover photo -->
-            <img ng-src="{{profile.coverPhoto}}" class="img-fluid full-width" alt="cover">
-            <!-- <img  ng-src="{{profile.profilePic}}" alt="" class="profile-picture"> -->
-            <!-- <img ng-src="{{profile.coverPhoto}}" class="img-fluid full-width" alt="cover" style="max-height:200px;">  -->
-          </div>
-
+            <img ng-src="{{profile.coverPhoto}}" class="img-fluid full-width" alt="cover">        
+          </div>        
           <page-navigation is-Owner=isOwner profile=profile page=page></page-navigation>
         </div>
-        <!-- /.cover -->
       </div>
     </div>
     <!-- /.col-md-12 -->
@@ -48,7 +43,6 @@
               <span class="fa fa-sun"></span> Weather</li>
               <li class="list-group-item">
                 <i class="fab fa-pagelines"></i>
-
                 </span> Fortune</li>
           </ul>
         </div>
