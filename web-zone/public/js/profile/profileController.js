@@ -20,7 +20,7 @@
     $scope.page="timeline";
     $scope.isOwner=$routeParams.id==localStorage.getItem("loggedUserId")
     $scope.addPost = addPost;
-    // $scope.calculateTimeInterval = calculateTimeInterval;
+
     $controller('postController', {$scope: $scope}); 
     // console.log($scope.displayPost)
     // USER

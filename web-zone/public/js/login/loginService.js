@@ -1,9 +1,8 @@
 (function() {
   angular.module("app").factory("LoginService", LoginService);
 
-    function LoginService($http, $window) {
-        const API_URL = 'http://localhost:9000/';
-        // const API_URL = 'http://w/eb-zone.herokuapp.com/';
+    function LoginService(API_URL,$http, $window) {
+
         
         var service = {};
 
