@@ -21,6 +21,8 @@ app.controller("postController", function($scope, PostService) {
     return PostService.getPost(postId)
       .then(post => post.loadOwnerInfo())
       .then(post => {
+        console.log("lgei tuka kvo idva ot tez promisiii")
+        console.log(post)
         // DELETING A POST
         post.canEdit = post.ownerId == localStorage.getItem("loggedUserId");
         post.editMode = false;

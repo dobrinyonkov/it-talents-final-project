@@ -1,12 +1,14 @@
 
 app.service("PostService", function($http,UserService) {
-  // const API_URL = 'http://localhost:9000/';
-  const API_URL = 'http://web-zone.herokuapp.com/';
+
+  const API_URL = 'http://localhost:9000/';
+  
   function mergeNames(name1, name2){
     name1 = name1.charAt(0).toUpperCase() + name1.slice(1);
     name2 = name2.charAt(0).toUpperCase() + name2.slice(1);
     return name1 + " " + name2
   }
+
   // POST CONSTRUCTOR
   this.Post=Post
   function Post(ownerId, text, photo) {
@@ -21,9 +23,27 @@ app.service("PostService", function($http,UserService) {
   }
   Post.prototype.loadOwnerInfo=function(){
     var post=this
+    console.log("shte zarejdam dannite za  ownera na toz post")
+    console.log(this)
+    if(this.isNews){
+      return UserService.getById(post.ownerId).then(res => {
+        var whoShared = {};   
+
+          whoShared.name = mergeNames(res.data[0].firstName,res.data[0].lastName)
+        
+        whoShared.photoUrl = res.data[0].profilePic;
+        post.whoShared = whoShared; 
+        return post
+      })
+
+    }
+    
     return UserService.getById(post.ownerId).then(res => {
-      var owner = {};      
-      owner.name = mergeNames(res.data[0].firstName,res.data[0].lastName)
+      var owner = {};   
+
+        owner.name = mergeNames(res.data[0].firstName,res.data[0].lastName)
+   
+      
       owner.photoUrl = res.data[0].profilePic;
       post.owner = owner; 
       return post
@@ -81,7 +101,7 @@ app.service("PostService", function($http,UserService) {
   // ADD POST
   this.addPost = addPost;
   function addPost(ownerId, text, friendId, photoUrl) {
-    console.log("ot servica --" + photoUrl);
+    // console.log("ot servica --" + photoUrl);
     var newP = new Post(ownerId, text, photoUrl);
     newP = JSON.stringify(newP);
     return $http

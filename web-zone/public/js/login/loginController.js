@@ -11,9 +11,22 @@ function validatePass(password) {
 (function(params) {
   angular.module("app").controller("LoginController", LoginController);
 
-  function LoginController($rootScope, $scope, $location, $window, LoginService, $timeout) {
+  function LoginController(
+    $rootScope,
+    $scope,
+    $location,
+    $window,
+    LoginService,
+    $timeout
+  ) {
     $scope.user = {};
-    $scope.newUser = {};
+    $scope.newUser = {
+      firstName: "",
+      lastName: "",
+      email:"",
+      pass1:"",
+      pass2:""
+    };
     $scope.loginErorr = "";
     $scope.signIn = signIn;
     //[fistaName , lastName, email, pass1, pass2, signUp without filling the form]
@@ -35,7 +48,7 @@ function validatePass(password) {
             console.log(r);
             $scope.loginErorr = "";
             $window.localStorage.setItem("token", r.data.token);
-            $window.localStorage.setItem("loggedUserId", r.data.data._id);            
+            $window.localStorage.setItem("loggedUserId", r.data.data._id);
             $window.location = `#!/profile/${r.data.data._id}`;
           })
           .catch(e => {
@@ -58,13 +71,17 @@ function validatePass(password) {
       ) {
         LoginService.create(newUser).then(r => {
           $window.localStorage.setItem("token", r.data.token);
-          $window.localStorage.setItem("loggedUserId", r.data.data._id);                      
+          $window.localStorage.setItem("loggedUserId", r.data.data._id);
           window.location = `#!/profile/${r.data.data._id}`;
         });
       } else {
+        console.log("obarka neshto  ");
         $scope.errors[5] = true;
+        $scope.hasErrors = $scope.errors.some(err => err);
+
         $timeout(() => {
           $scope.errors[5] = false;
+          $scope.hasErrors = $scope.errors.some(err => err);
         }, 2500);
       }
     }

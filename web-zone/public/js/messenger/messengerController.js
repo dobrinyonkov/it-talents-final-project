@@ -86,13 +86,18 @@
                     if (chat) {
                         chat.content.push(data.content.pop());
                     } else {
-                        $scope.activeChatRooms.push(data);  
+                        $scope.activeChatRooms.push(data);
                     }
                     $timeout(function () {
                         $scope.$apply(function () {
+                            var elements = document.querySelectorAll('direct-chat-msg');
+                            elements.forEach(elem => {
+                                console.log(elem);
+                                elem.scrollTop = elem.scrollHeight;
+                            });
                             console.log('activeRooms')
                             console.log($scope.activeChatRooms);
-                            $window.localStorage.setItem("activeChatRooms", JSON.stringify($scope.activeChatRooms));                            
+                            $window.localStorage.setItem("activeChatRooms", JSON.stringify($scope.activeChatRooms));
                         })
                     }, 0);
 
@@ -175,7 +180,7 @@
             //getting info
             var text = $scope.messageText;
             var user = $rootScope.currentUser;
-
+            console.log($scope.messageText);
             //prepair message obj
             var message = {
                 sender: user._id,
@@ -192,11 +197,11 @@
             //clean the textaria
             $scope.messageText = '';
         }
-        
+
         $scope.closeChatWindow = function (chatRoom) {
             var index = $scope.activeChatRooms.findIndex(ch => ch._id === chatRoom._id);
             $scope.activeChatRooms.splice(index, 1);
-            $window.localStorage.setItem("activeChatRooms", JSON.stringify($scope.activeChatRooms));                                        
+            $window.localStorage.setItem("activeChatRooms", JSON.stringify($scope.activeChatRooms));
         }
 
         $scope.minimize = function ($event) {

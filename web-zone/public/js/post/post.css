@@ -1,0 +1,117 @@
+.post-header {
+  background: linear-gradient(
+    to bottom left,
+    #563d7c,
+    rgb(125, 41, 146)
+  ) !important;
+  border: none !important;
+}
+.post div.post-content > p {
+  font-size: 1.4em !important;
+}
+.post div.inner-all > p {
+  font-size: 1.8em;
+}
+.img-post {
+  width: 3em;
+  height: 3em;
+  margin-right: 1.2em;
+}
+.img-post2 {
+  width: 50px;
+  height: 50px;
+}
+
+.fa-heart:hover {
+  color: orangered;
+}
+
+.likedPost {
+  color: firebrick;
+}
+.fa-cog {
+  margin-left: 2em;
+}
+.editPostOptions {
+  background: white;
+  color: black;
+  position: absolute;
+  top: 2.5em;
+  /* left: 80px; */
+  padding: 0.2em;
+  margin: none;
+  z-index: 300;
+  list-style: none;
+  width: 100px;
+}
+.editPostOptions > p {
+  margin: 0px 0px 0px 1em !important;
+  cursor: pointer;
+}
+.comment {
+  border-bottom: #563d7c 1px solid;
+  margin-bottom: 0.7em;
+}
+.comment img {
+  height: 2.5em;
+  width: 2.5em;
+}
+
+.post {
+  box-sizing: border-box;
+  margin-bottom: 1em;
+}
+.your-comment button:hover {
+  font-weight: bold;
+}
+.your-comment input {
+  border-radius: 0.7em;
+}
+div.share {
+  height: 2em;
+  width: 50%;
+  margin: auto;
+  margin-bottom:1em;
+  border-radius: 3px; 
+  padding-top: 0.2em;
+  font-size: 1.6em;
+  background: rgb(133, 85, 180);
+  text-align: center;
+  color: whitesmoke;
+  cursor: pointer;
+}
+div.share:hover {
+  font-size: 1.7em;
+  font-weight: bold;
+}
+div.share:active {
+  font-size: 1.7em;
+  /* font-weight: bold; */
+  color: rebeccapurple;
+  background: rgb(231, 231, 225);
+}
+@media screen and (max-width: 800px) {
+  .post div.inner-all > p {
+    font-size: 2.5em;
+  }
+  .post div.post-content > p {
+    font-size: 3.2rem !important;
+  }
+}
+.news-aricle .img-post {
+  width: 3.5em;
+  height: 3.5em;
+  margin-right: 1.3em;
+}
+.news-aricle div.inner-all > p {
+  font-size: 1em !important;
+}
+.news-aricle{
+  margin-bottom: 2em;
+}
+span.news-source *{
+  font-size:1em !important;
+  font-style: italic;
+  /* line-height: 0.5em; */
+  color:white
+}

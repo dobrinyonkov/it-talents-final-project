@@ -37,7 +37,7 @@ app.config(function ($routeProvider, $httpProvider) {
         })
         .when("/messenger", {
             templateUrl: "js/messenger/messenger.htm",
-            // controller: 'MessengerController',
+            controller: 'MessengerController',
             css: "js/messenger/messenger.css",
         })
 

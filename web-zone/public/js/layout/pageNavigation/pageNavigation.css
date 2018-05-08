@@ -1,0 +1,60 @@
+ul.cover-menu {
+  padding-left: 0 !important;
+  text-align: center !important;
+}
+
+ul.cover-menu li {
+  width: 25%;
+}
+
+@media (max-width: 530px) {
+  ul.cover-menu li {
+    width: 50% !important;
+  }
+}
+
+.profile-cover .cover ul.cover-menu {
+  position: absolute;
+  overflow: hidden;
+  /* left: 1px; */
+  float: left;
+  bottom: 0px;
+  width: 100%;
+  margin: 0px;
+  background: none repeat scroll 0% 0% rgba(0, 0, 0, 0.24);
+}
+.profile-cover .cover ul.cover-menu li {
+  display: block;
+  float: left;
+  margin-right: 0px;
+  padding: 0px 10px;
+  line-height: 40px;
+  height: 40px;
+  /* -moz-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s; */
+}
+.profile-cover .cover ul.cover-menu {
+  background-color: rgba(47, 20, 83, 0.493);
+}
+.profile-cover .cover ul.cover-menu li:hover {
+  background-color: rgba(12, 11, 78, 0.671);
+}
+.profile-cover .cover ul.cover-menu li.active {
+  background-color: rgba(25, 9, 99, 0.801);
+}
+.profile-cover .cover ul.cover-menu li a {
+  color: #fff;
+  font-weight: bold;
+  display: block;
+  height: 40px;
+  line-height: 40px;
+  text-decoration: none;
+}
+.profile-cover .cover ul.cover-menu li {
+  width: 25%;
+}
+.profile-cover .cover ul.cover-menu li a i {
+  font-size: 18px;
+}

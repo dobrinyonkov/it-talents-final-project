@@ -5,9 +5,11 @@ app.directive('messenger', function () {
         restrict: 'E',
         scope: {
             chatRoom: '=',
+            messageText: '=',
             sendMessage: '&',
             minimize: '&',
-            closeChatWindow: '&'
+            closeChatWindow: '&',
+            sendMessage: '&'
         }
     };
 });

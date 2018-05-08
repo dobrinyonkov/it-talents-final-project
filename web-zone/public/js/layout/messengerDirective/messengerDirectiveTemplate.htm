@@ -23,7 +23,7 @@
                 <!-- Conversations are loaded here -->
                 <div class="direct-chat-messages">
                     <!-- Message. Default to the left -->
-                    <div ng-repeat="message in chatRoom.content track by $index" ng-class="chatRoom.user1.isMe && message.sender === chatRoom.user1._id ? 'direct-chat-msg right' : chatRoom.user2.isMe && message.sender === chatRoom.user2._id ? 'direct-chat-msg-right' : 'direct-chat-msg'">
+                    <div ng-repeat="message in chatRoom.content | orderBy:'id':true" ng-class="chatRoom.user1.isMe && message.sender === chatRoom.user1._id ? 'direct-chat-msg right' : chatRoom.user2.isMe && message.sender === chatRoom.user2._id ? 'direct-chat-msg-right' : 'direct-chat-msg'">
                         <div class="direct-chat-msg">
                             <div class="direct-chat-info clearfix">
                                 <span class="direct-chat-timestamp pull-right">23 Jan 2:00 pm</span>
@@ -42,14 +42,14 @@
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer">
-                    <form action="#" method="post">
+                    <div>
                         <div class="input-group">
-                            <input type="text" name="message" placeholder="Type Message ..." class="form-control">
+                            <input ng-model="messageText" type="text" name="message" placeholder="Type Message ..." class="form-control">
                             <span class="input-group-btn">
-                                <button type="submit" class="btn btn-primary btn-flat">Send</button>
+                                <button ng-click="sendMessage()" type="submit" class="btn btn-primary btn-flat">Send</button>
                             </span>
                         </div>
-                    </form>
+                    </div>
                 </div>
                 <!-- /.box-footer-->
             </div>

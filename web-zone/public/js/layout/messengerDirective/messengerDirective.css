@@ -283,6 +283,8 @@ body{
    padding: 10px;
    height: 250px;
    overflow: auto;
+   display: flex;
+   flex-direction: column-reverse;
 }
 .direct-chat-msg, .direct-chat-text {
    display: block;

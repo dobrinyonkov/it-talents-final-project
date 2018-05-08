@@ -38,13 +38,15 @@
             $timeout(function () {
                 $scope.$apply(function () {
                     var name = $scope.userName;
-                    if ((name.length !== 0)) {
+                    if (name&&(name.length !== 0)) {
                         UserService.getByName(name)
                             .then(r => {
                                 console.log(r.data);
                                 $scope.foundUsers = r.data;
                             })
                             .catch(err => console.log(err));
+                    }else{
+                        console.log("$scope.userName is undefind")
                     }
                 })
             }, 0);

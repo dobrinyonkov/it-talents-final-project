@@ -7,12 +7,16 @@
     NewsService,
     $timeout
   ) {
+    const NEWS_PROBABILITY=0.4
     $controller("postController", { $scope: $scope });
     $scope.isOwner = true;
     $scope.page = "newsfeed";
+
     $scope.posts = {
       allFriendsPosts: [],
       displayedPosts: [],
+      numberOfDisplayedPosts:0,
+      news:0,
       busy: false,
       allPostsLoaded: false
     };
@@ -21,13 +25,13 @@
       $scope.posts.displayedPosts.push(result)
     });
     var userId = localStorage.getItem("loggedUserId");
-    UserService.getAndSafeLoggedUser(userId) //loads logged user data
-      .then(user => {
+    UserService.getAndSafeLoggedUser(userId) 
+      .then(user => {//loads logged user data
         $scope.profile = user;
         return $scope.profile.friends;
       })
-      .then(friendIds => {
-        //loads all friends of logged user
+      .then(friendIds => { //loads all friends of logged user
+       
         return friendIds.reduce((promise, id, index) => {
           return promise
             .then(result => {
@@ -43,7 +47,7 @@
             .catch(console.error);
         }, Promise.resolve());
       })
-      .then(() => {
+      .then(() => {//sorting posts
         // console.log("before sorting")
         // console.log($scope.posts.allFriendsPosts)
         $scope.posts.allFriendsPosts = $scope.posts.allFriendsPosts.sort(
@@ -51,22 +55,22 @@
             //retrieving date from the mongodb object id, and sorting posts by date
             var date1 = new Date(parseInt(p1.substring(0, 8), 16) * 1000);
             var date2 = new Date(parseInt(p2.substring(0, 8), 16) * 1000);
-            console.log(date1 - date2);
+            // console.log(date1 - date2);
             return date2 - date1;
           }
         );
         // console.log("after sorting")
-        // console.log($scope.posts.allFriendsPosts)
+        console.log($scope.posts.allFriendsPosts)
         // $scope.posts.allFriendsPosts.forEach(p=>{
         //   console.log(new Date(parseInt(p.substring(0, 8), 16) * 1000))
         // })
       })
-      .then(() => {
-        //displays top post
+      .then(() => {//displaying top post
         if ($scope.posts.allFriendsPosts.length > 0) {
           var postId = $scope.posts.allFriendsPosts[0];
           $scope.displayPost(postId, false, $scope.posts).then(() => {
             console.log($scope.posts.displayedPosts[0]);
+            $scope.posts.numberOfDisplayedPosts++
           });
         }
       });
@@ -82,22 +86,35 @@
             return;
           }
           $scope.posts.busy = true;
-          var numberOfDisplayedPost = $scope.posts.displayedPosts.length;
-          console.log("I have shown " + numberOfDisplayedPost + " posts..");
+        
+          console.log("I have shown " + $scope.posts.numberOfDisplayedPosts + " posts..");
           if (!$scope.profile.posts) return;
-          var totalNumberOfPosts = $scope.posts.allFriendsPosts.length;
-          var position = totalNumberOfPosts - numberOfDisplayedPost - 1;
-          if (position >= 0) {
-            let postId = $scope.posts.allFriendsPosts[position];
-            $scope.displayPost(postId, false, $scope.posts).then(res => {
+          //loads some news article instead of a post with some probability
+          if (Math.random() < NEWS_PROBABILITY) {
+            console.log("shte zaredq novini");
+            NewsService.getNews().then(result => {
+              $scope.posts.displayedPosts.push(result)
               $scope.posts.busy = false;
             });
           } else {
-            $scope.$apply(function() {
-              console.log("no more posts");
-              $scope.posts.allPostsLoaded = true;
-            });
+            var totalNumberOfPosts = $scope.posts.allFriendsPosts.length;
+            var position = totalNumberOfPosts - $scope.posts.numberOfDisplayedPosts - 1;
+            if (position >= 0) {
+              let postId = $scope.posts.allFriendsPosts[position];
+              $scope
+                .displayPost(postId, false, $scope.posts)
+                .then(res => {
+                  $scope.posts.busy = false;
+                  $scope.posts.numberOfDisplayedPosts++
+                });
+            } else {
+              $scope.$apply(function() {
+                console.log("no more posts");
+                $scope.posts.allPostsLoaded = true;
+              });
+            }
           }
+          
         }
       });
   });

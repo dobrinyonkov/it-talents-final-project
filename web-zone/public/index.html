@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
 
     <script src="vendors/angular/angular.min.js"></script>
     <script src="vendors/angular-route/angular-route.min.js"></script>
@@ -63,13 +64,11 @@
     <title>Web-Zone The Social Network</title>
 </head>
 
-<body ng-app="app">
-
+<body  ng-app="app">
+  
     <div ng-controller="RootController">
         <div ng-controller="MessengerController">
-            <div ng-repeat="chatRoom in activeChatRooms track by $index">
-                    <messenger close-chat-window="closeChatWindow(chatRoom)" minimize="minimize($event)" ng-class="'fixed-sigle-window-message-' + $index" chat-room="chatRoom"></messenger>
-                </div>
+                    <messenger ng-repeat="chatRoom in activeChatRooms track by $index" message-text="messageText" send-message="sendMessage()" close-chat-window="closeChatWindow(chatRoom)" minimize="minimize($event)" ng-class="'fixed-sigle-window-message-' + $index" chat-room="chatRoom"></messenger>
 
             <div ng-controller="NavigationController">
                 <navigation logout=logout($event) on-delete-friend-reuest="onDeleteFriendReuest($event, senderId,receiverId)" on-confirm-friend-reuest="onConfirmFriendReuest($event, senderId,receiverId)"
