@@ -13,7 +13,7 @@
         $scope.editMode = false;
         $scope.profilePicUploaded = false;
         $scope.profilePicUrl = "";
-        $scope.isOnwer =$window.localStorage.getItem("loggedUserId")==$routeParams.id;
+        $scope.isOnwer = $window.localStorage.getItem("loggedUserId") == $routeParams.id;
         console.log("profile info controller")
         // $timeout(function () {
         //     $scope.$apply(function () {
@@ -52,7 +52,7 @@
         };
 
         $scope.saveAcount = function (user, url) {
-            user.profilePic = url;            
+            user.profilePic = url;
             // console.log(user);
             UserService.update(user).then(r => console.log(r));
         };
@@ -61,13 +61,20 @@
         var selectedFile = document.getElementById("selectedFile");
         selectedFile.addEventListener("change", function (event) {
             var file = event.target.files[0];
-            
-            // console.log(file);
-            fileUpload.uploadFileToUrl(file).then(r => {
-                $scope.profile.profilePic = r.data.url;
-                $scope.profilePicUploaded = true;
-                $scope.profilePicUrl = r.data.url;
-            });
+            var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+            console.log(file);
+            if (!allowedExtensions.exec(file.name)) {
+                alert('Please upload file having extensions .jpeg/.jpg/.png/.gif only.');
+                file = null;
+                return false;
+            } else {
+                // console.log(file);
+                fileUpload.uploadFileToUrl(file).then(r => {
+                    $scope.profile.profilePic = r.data.url;
+                    $scope.profilePicUploaded = true;
+                    $scope.profilePicUrl = r.data.url;
+                });
+            }
         });
 
         // SEND FRIEND REQUEST, CANCEL FRIEND REQUEST, UNFRIEND
@@ -76,7 +83,7 @@
             if (!$scope.areFriends && !$scope.friendsRequestSended) {
                 UserService.friendsRequests.send(senderId, receiverId)
                     .then(r => {
-                        $scope.friendsRequestSended = true;                        
+                        $scope.friendsRequestSended = true;
                         $scope.sendedFriendRequests.push(r.data[1]);
                     })
                     .catch(err => console.log(err));
@@ -95,7 +102,7 @@
                     UserService.friendsRequests.unfriend(senderId, receiverId)
                         .then(r => {
                             $scope.areFriends = false;
-                            $scope.friendsRequestSended = false;                            
+                            $scope.friendsRequestSended = false;
                             var index = $rootScope.currentUser.friends.findIndex(function (user) {
                                 return user._id === senderId;
                             });
@@ -114,10 +121,10 @@
 
         }
         //LOGOUT
-        $scope.logout = function($event) {
+        $scope.logout = function ($event) {
             $event.preventDefault();
             localStorage.clear();
             $window.location = `#!/login`;
-          };
+        };
     });
 })();
