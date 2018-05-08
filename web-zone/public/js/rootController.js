@@ -48,8 +48,12 @@
                     var userId = $window.localStorage.getItem("loggedUserId");
                     UserService.getById(userId).then(data => {
                         // console.log(data.data[0]);
-                        $rootScope.currentUser = data.data[0];
-                        $rootScope.currentUser.receivedReqeusts.forEach(userId => {
+                        $timeout(function () {
+                            $scope.$apply(function () {
+                                $rootScope.currentUser = data.data[0];
+                                $rootScope.currentUser.receivedReqeusts.forEach(userId => {
+                                })
+                            }, 0);
                             // UserService.getById(userId).then(data => {
                             //     $scope.sendedFriendRequests.push(data.data[0]);
                             //     console.log($scope.sendedFriendRequests);

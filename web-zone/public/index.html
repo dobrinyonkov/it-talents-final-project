@@ -68,8 +68,8 @@
 
     <div ng-controller="RootController">
         <div ng-controller="MessengerController">
-            <div ng-repeat="chatRoom in activeChatRooms track by $index" class="fixed-container">
-                <messenger message-text="messageText" send-message="sendMessage()"
+            <div class="fixed-container">
+                <messenger  ng-repeat="chatRoom in activeChatRooms track by $index" message-text="messageText" send-message="sendMessage()"
                     close-chat-window="closeChatWindow(chatRoom)" minimize="minimize($event)" ng-class="'fixed-sigle-window-message'"
                     chat-room="chatRoom"></messenger>
 
