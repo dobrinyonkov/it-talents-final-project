@@ -32,7 +32,6 @@ module.exports = function (app, db) {
                     { $push: { content: message } }
                 ).then(docs => {
                     //emit new message to spesific chat/socket room       
-                    console.log(chatroom._id);             
                     app.io.in(chatroom._id).emit('message', docs);
                 }).catch(err => {
                     console.log(err);
@@ -41,7 +40,6 @@ module.exports = function (app, db) {
 
             socket.on('sendChatRoom', function (chatroom) {
                 //insert new chat room to collection
-                console.log(chatroom);
                 chatRoomsCollection.insert(chatroom, function (err, docs) {
                     if (err) {
                         console.log(err);

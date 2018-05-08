@@ -27,11 +27,16 @@ $font-size-sm:   ($font-size-base * 0.875) !default !important;
     height: 60 !important; 
 }
 
-.fixed-sigle-window-message-0 {
+.fixed-container {
+    position: fixed;
+    top: 60% !important;
+}
+
+.fixed-sigle-window-message {
     position: fixed !important;
     /* margin-left: 80px; */
+    float: right;
     top: 60% !important;
-    left: 75% !important;
     width: 100% !important;
     z-index: 8000 !important;
 }

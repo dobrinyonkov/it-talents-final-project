@@ -9,7 +9,6 @@ app.directive('messenger', function () {
             sendMessage: '&',
             minimize: '&',
             closeChatWindow: '&',
-            sendMessage: '&'
         }
     };
 });
