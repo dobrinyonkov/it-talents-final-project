@@ -1,4 +1,3 @@
-
 (function() {
   app.controller("ProfileController", function(
     $rootScope,
@@ -20,9 +19,8 @@
     $scope.page="timeline";
     $scope.isOwner=$routeParams.id==localStorage.getItem("loggedUserId")
     $scope.addPost = addPost;
-
+    //initializing the postController (responsible for adding and binding view data to the model)
     $controller('postController', {$scope: $scope}); 
-    // console.log($scope.displayPost)
     // USER
     var userId = $routeParams.id;
     UserService.getById(userId)
@@ -47,8 +45,9 @@
         var newestPostId = postIds[postIds.length - 1];
         $scope.displayPost(newestPostId,false,$scope.posts);
       })
-      .catch(err =>
-        alert("We couldn't load your profile, please login again.")
+      .catch(err =>{
+        console.log(err);
+        alert("We couldn't load your profile, please login again.")}
       );
     // SCROLL
     document
@@ -79,7 +78,6 @@
           }
         }
       });
-
     
     //ADD POST - attached to profile page
     $scope.newPost = { placeholder: "What are you doing",
@@ -88,10 +86,13 @@
     photoUrl:"",
     // photoUrl:"http://en.es-static.us/upl/2018/04/moon-full-set-La-_az-city-Max-Glaser-4-30-2018-e1525172614735.jpg",
    };
-    function addPost() {
+    function addPost($event) {
       if (!$scope.newPost.text || $scope.newPost.text.trim().length < 1) {
         $scope.newPost.placeholder = "Can't post an empty post.";
-        return;
+        var btn=angular.element($event.target)
+        btn.addClass('btn-error')
+        $timeout(()=>{btn.removeClass('btn-error')},1600)
+         return;
       }
       PostService.addPost(
         localStorage.getItem("loggedUserId"),
@@ -104,12 +105,10 @@
         if (newPostId) {
           $scope.newPost.placeholder = "Thank you for posting.";
           $scope.newPost.photoUrl='';
-          console.log("zapisah posta i id-to dojda , sq shte go pokaja "+newPostId);
           $scope.displayPost(newPostId, true , $scope.posts);
           return newPostId;
         } else {
-          $scope.newPost.placeholder ='Sorry we had an error, please try again later.'
-            
+          $scope.newPost.placeholder ='Sorry we had an error, please try again later.'            
         }
       }).catch((err)=>{
         alert(err)
@@ -127,7 +126,9 @@
           console.log(r.data.url)
           $scope.newPost.photoUrl= r.data.url;
           $scope.newPost.busy=false
-        }).catch(()=>{alert("We couldn't locate the resource, pleace try again a different image.")})
+        }).catch((err)=>{
+          console.log(err)
+          alert("We couldn't locate the resource, pleace try again a different image.")})
     });
   });
 })();

@@ -40,6 +40,11 @@ body {
   background-color: #563d7c;
   color: #e9ebee;
 }
+.btn-error{
+  background: burlywood;
+  color: firebrick;
+  font-size: 1.2em;
+}
 
 .card-header {
   background-image: none;
@@ -288,6 +293,14 @@ memberblock {
 }
 .image-upload > input {
   display: none;
+}
+.image-upload  i{
+  font-size: 1.5em;
+  color:rebeccapurple;
+  cursor: pointer;
+}
+.cover .image-upload{
+  float: right;
 }
 .image-upload img {
   cursor: pointer;

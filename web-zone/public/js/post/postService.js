@@ -1,14 +1,12 @@
-
-app.service("PostService", function(API_URL,$http,UserService) {
-  
-  function mergeNames(name1, name2){
+app.service("PostService", function(API_URL, $http, UserService) {
+  function mergeNames(name1, name2) {
     name1 = name1.charAt(0).toUpperCase() + name1.slice(1);
     name2 = name2.charAt(0).toUpperCase() + name2.slice(1);
-    return name1 + " " + name2
+    return name1 + " " + name2;
   }
 
   // POST CONSTRUCTOR
-  this.Post=Post
+  this.Post = Post;
   function Post(ownerId, text, photo) {
     this.text = text;
     this.ownerId = ownerId;
@@ -19,34 +17,28 @@ app.service("PostService", function(API_URL,$http,UserService) {
     this.comments = [];
     this.likes = [];
   }
-  Post.prototype.loadOwnerInfo=function(){
-    var post=this
-    console.log("shte zarejdam dannite za  ownera na toz post")
-    console.log(this)
-    if(this.isNews){
+  Post.prototype.loadOwnerInfo = function() {
+    var post = this;
+    if (this.isNews) {
       return UserService.getById(post.ownerId).then(res => {
-        var whoShared = {};   
-
-          whoShared.name = mergeNames(res.data[0].firstName,res.data[0].lastName)
-        
+        var whoShared = {};
+        whoShared.name = mergeNames(
+          res.data[0].firstName,
+          res.data[0].lastName
+        );
         whoShared.photoUrl = res.data[0].profilePic;
-        post.whoShared = whoShared; 
-        return post
-      })
-
+        post.whoShared = whoShared;
+        return post;
+      });
     }
-    
     return UserService.getById(post.ownerId).then(res => {
-      var owner = {};   
-
-        owner.name = mergeNames(res.data[0].firstName,res.data[0].lastName)
-   
-      
+      var owner = {};
+      owner.name = mergeNames(res.data[0].firstName, res.data[0].lastName);
       owner.photoUrl = res.data[0].profilePic;
-      post.owner = owner; 
-      return post
-    })
-  }
+      post.owner = owner;
+      return post;
+    });
+  };
   Post.prototype.like = function(userId) {
     var post = this;
     return $http
@@ -57,25 +49,25 @@ app.service("PostService", function(API_URL,$http,UserService) {
       .then(res => {
         if (res.status == 200) {
           post.likes = res.data.likes;
-          post.liked=!post.liked
+          post.liked = !post.liked;
           return post;
         } else {
           return new Error({ mess: "server error" });
         }
       });
   };
-  Post.prototype.loadCommentWithOwnerData=function(position){
-    var post=this
-    if (position<0||position>post.comments.length)return;
-    var comment= JSON.parse(JSON.stringify(post.comments[position])) 
+  Post.prototype.loadCommentWithOwnerData = function(position) {
+    var post = this;
+    if (position < 0 || position > post.comments.length) return;
+    var comment = JSON.parse(JSON.stringify(post.comments[position]));
     return UserService.getById(comment.ownerId).then(res => {
-      var owner = {};  
-      owner.name = mergeNames(res.data[0].firstName,res.data[0].lastName)
+      var owner = {};
+      owner.name = mergeNames(res.data[0].firstName, res.data[0].lastName);
       owner.photoUrl = res.data[0].profilePic;
-      comment.owner = owner; 
-      return comment
-    })    
-  }
+      comment.owner = owner;
+      return comment;
+    });
+  };
   //COMMENT CONSTRUCTOR
   function Comment(ownerId, text) {
     this.ownerId = ownerId;
@@ -83,18 +75,21 @@ app.service("PostService", function(API_URL,$http,UserService) {
     this.date = new Date();
   }
 
-  //ADD COMMENT  on the post for the moment
+  //ADD COMMENT  on the post 
   this.addComment = function(postId, ownerId, text) {
     var newC = new Comment(ownerId, text);
     newC = JSON.stringify(newC);
-    return $http.put(`${API_URL}api/posts/`, {
-      postId: postId,
-      newComment: newC
-    })
-    .then(res=>{
-    //  emi po hubavo tva da vrashta ama neka e vaa then che da sigurno che drugoto si svarshilo rabotata
-      return newC
-    });
+    return $http
+      .put(`${API_URL}api/posts/`, {
+        postId: postId,
+        newComment: newC
+      })
+      .then(res => {
+       if (res.status!=200){
+         return new Error (res)
+       }
+        return newC;
+      });
   };
   // ADD POST
   this.addPost = addPost;
@@ -107,22 +102,25 @@ app.service("PostService", function(API_URL,$http,UserService) {
       .then(res => {
         var newPostId = res.data.id;
         return newPostId;
-      }).then(newPostId=>{
-        // console.log(res)      
-        if (photoUrl.length > 0) {
-          console.log("Ohhhooo i snimka daje");
-          return UserService.addPhoto(ownerId, photoUrl).then((responce)=>{
-            console.log(responce)
-            return newPostId})
-        }else{
-          return newPostId
-        }
-    
       })
       .then(newPostId => {
-        console.log("zapisah posta sq chte go dobavq i na "+friendId);
-        return UserService.addPost(friendId, newPostId).then(()=>newPostId)
+        // console.log(res)
+        if (photoUrl.length > 0) {
+          console.log("Ohhhooo i snimka daje");
+          return UserService.addPhoto(ownerId, photoUrl).then(responce => {
+            if(responce.status!=200){
+              return new Error("Image upload failed.")
+            }
+            return newPostId;
+          });
+        } else {
+          return newPostId;
+        }
       })
+      .then(newPostId => {
+        console.log("zapisah posta sq chte go dobavq i na " + friendId);
+        return UserService.addPost(friendId, newPostId).then(() => newPostId);
+      });
   }
   // DELETE POST
   this.deletePost = function(userId, postId) {
@@ -132,8 +130,8 @@ app.service("PostService", function(API_URL,$http,UserService) {
         userId: userId
       })
       .then(() => {
-      //  throw new Error("")<<--error catched succesufully
-       return $http.delete(`${API_URL}api/posts/` + postId);
+        //  throw new Error("")<<--error catched succesufully
+        return $http.delete(`${API_URL}api/posts/` + postId);
       });
   };
   //GET POST BY ID
