@@ -30,10 +30,6 @@ app.io = io;
 require('./routes/messenger')(app, db);
 
 
-// io.on("connection", function (socket) {
-//   console.log("A user connected");
-// });
-
 function ensureAuthorized(req, res, next) {
   var bearerToken;
   var bearerHeader = req.headers["authorization"];

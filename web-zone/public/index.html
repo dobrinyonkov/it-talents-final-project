@@ -64,11 +64,16 @@
     <title>Web-Zone The Social Network</title>
 </head>
 
-<body  ng-app="app">
-  
+<body ng-app="app">
+
     <div ng-controller="RootController">
         <div ng-controller="MessengerController">
-                    <messenger ng-repeat="chatRoom in activeChatRooms track by $index" message-text="messageText" send-message="sendMessage()" close-chat-window="closeChatWindow(chatRoom)" minimize="minimize($event)" ng-class="'fixed-sigle-window-message-' + $index" chat-room="chatRoom"></messenger>
+            <div ng-repeat="chatRoom in activeChatRooms track by $index" class="fixed-container">
+                <messenger message-text="messageText" send-message="sendMessage()"
+                    close-chat-window="closeChatWindow(chatRoom)" minimize="minimize($event)" ng-class="'fixed-sigle-window-message'"
+                    chat-room="chatRoom"></messenger>
+
+            </div>
 
             <div ng-controller="NavigationController">
                 <navigation logout=logout($event) on-delete-friend-reuest="onDeleteFriendReuest($event, senderId,receiverId)" on-confirm-friend-reuest="onConfirmFriendReuest($event, senderId,receiverId)"

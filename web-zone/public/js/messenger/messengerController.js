@@ -66,10 +66,6 @@
                 alert(err)
             });
 
-        socket.on('big-announcement', function (data) {
-            console.log(data);
-        })
-
         //receiving new messages for currentChatRoom
         socket.on('message', function (data) {
             console.log(data);
@@ -180,7 +176,7 @@
             //getting info
             var text = $scope.messageText;
             var user = $rootScope.currentUser;
-            console.log($scope.messageText);
+            
             //prepair message obj
             var message = {
                 sender: user._id,
