@@ -38,6 +38,7 @@ router.post('/', function (req, res, next) {
   user.receivedReqeusts = [];
   user.friends = [];
   user.chatRooms = [];
+  user.post = [];
   user.token = jwt.sign({
     exp: Math.floor(Date.now() / 1000) + (60 * 60),
     data: user

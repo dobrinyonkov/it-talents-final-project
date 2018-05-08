@@ -17,9 +17,9 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <input type="text" ng-change="searchUserToChat()" ng-model="nameToSearch" class="form-control">
-                                <ul ng-if="foundUsersToChat.length > 0" ng-repeat="foundUser in foundUsersToChat track by $index" class="list-group">
-                                    <li ng-click="selectUserToChat(foundUser)" class="list-group-item">{{foundUser.firstName}}</li>
+                                <input type="text" ng-change="searchUserToChat(nameToSearch)" ng-model="nameToSearch" class="form-control">
+                                <ul ng-if="foundUsersToChat.length > 0" class="list-group">
+                                    <li  ng-repeat="foundUser in foundUsersToChat track by $index" ng-click="selectUserToChat(foundUser)" class="list-group-item">{{foundUser.firstName}}</li>
                                 </ul>
                                 <hr>
                                 <textarea ng-model="modalMessageToSend" class="form-control" id="exampleTextarea" rows="3" placeholder="Message..."></textarea>
@@ -33,9 +33,9 @@
                 </div>
             </div>
             <div class="ms-user clearfix">
-                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="img-avatar pull-left">
+                <img ng-src="{{$root.currentUser.profilePic}}" alt="" class="img-avatar pull-left">
                 <div>Signed in as
-                    <br> m-hollaway@gmail.com</div>
+                    <br> {{$root.currentUser.email}}</div>
             </div>
 
 
@@ -61,11 +61,11 @@
                 </div>
 
                 <div class="pull-left hidden-xs">
-                    <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="" class="img-avatar m-r-10">
+                    <img ng-src="{{currentChatRoom.user1.isMe ? currentChatRoom.user2.profilePic : currentChatRoom.user1.profilePic}}" alt="" class="img-avatar m-r-10">
                     <div class="lv-avatar pull-left">
 
                     </div>
-                    <span>David Parbell</span>
+                    <span>{{currentChatRoom.user1.isMe ? currentChatRoom.user2.name : currentChatRoom.user1.name}}</span>
                 </div>
 
                 <ul class="ah-actions actions">

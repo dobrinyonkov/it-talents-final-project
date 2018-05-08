@@ -1,6 +1,6 @@
 (function () {
     app.controller('MessengerController', function ($timeout, $rootScope, $window, $scope, UserService) {
-
+        $scope.nameToSearch = '';
         $scope.chatRoomsIds = [];
         $scope.messengerFriends = [];
         $scope.foundUsersToChat = [];
@@ -105,10 +105,10 @@
         })
 
         //input user name event
-        $scope.searchUserToChat = function () {
+        $scope.searchUserToChat = function (name) {
 
-            var name = $scope.nameToSearch;
 
+            console.log(name);
             if ((name.length !== 0)) {
                 UserService.getByName(name)
                     .then(r => {
@@ -117,6 +117,7 @@
                     })
                     .catch(err => console.log(err));
             }
+
 
         }
 
@@ -176,7 +177,7 @@
             //getting info
             var text = $scope.messageText;
             var user = $rootScope.currentUser;
-            
+
             //prepair message obj
             var message = {
                 sender: user._id,

@@ -34,35 +34,36 @@
             });
         }
 
-        $scope.searchUser = function () {
-            $timeout(function () {
-                $scope.$apply(function () {
-                    var name = $scope.userName;
-                    if (name&&(name.length !== 0)) {
-                        UserService.getByName(name)
-                            .then(r => {
-                                console.log(r.data);
-                                $scope.foundUsers = r.data;
-                            })
-                            .catch(err => console.log(err));
-                    }else{
-                        console.log("$scope.userName is undefind")
-                    }
-                })
-            }, 0);
+        $scope.searchUser = function (userName) {
+            console.log(userName);
+            if ((userName.length !== 0)) {
+                UserService.getByName(userName)
+                    .then(r => {
+                        //store founded user to display on autocomplete div
+                        $scope.foundUsers = r.data;
+                        console.log($scope.foundUsers)
+                    })
+                    .catch(err => console.log(err));
+            }
+
         }
 
-        $scope.selectUser = function () {
-            $timeout(function () {
-                $scope.$apply(function () {
-                    $window.location = `#!/profile/${$scope.selectedUserId}`;
-                })
-            }, 0);
+        $scope.selectUser = function (foundUser) {
+            console.log(foundUser);
+
+            //name to fill the input field
+            $scope.userToSearch = foundUser.firstName + ' ' + foundUser.lastName;
+
+            //empty the array so autocomplete div hides
+            $scope.foundUsers = [];
+
+            $window.location = `#!/profile/${foundUser._id}`;
+
         }
-        $scope.logout = function($event) {
-          $event.preventDefault();
-          localStorage.clear();
-          $window.location = `#!/login`;
+        $scope.logout = function ($event) {
+            $event.preventDefault();
+            localStorage.clear();
+            $window.location = `#!/login`;
         };
     });
 })();

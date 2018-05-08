@@ -38,11 +38,10 @@ function ensureAuthorized(req, res, next) {
     bearerToken = bearer[1];
     req.token = bearerToken;
     // verify a token symmetric - synchronous
-    // var decoded = jwt.verify(req.token, JWT_SECRET);
-    // if (decoded) {
-    //   console.log(decoded);
+    var decoded = jwt.verify(req.token, JWT_SECRET);
+    if (decoded) {
       next();
-    // }
+    }
   } else {
     res.status(403);
   }

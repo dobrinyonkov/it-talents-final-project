@@ -8,14 +8,18 @@
 		</button>
 			<form class="form-inline my-1 mx-sm-3 mr-auto">
 				<div class="input-group">
-					<input ng-change="searchUser()" list="$root.currentUsers" ng-model="$root.currentUserName" type="text" class="form-control" placeholder="Search for...">
+					<input ng-change="searchUser({userName: userName})" ng-model="userName" type="text" class="form-control" placeholder="Search for...">
 
 					<!-- <datalist id="$root.currentUsers" ng-change="selectUser()" ng-model="selectedUserId">
 						<option ng-repeat="foundUser in foundUsers track by $index" ng-value="foundUser._id">{{foundUser.firstName}}</option>
 					</datalist> -->
-					<select class="custom-select" ng-change="selectUser()" ng-model="selectedUserId">
+					<!-- <select class="custom-select" ng-change="selectUser()" ng-model="selectedUserId">
 						<option ng-repeat="foundUser in foundUsers track by $index" ng-value="foundUser._id">{{foundUser.firstName}}</option>
-					</select>
+					</select> -->
+
+					<ul ng-if="foundUsers.length > 0" class="list-group">
+						<li  ng-repeat="foundUser in foundUsers track by $index" ng-click="selectUser({foundUser: foundUser})" class="list-group-item">{{foundUser.firstName}} {{foundUser.lastName}}</li>
+					</ul>
 
 					<span class="input-group-btn">
 						<button class="btn btn-secondary" type="button">Go!</button>
