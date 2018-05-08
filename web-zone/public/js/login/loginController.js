@@ -2,13 +2,14 @@ function validateEmail(email) {
   let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(String(email).toLowerCase());
 }
+
 function validatePass(password) {
   let re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}/;
   return re.test(String(password));
 }
 
 // ANGULAR
-(function(params) {
+(function (params) {
   angular.module("app").controller("LoginController", LoginController);
 
   function LoginController(
@@ -23,9 +24,9 @@ function validatePass(password) {
     $scope.newUser = {
       firstName: "",
       lastName: "",
-      email:"",
-      pass1:"",
-      pass2:""
+      email: "",
+      pass1: "",
+      pass2: ""
     };
     $scope.loginErorr = "";
     $scope.signIn = signIn;
@@ -87,7 +88,7 @@ function validatePass(password) {
     }
 
     //ERRORS
-    $scope.validate = function(input) {
+    $scope.validate = function (input) {
       // console.log("validating " + input);
       switch (input) {
         case "firstName":

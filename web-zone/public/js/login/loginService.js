@@ -52,7 +52,7 @@
       };
 
       return $http({
-        method: "POST",
+        method: "put",
         url: `${API_URL}api/login`,
         headers: {
           "Content-Type": "application/json"

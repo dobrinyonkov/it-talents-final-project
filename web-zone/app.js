@@ -7,7 +7,7 @@ var logger = require('morgan');
 var jwt = require("jsonwebtoken");
 var socket_io = require('socket.io');
 
-
+const JWT_SECRET = 'abcd1234';
 
 //database configuration
 var mongo = require('mongodb');
@@ -37,10 +37,14 @@ function ensureAuthorized(req, res, next) {
     var bearer = bearerHeader.split(" ");
     bearerToken = bearer[1];
     req.token = bearerToken;
-    //TODO jwt.verify
-    next();
+    // verify a token symmetric - synchronous
+    // var decoded = jwt.verify(req.token, JWT_SECRET);
+    // if (decoded) {
+    //   console.log(decoded);
+      next();
+    // }
   } else {
-    res.send(403);
+    res.status(403);
   }
 }
 

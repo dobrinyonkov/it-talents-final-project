@@ -28,8 +28,11 @@
                                 </div>
                                 <img data-no-retina="" class="img-fit img-thumbnail img-fluid d-block mx-auto img-bordered-primary mb-2" ng-src="{{profile.profilePic}}"
                                     alt="{{profile.firstName}} {{profile.lastName}}">
-                                <input ng-show="isOnwer" type="file" id="selectedFile">
-                                <button ng-if="profilePicUploaded" ng-click="saveAcount(profile, profilePicUrl)" class="btn btn-success btn-sm mt-2">SAVE</button>
+                                    <div class="image-upload">
+                                        <label for="selectedFile"><i class="far fa-image"></i></label>
+                                        <input ng-show="isOnwer" type="file" id="selectedFile">
+                                        <button ng-if="profilePicUploaded" ng-click="saveAcount(profile, profilePicUrl)" class="btn btn-success btn-sm mt-2">SAVE</button>
+                                    </div>
                             </li>
                             <li class="text-center mt-4">
                                 <h6 class="text-capitalize">{{profile.firstName}} {{profile.lastName}}</h6>

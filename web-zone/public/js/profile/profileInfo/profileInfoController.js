@@ -18,10 +18,10 @@
         // $timeout(function () {
         //     $scope.$apply(function () {
         //         var recievId = $scope.profile._id;
-        //         $scope.friendsRequestSended = $scope.currentUser.sendedReqeusts.indexOf(recievId) !== -1;
+        //         $scope.friendsRequestSended = $rootScope.currentUser.sendedReqeusts.indexOf(recievId) !== -1;
         //         console.log($scope.profile._id);
-        //         console.log($scope.currentUser.friends.indexOf($scope.profile._id));
-        //         $scope.areFriends = $scope.currentUser.friends.indexOf($scope.profile._id) !== -1;
+        //         console.log($rootScope.currentUser.friends.indexOf($scope.profile._id));
+        //         $scope.areFriends = $rootScope.currentUser.friends.indexOf($scope.profile._id) !== -1;
         //         console.log($scope.areFriends);
         //     });
         // }, 2000);
@@ -30,15 +30,15 @@
         UserService.getById(userId).then(r => {
             $scope.profile = r.data[0];
             var userId = $window.localStorage.getItem("loggedUserId");
-            UserService.getAndSafeLoggedUser(userId)
+            UserService.getById(userId)
                 .then(r => {
                     console.log(r)
-                    $scope.currentUser = r
+                    $rootScope.currentUser = r.data[0];
                     var recievId = $scope.profile._id;
-                    $scope.friendsRequestSended = $scope.currentUser.sendedReqeusts.indexOf(recievId) !== -1;
+                    $scope.friendsRequestSended = $rootScope.currentUser.sendedReqeusts.indexOf(recievId) !== -1;
                     console.log($scope.profile._id);
-                    console.log($scope.currentUser.friends.indexOf($scope.profile._id));
-                    $scope.areFriends = $scope.currentUser.friends.indexOf($scope.profile._id) !== -1;
+                    console.log($rootScope.currentUser.friends.indexOf($scope.profile._id));
+                    $scope.areFriends = $rootScope.currentUser.friends.indexOf($scope.profile._id) !== -1;
                     console.log($scope.areFriends);
                 })
         });
@@ -96,7 +96,7 @@
                         .then(r => {
                             $scope.areFriends = false;
                             $scope.friendsRequestSended = false;                            
-                            var index = $scope.currentUser.friends.findIndex(function (user) {
+                            var index = $rootScope.currentUser.friends.findIndex(function (user) {
                                 return user._id === senderId;
                             });
                         })

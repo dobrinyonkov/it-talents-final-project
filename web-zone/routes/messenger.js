@@ -12,7 +12,7 @@ module.exports = function (app, db) {
         socket.on('rooms', function (rooms) {
             //join all socket/chat rooms
             socket.join(rooms);
-            
+            // console.log(rooms);
             //find all rooms wanted
             chatRoomsCollection.find({ _id: { $in: rooms } }, {}, function (err, docs) {
                 if (err) {
