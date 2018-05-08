@@ -1,6 +1,5 @@
-
-(function () {
-  app.controller("ProfileController", function (
+(function() {
+  app.controller("ProfileController", function(
     $rootScope,
     fileUpload,
     $routeParams,
@@ -20,9 +19,8 @@
     $scope.page = "timeline";
     $scope.isOwner = $routeParams.id == localStorage.getItem("loggedUserId")
     $scope.addPost = addPost;
-
-    $controller('postController', { $scope: $scope });
-    // console.log($scope.displayPost)
+    //initializing the postController (responsible for adding and binding view data to the model)
+    $controller('postController', {$scope: $scope}); 
     // USER
     var userId = $routeParams.id;
     UserService.getById(userId)
@@ -84,20 +82,21 @@
           }
         }
       });
-
-
+    
     //ADD POST - attached to profile page
-    $scope.newPost = {
-      placeholder: "What are you doing",
-      text: "",
-      busy: false,
-      photoUrl: "",
-      // photoUrl:"http://en.es-static.us/upl/2018/04/moon-full-set-La-_az-city-Max-Glaser-4-30-2018-e1525172614735.jpg",
-    };
-    function addPost() {
+    $scope.newPost = { placeholder: "What are you doing",
+    text:"",
+    busy:false,
+    photoUrl:"",
+    // photoUrl:"http://en.es-static.us/upl/2018/04/moon-full-set-La-_az-city-Max-Glaser-4-30-2018-e1525172614735.jpg",
+   };
+    function addPost($event) {
       if (!$scope.newPost.text || $scope.newPost.text.trim().length < 1) {
         $scope.newPost.placeholder = "Can't post an empty post.";
-        return;
+        var btn=angular.element($event.target)
+        btn.addClass('btn-error')
+        $timeout(()=>{btn.removeClass('btn-error')},1600)
+         return;
       }
       PostService.addPost(
         localStorage.getItem("loggedUserId"),
@@ -109,13 +108,11 @@
         $scope.newPost.text = "";
         if (newPostId) {
           $scope.newPost.placeholder = "Thank you for posting.";
-          $scope.newPost.photoUrl = '';
-          console.log("zapisah posta i id-to dojda , sq shte go pokaja " + newPostId);
-          $scope.displayPost(newPostId, true, $scope.posts);
+          $scope.newPost.photoUrl='';
+          $scope.displayPost(newPostId, true , $scope.posts);
           return newPostId;
         } else {
-          $scope.newPost.placeholder = 'Sorry we had an error, please try again later.'
-
+          $scope.newPost.placeholder ='Sorry we had an error, please try again later.'            
         }
       }).catch((err) => {
         alert(err)
@@ -131,9 +128,11 @@
         console.log(file);
         fileUpload.uploadFileToUrl(file).then(r => {
           console.log(r.data.url)
-          $scope.newPost.photoUrl = r.data.url;
-          $scope.newPost.busy = false
-        }).catch(() => { alert("We couldn't locate the resource, pleace try again a different image.") })
-      });
+          $scope.newPost.photoUrl= r.data.url;
+          $scope.newPost.busy=false
+        }).catch((err)=>{
+          console.log(err)
+          alert("We couldn't locate the resource, pleace try again a different image.")})
+    });
   });
 })();

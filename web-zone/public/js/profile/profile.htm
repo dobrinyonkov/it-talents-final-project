@@ -28,7 +28,7 @@
                                 </div>
                                 <img data-no-retina="" class="img-fit img-thumbnail img-fluid d-block mx-auto img-bordered-primary mb-2" ng-src="{{profile.profilePic}}"
                                     alt="{{profile.firstName}} {{profile.lastName}}">
-                                    <div class="image-upload">
+                                    <div title="Change profile picture." class="image-upload">
                                         <label for="selectedFile"><i class="far fa-image"></i></label>
                                         <input ng-show="isOnwer" type="file" id="selectedFile">
                                         <button ng-if="profilePicUploaded" ng-click="saveAcount(profile, profilePicUrl)" class="btn btn-success btn-sm mt-2">SAVE</button>
@@ -142,8 +142,14 @@
         <div class="col-lg-8 col-md-7">
             <div class="profile-cover">
                 <div class="cover rounded shadow no-overflow">
-                    <div class="inner-cover">
-
+                    <div title="Change cover picture." class="image-upload">
+                        <label for="selectedFile">
+                            <i class="far fa-image"></i>
+                        </label>
+                        <input ng-show="isOnwer" type="file" id="selectedFile">
+                        <button ng-if="profilePicUploaded" ng-click="saveAcount(profile, profilePicUrl)" class="btn btn-success btn-sm mt-2">SAVE</button>
+                    </div>
+                    <div class="inner-cover">            
                         <!-- Cover photo -->
                         <img ng-src="{{profile.coverPhoto}}" class="img-fluid full-width" alt="cover" style="max-height:200px;">
                     </div>
@@ -164,7 +170,7 @@
                 </div>
                 </div>
                 <div class="card-footer">
-                    <button ng-click=addPost() class="btn btn-purple float-right">POST</button>
+                    <button ng-click=addPost($event) class="btn btn-purple  float-right">POST</button>
                     <ul class="nav nav-pills">
                         <li>
                             <div title="Photo" class="image-upload">

@@ -20,7 +20,6 @@ app.controller("postController", function($scope, PostService) {
     return PostService.getPost(postId)
       .then(post => post.loadOwnerInfo())
       .then(post => {
-
         // DELETING A POST
         post.canEdit = post.ownerId == localStorage.getItem("loggedUserId");
         post.editMode = false;
@@ -30,8 +29,7 @@ app.controller("postController", function($scope, PostService) {
             PostService.deletePost(
               localStorage.getItem("loggedUserId"),
               post._id
-            )
-              .then(() => {
+            ).then(() => {
                 posts.displayedPosts = posts.displayedPosts.filter(
                   p => p._id !== post._id
                 );
@@ -85,7 +83,9 @@ app.controller("postController", function($scope, PostService) {
             });
             post.newComment.text = "";
             post.newComment.placeholder = "Thanks for the comment.";
-          });
+          }).catch(err=>{
+            alert("We couldn't process this comment, please try again later.")
+          })
         };
         //ADDING THE POST TO THE ARRAY
         if (top) {
@@ -93,6 +93,6 @@ app.controller("postController", function($scope, PostService) {
         } else {
           posts.displayedPosts.push(post);
         }
-      });
+      }).catch(err=>{console.log("We couldn't load your post, please try again later.")})
   };
 });
