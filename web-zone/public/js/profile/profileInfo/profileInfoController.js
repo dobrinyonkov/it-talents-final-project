@@ -14,7 +14,7 @@
         $scope.profilePicUploaded = false;
         $scope.profilePicUrl = "";
         $scope.isOnwer =$window.localStorage.getItem("loggedUserId")==$routeParams.id;
-
+        console.log("profile info controller")
         // $timeout(function () {
         //     $scope.$apply(function () {
         //         var recievId = $scope.profile._id;
@@ -32,8 +32,8 @@
             var userId = $window.localStorage.getItem("loggedUserId");
             UserService.getAndSafeLoggedUser(userId)
                 .then(r => {
-              
-                    $scope.currentUser = r.data[0];
+                    console.log(r)
+                    $scope.currentUser = r
                     var recievId = $scope.profile._id;
                     $scope.friendsRequestSended = $scope.currentUser.sendedReqeusts.indexOf(recievId) !== -1;
                     console.log($scope.profile._id);

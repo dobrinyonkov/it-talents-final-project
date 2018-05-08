@@ -1,6 +1,5 @@
 app.controller("postController", function($scope, PostService) {
   // DISPLAY POST FUNCTION
-  console.log("toz controller go izvika drugiq controller")
   $scope.calculateTimeInterval=function(date) {
     var interval = Date.now() - Date.parse(date);
     if (interval < 5000) return "just now";
@@ -21,8 +20,7 @@ app.controller("postController", function($scope, PostService) {
     return PostService.getPost(postId)
       .then(post => post.loadOwnerInfo())
       .then(post => {
-        console.log("lgei tuka kvo idva ot tez promisiii")
-        console.log(post)
+
         // DELETING A POST
         post.canEdit = post.ownerId == localStorage.getItem("loggedUserId");
         post.editMode = false;
