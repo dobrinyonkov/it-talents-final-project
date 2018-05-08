@@ -27,26 +27,32 @@
         // }, 2000);
 
         var userId = $routeParams.id;
-        UserService.getById(userId).then(r => {
-            $scope.profile = r.data[0];
-            var userId = $window.localStorage.getItem("loggedUserId");
-            UserService.getById(userId)
-                .then(r => {
-                    console.log(r)
-                    $rootScope.currentUser = r.data[0];
-                    var recievId = $scope.profile._id;
-                    $scope.friendsRequestSended = $rootScope.currentUser.sendedReqeusts.indexOf(recievId) !== -1;
-                    console.log($scope.profile._id);
-                    console.log($rootScope.currentUser.friends.indexOf($scope.profile._id));
-                    $scope.areFriends = $rootScope.currentUser.friends.indexOf($scope.profile._id) !== -1;
-                    console.log($scope.areFriends);
-                })
-        });
+        UserService.getById(userId)
+            .then(r => {
+                $scope.profile = r.data[0];
+                var userId = $window.localStorage.getItem("loggedUserId");
+                UserService.getById(userId)
+                    .then(r => {
+                        console.log(r)
+                        $rootScope.currentUser = r.data[0];
+                        var recievId = $scope.profile._id;
+                        $scope.friendsRequestSended = $rootScope.currentUser.sendedReqeusts.indexOf(recievId) !== -1;
+                        console.log($scope.profile._id);
+                        console.log($rootScope.currentUser.friends.indexOf($scope.profile._id));
+                        $scope.areFriends = $rootScope.currentUser.friends.indexOf($scope.profile._id) !== -1;
+                        console.log($scope.areFriends);
+                    })
+            })
+            .catch(err => {
+                alert(err);
+            });
 
         // EDIT PERSONAL INFORMATION
         $scope.onChangeMode = function () {
             if ($scope.editMode) {
-                UserService.update($scope.profile).then(r => console.log(r));
+                UserService.update($scope.profile)
+                    .then(r => console.log(r))
+                    .catch(err => alert(err));
             }
             $scope.editMode = !$scope.editMode;
         };
@@ -54,7 +60,9 @@
         $scope.saveAcount = function (user, url) {
             user.profilePic = url;
             // console.log(user);
-            UserService.update(user).then(r => console.log(r));
+            UserService.update(user)
+                .then(r => console.log(r))
+                .catch(err => alert(err));
         };
 
         // PROFILE PICTURE UPLOAD
@@ -69,11 +77,13 @@
                 return false;
             } else {
                 // console.log(file);
-                fileUpload.uploadFileToUrl(file).then(r => {
-                    $scope.profile.profilePic = r.data.url;
-                    $scope.profilePicUploaded = true;
-                    $scope.profilePicUrl = r.data.url;
-                });
+                fileUpload.uploadFileToUrl(file)
+                    .then(r => {
+                        $scope.profile.profilePic = r.data.url;
+                        $scope.profilePicUploaded = true;
+                        $scope.profilePicUrl = r.data.url;
+                    })
+                    .catch(err => alert(err));
             }
         });
 
@@ -83,10 +93,13 @@
             if (!$scope.areFriends && !$scope.friendsRequestSended) {
                 UserService.friendsRequests.send(senderId, receiverId)
                     .then(r => {
+                        if (r.status == '409') {
+                            alert(r.data.data);
+                        }
                         $scope.friendsRequestSended = true;
                         $scope.sendedFriendRequests.push(r.data[1]);
                     })
-                    .catch(err => console.log(err));
+                    .catch(err => alert(err));
             } else {
                 if ($scope.friendsRequestSended && !$scope.areFriends) {
                     UserService.friendsRequests.deleteFR(senderId, receiverId)
@@ -97,7 +110,7 @@
                             });
                             $scope.sendedFriendRequests.splice(index, 1);
                         })
-                        .catch(err => console.log(err));
+                        .catch(err => alert(err));
                 } else {
                     UserService.friendsRequests.unfriend(senderId, receiverId)
                         .then(r => {
@@ -107,7 +120,7 @@
                                 return user._id === senderId;
                             });
                         })
-                        .catch(err => console.log(err));
+                        .catch(err => alert(err));
                 }
                 // console.log(senderId, receiverId);
                 // Promise.all([UserService.friendsRequests.unfriend(senderId, receiverId), UserService.friendsRequests.deleteFR(senderId, receiverId)])

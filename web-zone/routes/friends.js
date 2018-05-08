@@ -14,25 +14,39 @@ router.put('/send', function (req, res) {
 
     var userCollection = req.db.get('users');
 
-    // update sendedRequest array with reciverId at sender user 
-    Promise.all([userCollection.findOneAndUpdate(
-        { _id: senderId },
-        { $push: { sendedReqeusts: receiverId } }
-    ),
-    // update receivedReqeusts array with senderID at reciever user 
-    userCollection.findOneAndUpdate(
-        { _id: receiverId },
-        { $push: { receivedReqeusts: senderId } }
-    )
-    ])
-        .then(function (values) {
-            res.status(200).json(values);
+    userCollection.find({ _id: senderId }, {})
+        .then(r => {
+            if (r.length > 0) {
+                if (r[0].receivedReqeusts.indexOf(receiverId) !== -1) {
+                    res.status(409).json({
+                        data: 'User has already sended you a request.'
+                    })
+                } else {
+                    console.log(r[0]);
+                    // update sendedRequest array with reciverId at sender user 
+                    Promise.all([userCollection.findOneAndUpdate(
+                        { _id: senderId },
+                        { $push: { sendedReqeusts: receiverId } }
+                    ),
+                    // update receivedReqeusts array with senderID at reciever user 
+                    userCollection.findOneAndUpdate(
+                        { _id: receiverId },
+                        { $push: { receivedReqeusts: senderId } }
+                    )
+                    ])
+                        .then(function (values) {
+                            res.status(200).json(values);
+                        })
+                        .catch(function (err) {
+                            res.status(404).json(err);
+                        });
+                }
+            }
+        }).catch(err => {
+            res.json({
+                data: 'Error occurred'
+            })
         })
-        .catch(function (err) {
-            res.status(404).json(err);
-        });
-
-
 });
 
 router.delete('/delete/:senderId/:receiverId', function (req, res) {

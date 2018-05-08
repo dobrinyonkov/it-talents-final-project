@@ -8,6 +8,7 @@ function validatePass(password) {
   return re.test(String(password));
 }
 
+
 const JWT_SECRET = 'abcd1234';
 
 
