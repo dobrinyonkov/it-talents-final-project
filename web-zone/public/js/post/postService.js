@@ -1,7 +1,5 @@
 
-app.service("PostService", function($http,UserService) {
-
-  const API_URL = 'http://localhost:9000/';
+app.service("PostService", function(API_URL,$http,UserService) {
   
   function mergeNames(name1, name2){
     name1 = name1.charAt(0).toUpperCase() + name1.slice(1);

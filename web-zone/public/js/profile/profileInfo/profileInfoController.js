@@ -13,7 +13,7 @@
         $scope.editMode = false;
         $scope.profilePicUploaded = false;
         $scope.profilePicUrl = "";
-        $scope.isOnwer = false;
+        $scope.isOnwer =$window.localStorage.getItem("loggedUserId")==$routeParams.id;
 
         // $timeout(function () {
         //     $scope.$apply(function () {
@@ -30,9 +30,9 @@
         UserService.getById(userId).then(r => {
             $scope.profile = r.data[0];
             var userId = $window.localStorage.getItem("loggedUserId");
-            // UserService.getById(userId)
-            //     .then(r => {
-                    $scope.isOnwer = $scope.profile._id === userId;
+            UserService.getAndSafeLoggedUser(userId)
+                .then(r => {
+              
                     $scope.currentUser = r.data[0];
                     var recievId = $scope.profile._id;
                     $scope.friendsRequestSended = $scope.currentUser.sendedReqeusts.indexOf(recievId) !== -1;
@@ -40,7 +40,7 @@
                     console.log($scope.currentUser.friends.indexOf($scope.profile._id));
                     $scope.areFriends = $scope.currentUser.friends.indexOf($scope.profile._id) !== -1;
                     console.log($scope.areFriends);
-                // })
+                })
         });
 
         // EDIT PERSONAL INFORMATION

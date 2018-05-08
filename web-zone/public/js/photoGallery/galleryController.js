@@ -5,7 +5,7 @@
     UserService,
     $timeout
   ) {
-    $scope.isOwner=$scope.isOwner=$routeParams.id==localStorage.getItem("loggedUserId")
+    $scope.isOwner=$routeParams.id==localStorage.getItem("loggedUserId")
     $scope.page="photos"
     $scope.displayedPhoto = "";
     $scope.changePhoto = function(photo) {
