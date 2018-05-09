@@ -15,7 +15,7 @@
 
         //determined wwhether messenger windows is opened so to hide active chat little windows 
         $rootScope.$on('$routeChangeStart', function () {
-            $scope.inMessengerRoute = $location.absUrl().indexOf('messenger') !== -1; 
+            $scope.inMessengerRoute = $location.absUrl().indexOf('messenger') !== -1;
             console.log($scope.inMessengerRoute);
         });
 
@@ -75,7 +75,7 @@
 
         //receiving new messages for currentChatRoom
         socket.on('message', function (data) {
-            console.log(data);
+            var audio = new Audio('/images/open-ended.mp3');
             $timeout(function () {
                 $scope.$apply(function () {
                     var chat = $scope.activeChatRooms.find(ch => ch._id === data._id);
@@ -87,7 +87,12 @@
                         data.user1.isMe = false;
                     }
                     if (chat) {
-                        chat.content.push(data.content.slice().pop());
+                        var newMessage = data.content.slice().pop();
+                        chat.content.push(newMessage);
+                        debugger;
+                        if (!(data.user1.isMe && data.user1._id === newMessage.sender)) {
+                            audio.play();                    
+                        }
                     } else {
                         $scope.activeChatRooms.push(data);
                     }
@@ -105,7 +110,12 @@
                     }, 0);
                     console.log($scope.currentChatRoom._id + ' received room id');
                     var room = $scope.chatRoomsObjects.find(c => c._id === data._id)
-                    room.content.push(data.content.slice().pop());
+                    var newMessage = data.content.slice().pop();
+                    room.content.push(newMessage);
+                    debugger;
+                    if (!(data.user1.isMe && data.user1._id === newMessage.sender)) {
+                        audio.play();                    
+                    }
                 })
             }, 0)
         })
@@ -192,7 +202,7 @@
             var text = textContent || $scope.messageText;
 
             var user = $rootScope.currentUser;
-             console.log(text);
+            console.log(text);
             //prepair message obj
             var message = {
                 sender: user._id,
@@ -220,7 +230,8 @@
         }
 
         $scope.addToAciveChats = function (chatRoom) {
-            console.log(chatRoom);
+            chatRoom = JSON.parse(JSON.stringify(chatRoom));
+            $scope.activeChatRooms.push(chatRoom);
         }
     });
 })();
