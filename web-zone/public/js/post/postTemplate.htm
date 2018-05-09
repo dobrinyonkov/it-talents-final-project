@@ -64,7 +64,7 @@
             <!-- COMMENT -->
             <div class="line no-margin"></div>
             <!-- /.line -->
-            <div ng-repeat="comment in post.displayedComments" class="comment card-footer">
+            <div ng-repeat="comment in post.displayedComments track by $index" class="comment card-footer">
                 <div class="media inner-all no-margin">
                     <div class="float-left">
                         <img class="mr-2 rounded-circle img-fluid img-bordered-primary" ng-src="{{comment.owner.photoUrl}}" title:

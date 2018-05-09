@@ -116,7 +116,7 @@
                 </ul>
             </div>
             <div class="message-containter">
-                <div ng-repeat="message in currentChatRoom.content | orderBy:'id':true">
+                <div ng-repeat="message in currentChatRoom.content | orderBy:'id':true track by $index">
                     <div ng-class="currentChatRoom.user1.isMe && message.sender === currentChatRoom.user1._id ? 'message-feed right' : currentChatRoom.user2.isMe && message.sender === currentChatRoom.user2._id ? 'message-feed right' : 'message-feed media'">
 
                         <div ng-class="pull-left">
@@ -135,7 +135,7 @@
             </div>
             <div class="msb-reply">
                 <textarea ng-keydown="sendDouEnter($event)" ng-model="$parent.messageText" placeholder="What's on your mind..."></textarea>
-                <button ng-click="sendMessage()">
+                <button ng-click="sendMessage(currentChatRoom)">
                     <i class="fa fa-paper-plane" aria-hidden="true"></i>
                 </button>
             </div>

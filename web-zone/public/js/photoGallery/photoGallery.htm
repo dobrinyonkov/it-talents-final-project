@@ -24,7 +24,7 @@
 
 <div id="gallery" class="row">
   <span ng-if="profile.photos.length>0">
-    <span ng-repeat="photo in profile.photos">
+    <span ng-repeat="photo in profile.photos track by $index">
       <img ng-click="changePhoto(photo)" ng-src="{{photo}}" alt="">
     </span>
   </span>

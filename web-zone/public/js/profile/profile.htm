@@ -136,7 +136,7 @@
                 </div>
                 <div class="col-lg-12 mt-2">
                     <div class="card-content memberblock">
-                        <a  ng-repeat="friend in profileFriends" href="#!/profile/{{friend._id}}" class="w-55 member">
+                        <a  ng-repeat="friend in profileFriends track by $index" href="#!/profile/{{friend._id}}" class="w-55 member">
                             <img class="img-fluid d-block mx-auto" ng-src="{{friend.profilePic}}" alt="">
                             <div class="memmbername">{{friend.firstName}} {{friend.lastName}}</div>
                         </a>
