@@ -97,7 +97,9 @@
         $scope.newPost.placeholder = "Can't post an empty post.";
         var btn=angular.element($event.target)
         btn.addClass('btn-error')
+        btn.attr("title","Can't post an empty post.")
         $timeout(()=>{btn.removeClass('btn-error')},1600)
+        $timeout(()=>{btn.attr("title","")},8000)
          return;
       }
       PostService.addPost(

@@ -67,7 +67,7 @@ app.controller("postController", function($scope, PostService) {
         //ADD NEW COMMENT
         post.newComment = { placeholder: "Write a comment", text: "" };
         post.addNewComment = function() {
-          if (post.newComment.text.trim().length < 2) {
+          if (post.newComment.text.trim().length < 1) {
             post.newComment.placeholder = "Can't post an empty comment.";
             return;
           }

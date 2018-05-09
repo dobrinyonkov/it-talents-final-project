@@ -15,25 +15,31 @@
 
 <div id="profilePageWrapper"  class="container bootstrap snippets mt-2">
     <div class="row mb-4 p-1">
-        <!-- aside logged user info and photo -->
+        <!-- aside logged user info and phnoto -->
     
         <div ng-controller="ProfileInfoController" id="loggedUserInfo" class="col-lg-4 col-md-5">
             <div class="card rounded shadow mb-2">
                 <div class="card-block mx-5 my-3">
                     <div class="inner-all">
                         <ul class="text-center list-unstyled">
-                            <li class="text-center">
-                                <div>
-
+                            <li class=" text-center">                                                     
+                                <div class="spinholder">
+                                       
+                                    <div ng-if="newProfilePic.busy" class="spinner-1" ></div>
+                                    <img data-no-retina="" 
+                                        ng-class="newProfilePic.busy ? 'changing  img-fit img-thumbnail img-fluid d-block mx-auto img-bordered-primary mb-2' : 'img-fit img-thumbnail img-fluid d-block mx-auto img-bordered-primary mb-2'"
+                                        ng-src="{{profile.profilePic}}"
+                                        alt="{{profile.firstName}} {{profile.lastName}}">
                                 </div>
-                                <img data-no-retina="" class="img-fit img-thumbnail img-fluid d-block mx-auto img-bordered-primary mb-2" ng-src="{{profile.profilePic}}"
-                                    alt="{{profile.firstName}} {{profile.lastName}}">
                                     <div title="Change profile picture." class="image-upload">
+                                        <p ng-if="newProfilePic.busy">loading your image...</p>
                                         <label for="selectedFile"><i class="far fa-image"></i></label>
                                         <input ng-show="isOnwer" type="file" id="selectedFile">
-                                        <button ng-if="profilePicUploaded" ng-click="saveAcount(profile, profilePicUrl)" class="btn btn-success btn-sm mt-2">SAVE</button>
+                                        <button title="Save this image as your new profile picture." ng-if="newProfilePic.uploaded" ng-click="saveAcount(profile, newProfilePic.url)" class="btn btn-save btn-success btn-sm mt-2">SAVE</button>
+                                       
                                     </div>
                             </li>
+                           
                             <li class="text-center mt-4">
                                 <h6 class="text-capitalize">{{profile.firstName}} {{profile.lastName}}</h6>
                                 <p class="text-muted text-capitalize">web designer</p>
@@ -142,13 +148,14 @@
         <div class="col-lg-8 col-md-7">
             <div class="profile-cover">
                 <div class="cover rounded shadow no-overflow">
-                    <div title="Change cover picture." class="image-upload">
+                    <!-- //new stuff doesn't work yet -->
+                    <!-- <div title="Change cover picture." class="image-upload">
                         <label for="selectedFile">
                             <i class="far fa-image"></i>
                         </label>
                         <input ng-show="isOnwer" type="file" id="selectedFile">
                         <button ng-if="profilePicUploaded" ng-click="saveAcount(profile, profilePicUrl)" class="btn btn-success btn-sm mt-2">SAVE</button>
-                    </div>
+                    </div> -->
                     <div class="inner-cover">            
                         <!-- Cover photo -->
                         <img ng-src="{{profile.coverPhoto}}" class="img-fluid full-width" alt="cover" style="max-height:200px;">

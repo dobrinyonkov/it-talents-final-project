@@ -11,8 +11,13 @@
     ) {
         // $scope.profile = {};
         $scope.editMode = false;
-        $scope.profilePicUploaded = false;
-        $scope.profilePicUrl = "";
+        $scope.newProfilePic={
+            url:"",
+            uplpoaded:false,
+            busy:false
+        }
+        // $scope.profilePicUploaded = false;
+        // $scope.profilePicUrl = "";
         $scope.isOnwer = $window.localStorage.getItem("loggedUserId") == $routeParams.id;
         console.log("profile info controller")
         // $timeout(function () {
@@ -44,7 +49,8 @@
                     })
             })
             .catch(err => {
-                alert(err);
+                console.log(err)
+                alert("Sorry we couldn't load your profile, please try again later.");
             });
 
         // EDIT PERSONAL INFORMATION
@@ -57,12 +63,17 @@
             $scope.editMode = !$scope.editMode;
         };
 
-        $scope.saveAcount = function (user, url) {
-            user.profilePic = url;
-            // console.log(user);
-            UserService.update(user)
-                .then(r => console.log(r))
-                .catch(err => alert(err));
+        $scope.saveAcount = function(user, url) {
+          user.profilePic = url;
+          UserService.update(user)
+            .then(r => {
+              console.log(r);
+              $scope.newProfilePic.uploaded = false;
+            })
+            .catch(err => {
+                console.log(err)
+                alert("We couldn't save your profile settings please try again later.")
+            });
         };
 
         // PROFILE PICTURE UPLOAD
@@ -77,13 +88,20 @@
                 return false;
             } else {
                 // console.log(file);
+                console.log("dobre taz snimka iskash shte opitam da q kacha")
+                $scope.newProfilePic.busy=true
                 fileUpload.uploadFileToUrl(file)
                     .then(r => {
+                        console.log("kacih q snimkata, gotov si ")
                         $scope.profile.profilePic = r.data.url;
-                        $scope.profilePicUploaded = true;
-                        $scope.profilePicUrl = r.data.url;
+                        $scope.newProfilePic.uploaded = true;
+                        $scope.newProfilePic.url = r.data.url;
+                        $scope.newProfilePic.busy =false
                     })
-                    .catch(err => alert(err));
+                    .catch(err => {
+                        console.log(err)
+                        alert("We coudn't upload this image, please try again later, or with a different image.")
+                    });
             }
         });
 

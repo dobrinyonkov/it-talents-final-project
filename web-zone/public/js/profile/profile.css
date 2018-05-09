@@ -124,6 +124,13 @@ body {
 /* ========================================================================
      * PROFILE
      * ======================================================================== */
+.changing{
+  border: 2px solid rebeccapurple;
+  filter: grayscale(100%)
+}
+.btn-save{
+  margin-left:2em; 
+}
 .profile-cover {
   width: 100%;
 }
@@ -275,10 +282,13 @@ memberblock {
   height: 2.7em;
   width: 100%;
 }
-
+.spinholder{
+  position: relative;
+}
 .spinner-1:before {
   content: "";
   box-sizing: border-box;
+  z-index: 12000;
   position: absolute;
   top: 50%;
   left: 50%;
