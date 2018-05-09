@@ -39,6 +39,7 @@ function ensureAuthorized(req, res, next) {
     // verify a token symmetric - synchronous
     var decoded = jwt.verify(req.token, JWT_SECRET);
     if (decoded) {
+      console.log(decoded);
       next();
     }
   } else {
@@ -59,7 +60,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(function (req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE, PUT');
   res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
   next();
 });
@@ -80,9 +81,9 @@ app.use(function (req, res, next) {
 app.use('/api/users', ensureAuthorized, usersRouter);
 app.use('/api/login', loginRouter);
 app.use('/api/signup', signupRouter);
-app.use('/api/friends', /*ensureAuthorized,*/ friendsRouter);
+app.use('/api/friends', ensureAuthorized, friendsRouter);
 //posts
-app.use('/api/posts',/* ensureAuthorized,*/ postsRouter);
+app.use('/api/posts', ensureAuthorized, postsRouter);
 //add post test page
 // app.use('/addPost', addPostRouter);
 
