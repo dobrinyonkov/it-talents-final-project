@@ -6,26 +6,27 @@
 		 aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
-			<form class="form-inline my-1 mx-sm-3 mr-auto">
-				<div class="input-group">
-					<input ng-change="searchUser({userName: userName})" ng-model="userName" type="text" class="form-control" placeholder="Search for...">
+		<form class="col-lg-5 my-1 mx-sm-1 mr-auto">
+			<div class="input-group input-group-sm">
+				<input id='foudnUsersInput' ng-change="searchUser({userName: userName})" ng-model="userName" type="text" class="form-control"
+				 placeholder="Search for...">
 
-					<!-- <datalist id="$root.currentUsers" ng-change="selectUser()" ng-model="selectedUserId">
+				<!-- <datalist id="$root.currentUsers" ng-change="selectUser()" ng-model="selectedUserId">
 						<option ng-repeat="foundUser in foundUsers track by $index" ng-value="foundUser._id">{{foundUser.firstName}}</option>
 					</datalist> -->
-					<!-- <select class="custom-select" ng-change="selectUser()" ng-model="selectedUserId">
+				<!-- <select class="custom-select" ng-change="selectUser()" ng-model="selectedUserId">
 						<option ng-repeat="foundUser in foundUsers track by $index" ng-value="foundUser._id">{{foundUser.firstName}}</option>
 					</select> -->
 
-					<ul ng-if="foundUsers.length > 0" class="list-group">
-						<li  ng-repeat="foundUser in foundUsers track by $index" ng-click="selectUser({foundUser: foundUser})" class="list-group-item">{{foundUser.firstName}} {{foundUser.lastName}}</li>
-					</ul>
 
-					<span class="input-group-btn">
-						<button class="btn btn-secondary" type="button">Go!</button>
-					</span>
-				</div>
-			</form>
+				<span class="input-group-btn">
+					<button class="btn btn-secondary" type="button">Go!</button>
+				</span>
+			</div>
+			<ul ng-if="foundUsers.length > 0" id='foudnUsersUl' class="list-group">
+				<li ng-repeat="foundUser in foundUsers track by $index" ng-click="selectUser({foundUser: foundUser})" class="list-group-item">{{foundUser.firstName}} {{foundUser.lastName}}</li>
+			</ul>
+		</form>
 		<div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
 			<ul class="navbar-nav ml-auto mt-1">
 				<li class="nav-item">
@@ -84,8 +85,8 @@
 						</div>
 					</div>
 				</li>
-				<li  class="nav-item">
-					<a ng-click=logout({$event:$event}) class="nav-link font-weight-bold" href="#!/login" >Log out</a>
+				<li class="nav-item">
+					<a ng-click=logout({$event:$event}) class="nav-link font-weight-bold" href="#!/login">Log out</a>
 				</li>
 			</ul>
 		</div>

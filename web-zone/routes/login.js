@@ -15,6 +15,8 @@ router.put('/', function (req, res, next) {
     userCollection.find({ email: email, password: password })
         .then(docs => {
             if (docs.length > 0) {
+                //change token
+                var oldToken = docs[0].token;
                 docs[0].token = '';
                 docs[0].token = jwt.sign({
                     exp: Math.floor(Date.now() / 1000) + (60 * 60),

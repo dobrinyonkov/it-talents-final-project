@@ -54,7 +54,8 @@ app.config(function ($routeProvider, $httpProvider) {
                 return config;
             },
             'responseError': function (response) {
-                if (response.status === 401 || response.status === 403) {
+                if (response.status === 401 || response.status === 403 || response.status === 403)  {
+                    alert('Your session has expired');
                     $location.path('/login');
                 }
                 return $q.reject(response);

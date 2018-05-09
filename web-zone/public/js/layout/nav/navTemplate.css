@@ -5,6 +5,11 @@ body {
   .nav-color-purple {
     background-color: #563d7c;
   }
+
+  .btn-purple {
+    background-color: #563d7c;
+    color: #e9ebee;
+  }
   
   #logo {
     color: azure;
@@ -16,10 +21,10 @@ body {
     top:0em;
     z-index: 9000;
     width: 100%;
-    height: 4em;
+    height: 4em !important;
   }
   #navSeparator{
-    margin-bottom: 4.2em;
+    margin-bottom: 4.2em !important;
   }
   
   #friends-req-icon {
@@ -28,15 +33,31 @@ body {
 
   .dropdown-menu {
     width: 500px !important;
-    font-size: 0.8em;
+    font-size: 0.8em !important;
     box-shadow: 0px 0px 10px #0000004b;
 }
 
 .bootbox >div{
   border: midnightblue 1px solid;
-  margin-top:5em; 
+  margin-top:5em !important;
   z-index: 99999 !important;
 }
 .bootbox{
   font-size: 2em
+}
+
+/* #foudnUsersUl {
+  display: block
+} */
+
+#foudnUsersUl {
+  position: absolute;
+  top: 80%;
+  width: 280px;
+  font-weight: bolder;
+}
+
+#foudnUsersUl >li {
+  padding: 0.5em;
+  cursor: pointer;
 }

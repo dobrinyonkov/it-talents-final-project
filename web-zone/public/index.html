@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg"
         crossorigin="anonymous">
     <link rel="stylesheet" href="css/main.css">
-
+    
     <script src="vendors/jquery.min.js"></script>
     <!-- Bootbox -->
     <script src="vendors/bootbox.min.js"></script>
@@ -32,17 +32,17 @@
     <script src="vendors/bootstrap/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="vendors/bootstrap/css/bootstrap.min.css">
     <!-- <link rel="stylesheet" href="https://bootswatch.com/4/sandstone/bootstrap.min.css"> -->
-
+    
     <!-- ANGULAR APP -->
     <script src="js/angularApp.js"></script>
-
+    
     <!-- ANGULAR SERVICES -->
     <script src="js/login/loginService.js"></script>
     <script src="js/post/postService.js"></script>
     <script src="js/profile/userService.js"></script>
     <script src="js/profile/fileUploadService.js"></script>
     <script src="js/news-feed/newsService.js"></script>
-
+    
     <!-- ANGULAR CONTROLLERS -->
     <script src="js/rootController.js"></script>
     <script src="js/layout/nav/navigationController.js"></script>
@@ -54,7 +54,7 @@
     <script src="js/news-feed/news-feedController.js"></script>
     <script src="js/messenger/messengerController.js"></script>
     <script src="js/photoGallery/galleryController.js"></script>
-
+    
     <!-- DIRECTIVES -->
     <script src="js/layout/nav/navDirective.js"></script>
     <script src="js/layout/pageNavigation/pageNavDirective.js"></script>
@@ -65,11 +65,11 @@
 </head>
 
 <body ng-app="app">
-
+    
     <div ng-controller="RootController">
         <div ng-controller="MessengerController">
             <div class="fixed-container">
-                <messenger  ng-repeat="chatRoom in activeChatRooms track by $index" message-text="messageText" send-message="sendMessage()"
+                <messenger ng-repeat="chatRoom in activeChatRooms track by $index" message-text="messageText" send-message="sendMessage()"
                     close-chat-window="closeChatWindow(chatRoom)" minimize="minimize($event)" ng-class="'fixed-sigle-window-message'"
                     chat-room="chatRoom"></messenger>
 

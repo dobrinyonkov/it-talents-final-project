@@ -113,6 +113,7 @@
                     .then(r => {
                         if (r.status == '409') {
                             alert(r.data.data);
+                            return;
                         }
                         $scope.friendsRequestSended = true;
                         $scope.sendedFriendRequests.push(r.data[1]);
