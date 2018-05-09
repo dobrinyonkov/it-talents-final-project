@@ -123,21 +123,28 @@ app.service("PostService", function(API_URL, $http, UserService) {
       });
   }
   // DELETE POST 
-  this.deletePost = function(userId, postId) {
+  this.deletePost = function(userId, postId,deleterId) {
     var post = {};
     //post needed to delete associated photo from the user's photo array
     
-  return  $http.get("/api/posts/" + postId).then(res=>res.data.photoUrl).then(photoUrl=>{
-      if(photoUrl&&photoUrl.trim().length>0){       
-        UserService.deletePhoto(userId,photoUrl)
+  return  $http.get("/api/posts/" + postId)
+  .then(res=>res.data.photoUrl)
+  .then(photoUrl=>{
+      if(photoUrl&&photoUrl.trim().length>0){  
+        console.log("shte triq i snimki")     
+       return UserService.deletePhoto(deleterId,photoUrl).then(res=>{console.log(res)})
       }
     }).then(()=>{
+      console.log("shte triq ot masiva na ")
+      console.log(userId)
       $http
       .post(`${API_URL}api/users/deletepost`, {
         postId: postId,
-        userId: userId
+        userId: userId,
+        deleterId:deleterId
       })
       .then(() => {
+        console.log("shte iztriq i samiq post")
         //  throw new Error("")<<--error catched succesufully
         return $http.delete(`${API_URL}api/posts/` + postId);
       });

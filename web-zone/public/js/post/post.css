@@ -5,6 +5,7 @@
     rgb(125, 41, 146)
   ) !important;
   border: none !important;
+  max-height: 110px!important;
 }
 .post div.post-content > p {
   font-size: 1.4em !important;

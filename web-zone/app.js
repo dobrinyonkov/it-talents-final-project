@@ -77,7 +77,7 @@ app.use('/api/login', loginRouter);
 app.use('/api/signup', signupRouter);
 app.use('/api/friends', /*ensureAuthorized,*/ friendsRouter);
 //posts
-app.use('/api/posts',/*ensureAuthorized,*/ postsRouter);
+app.use('/api/posts',ensureAuthorized, postsRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

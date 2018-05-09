@@ -24,12 +24,14 @@ app.controller("postController", function($scope, $routeParams,PostService) {
         post.canEdit = post.ownerId == localStorage.getItem("loggedUserId");
         post.editMode = false;
         post.delete = function() {
+          console.log("v chii masiv shte triq====")
           console.log($routeParams.id)
           bootbox.confirm("Are you sure you want to delete this post", res => {
             if (!res) return;
             PostService.deletePost(
               $routeParams.id,
-              post._id
+              post._id,
+              localStorage.getItem("loggedUserId")
             ).then(() => {
                 posts.displayedPosts = posts.displayedPosts.filter(
                   p => p._id !== post._id

@@ -165,7 +165,7 @@ router.put("/addphoto", function(req, res, next) {
 router.post("/deletephoto", function(req, res, next) {
   var photoUrl = req.body.photoUrl;
   var userId = req.body.userId;
-  // console.log("going to delete photo "+photoUrl+" for user "+userId)
+  console.log("going to delete photo "+photoUrl+" for user "+userId)
   var userCollection = req.db.get("users");
   userCollection.find({ _id: userId }, {}, function(err, docs) {
     if (err) {
@@ -173,16 +173,22 @@ router.post("/deletephoto", function(req, res, next) {
     } else {
       if (docs[0].token !== req.token) {
         console.log("no token");
-        res.status(403).send({ message: "Not Authorized" });
+        // res.status(403).send({ message: "Not Authorized" });
       } else {
+        console.log("pochvam da q triq taz snimka ne se sheguvam")
         var user = docs[0];
         var photoIndex = user.photos.indexOf(photoUrl);
+        console.log(photoIndex)
+        console.log(user.photos)
         user.photos.splice(photoIndex, 1);
+        console.log(user.photos)
         userCollection.findOneAndUpdate({ _id: userId }, { $set: {photos:user.photos} }, function (err, docs) {
           if (err) {
+            console.log(err)
             res.status(500);
             res.json(err);
           } else {
+            console.log(docs)
             res.status(200);
             res.json(docs);
           }
@@ -196,25 +202,25 @@ router.post("/deletephoto", function(req, res, next) {
 router.post("/deletepost",function(req,res,next){
   var postId = req.body.postId;
   var userId = req.body.userId;
+  var deleterId=req.body.deleterId
   var userCollection = req.db.get('users');
-  userCollection.find({ _id: userId }, {}, function (err, docs) {
+  //compares the deleters token to the requester's token
+  userCollection.find({ _id: deleterId }, {}, function (err, docs) {
     if (err) {
       res.status(404).send({
         message: "Not Found"
       })
     } else {
-      console.log(docs[0])
-      console.log(req.token)
       if (docs[0].token !== req.token) {
-        // res.status(403).send({
-        //   message: 'Not Authorized'
-        // });
-      } else {
+        res.status(403).send({
+          message: 'Not Authorized'
+        });
+        return
+      } 
+      if(deleterId==userId){
         var user =docs[0]
-
         var index=user.posts.indexOf(postId)
         user.posts.splice(index,1)
-
         userCollection.findOneAndUpdate({ _id: userId }, { $set: user }, function (err, docs) {
           if (err) {
             res.status(500);
@@ -224,11 +230,31 @@ router.post("/deletepost",function(req,res,next){
             res.json(docs);
           }
         })
-      
+      }else{
+        console.log("aha your deleting your post from some one else's page but i kno who's")
+        userCollection.find({ _id: userId }, {}, function (err, docs) {
+          if (err) {
+            res.status(404).send({
+              message: "Not Found"
+            })
+          } else {
+            var user =docs[0];
+            console.log(user)
+            user.posts.splice(index,1)
+            userCollection.findOneAndUpdate({ _id: userId }, { $set: user }, function (err, docs) {
+          if (err) {
+            res.status(500);
+            res.json(err);
+          } else {
+            res.status(200);
+            res.json(docs);
+          }
+        })
+        }})
       }
+   
     }
   })
-
 })
 
 module.exports = router;
