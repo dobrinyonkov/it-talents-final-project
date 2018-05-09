@@ -13,39 +13,63 @@
 <!-- <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script> -->
 <!-- <script src="//code.jquery.com/jquery-1.11.1.min.js"></script> -->
 
-<div id="profilePageWrapper"  class="container bootstrap snippets mt-2">
+<div id="profilePageWrapper" class="container bootstrap snippets mt-2">
     <div class="row mb-4 p-1">
         <!-- aside logged user info and phnoto -->
-    
+
         <div ng-controller="ProfileInfoController" id="loggedUserInfo" class="col-lg-4 col-md-5">
             <div class="card rounded shadow mb-2">
                 <div class="card-block mx-5 my-3">
                     <div class="inner-all">
                         <ul class="text-center list-unstyled">
-                            <li class=" text-center">                                                     
+                            <li class=" text-center">
                                 <div class="spinholder">
-                                       
-                                    <div ng-if="newProfilePic.busy" class="spinner-1" ></div>
-                                    <img data-no-retina="" 
-                                        ng-class="newProfilePic.busy ? 'changing  img-fit img-thumbnail img-fluid d-block mx-auto img-bordered-primary mb-2' : 'img-fit img-thumbnail img-fluid d-block mx-auto img-bordered-primary mb-2'"
-                                        ng-src="{{profile.profilePic}}"
-                                        alt="{{profile.firstName}} {{profile.lastName}}">
+
+                                    <div ng-if="newProfilePic.busy" class="spinner-1"></div>
+                                    <img data-no-retina="" ng-class="newProfilePic.busy ? 'changing  img-fit img-thumbnail img-fluid d-block mx-auto img-bordered-primary mb-2' : 'img-fit img-thumbnail img-fluid d-block mx-auto img-bordered-primary mb-2'"
+                                        ng-src="{{profile.profilePic}}" alt="{{profile.firstName}} {{profile.lastName}}">
                                 </div>
-                                    <div title="Change profile picture." class="image-upload">
-                                        <p ng-if="newProfilePic.busy">loading your image...</p>
-                                        <label for="selectedFile"><i class="far fa-image"></i></label>
-                                        <input ng-show="isOnwer" type="file" id="selectedFile">
-                                        <button title="Save this image as your new profile picture." ng-if="newProfilePic.uploaded" ng-click="saveAcount(profile, newProfilePic.url)" class="btn btn-save btn-success btn-sm mt-2">SAVE</button>
-                                       
-                                    </div>
+                                <div title="Change profile picture." class="image-upload">
+                                    <p ng-if="newProfilePic.busy">loading your image...</p>
+                                    <label for="selectedFile">
+                                        <i class="far fa-image"></i>
+                                    </label>
+                                    <input ng-show="isOnwer" type="file" id="selectedFile">
+                                    <button title="Save this image as your new profile picture." ng-if="newProfilePic.uploaded" ng-click="saveAcount(profile, newProfilePic.url)"
+                                        class="btn btn-save btn-success btn-sm mt-2">SAVE</button>
+
+                                </div>
                             </li>
-                           
+
                             <li class="text-center mt-4">
                                 <h6 class="text-capitalize">{{profile.firstName}} {{profile.lastName}}</h6>
                                 <p class="text-muted text-capitalize">web designer</p>
                             </li>
                             <li>
-                                <a href="" ng-if="areFriends !== null && !isOnwer" ng-click="sendFriendRequest($root.currentUser._id, profile._id)" class="btn btn-purple text-xs-center btn-block">{{areFriends ? 'Unfriend' : friendsRequestSended ? 'Cancel Friend Request' : 'Send Friend Request'}}</a>
+                                <a data-toggle="modal" data-target="#exampleModal" href="" ng-if="!isOnwer" class="mb-1 btn btn-purple text-xs-center btn-block">Message</a>
+                            </li>
+                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <textarea ng-model="$parent.modalMessageToSend" class="form-control" id="exampleTextarea" rows="3" placeholder="Message..."></textarea>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button ng-click="sendModalMessage(profile)" type="button" class="btn btn-primary" data-dismiss="modal">Send Message</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <li>
+                                <a href="" ng-if="areFriends !== null && !isOnwer" ng-click="sendFriendRequest($root.currentUser._id, profile._id)" class="btn btn-purple text-xs-center btn-block">{{areFriends ? 'Unfriend' : friendsRequestSended ? 'Cancel Friend Request' : 'Send Friend
+                                    Request'}}</a>
                             </li>
                             <li>
                                 <br>
@@ -55,7 +79,7 @@
                                     <a ng-click="onChangeMode()" href="" class="btn btn-secondary">
                                         <i class="fa fa-cog float-right"></i>{{!editMode ? 'Edit Account' : 'Save'}}</a>
                                     <a ng-click="logout($event)" href="" class="btn btn-secondary">
-                                        <i class="fas fa-sign-in-alt float-right" ></i>Logout</a>
+                                        <i class="fas fa-sign-in-alt float-right"></i>Logout</a>
                                 </div>
                             </li>
                         </ul>
@@ -69,17 +93,7 @@
                     <div class="float-left">
                         <h3 class="card-header h5">Contact</h3>
                     </div>
-                    <div class="float-right mt-2">
-                        <a href="#" class="btn btn-sm btn-purple">
-                            <i class="fab fa-facebook"></i>
-                        </a>
-                        <a href="#" class="btn btn-sm btn-purple">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="#" class="btn btn-sm btn-purple">
-                            <i class="fab fa-google-plus"></i>
-                        </a>
-                    </div>
+
                     <div class="clearfix"></div>
                 </div>
                 <!-- /.panel-heading -->
@@ -136,7 +150,7 @@
                 </div>
                 <div class="col-lg-12 mt-2">
                     <div class="card-content memberblock">
-                        <a  ng-repeat="friend in profileFriends track by $index" href="#!/profile/{{friend._id}}" class="w-55 member">
+                        <a ng-repeat="friend in profileFriends track by $index" href="#!/profile/{{friend._id}}" class="w-55 member">
                             <img class="img-fluid d-block mx-auto" ng-src="{{friend.profilePic}}" alt="">
                             <div class="memmbername">{{friend.firstName}} {{friend.lastName}}</div>
                         </a>
@@ -156,7 +170,7 @@
                         <input ng-show="isOnwer" type="file" id="selectedFile">
                         <button ng-if="profilePicUploaded" ng-click="saveAcount(profile, profilePicUrl)" class="btn btn-success btn-sm mt-2">SAVE</button>
                     </div> -->
-                    <div class="inner-cover">            
+                    <div class="inner-cover">
                         <!-- Cover photo -->
                         <img ng-src="{{profile.coverPhoto}}" class="img-fluid full-width" alt="cover" style="max-height:200px;">
                     </div>
@@ -171,10 +185,10 @@
                     <textarea ng-model=newPost.text class="form-control form-control-lg no-border" rows="2" placeholder="{{newPost.placeholder}}"
                         maxlength="150"></textarea>
                 </form>
-                <div id="photoholder" >
+                <div id="photoholder">
                     <div ng-class="newPost.busy?'big-photoholder spinner-1':'none'">
-                    <img ng-if=newPost.photoUrl ng-src="{{newPost.photoUrl}}" alt="">
-                </div>
+                        <img ng-if=newPost.photoUrl ng-src="{{newPost.photoUrl}}" alt="">
+                    </div>
                 </div>
                 <div class="card-footer">
                     <button ng-click=addPost($event) class="btn btn-purple  float-right">POST</button>

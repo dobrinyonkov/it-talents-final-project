@@ -89,7 +89,6 @@
                     if (chat) {
                         var newMessage = data.content.slice().pop();
                         chat.content.push(newMessage);
-                        debugger;
                         if (!(data.user1.isMe && data.user1._id === newMessage.sender)) {
                             audio.play();                    
                         }
@@ -112,7 +111,6 @@
                     var room = $scope.chatRoomsObjects.find(c => c._id === data._id)
                     var newMessage = data.content.slice().pop();
                     room.content.push(newMessage);
-                    debugger;
                     if (!(data.user1.isMe && data.user1._id === newMessage.sender)) {
                         audio.play();                    
                     }
@@ -151,9 +149,10 @@
         }
 
         // send message button on modal / creates new chat room 
-        $scope.sendModalMessage = function () {
-
-            var user = $scope.modalSelectedUser;
+        $scope.sendModalMessage = function (profile, textContent) {
+            console.log(profile);
+            var user = profile || $scope.modalSelectedUser;
+            var text = textContent || $scope.modalMessageToSend; 
 
             //prepair new chat room to emit to socket.io
             var chatRoom = {
@@ -176,7 +175,7 @@
                 profilePic: $rootScope.currentUser.profilePic,
                 name: $rootScope.currentUser.firstName,
                 date: new Date(),
-                text: $scope.modalMessageToSend
+                text: text
             }
 
             //add first message to chat room
