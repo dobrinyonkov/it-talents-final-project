@@ -1,15 +1,15 @@
-<nav id="mainNav" class="navbar navbar-expand-lg navbar-dark nav-color-purple">
+<nav id="mainNav" class="navbar  navbar-dark nav-color-purple">
 
-	<div class="container">
-		<img id="logo" width="35" src="images/logo.png" alt="">
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-		 aria-expanded="false" aria-label="Toggle navigation">
+	<!-- <div class="container"> -->
+		<img id="logo" width="35" src="images/logo.png" alt="logo">
+		<!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+		    aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
-		</button>
+		</button> -->
 		<form class="col-lg-5 my-1 mx-sm-1 mr-auto">
 			<div class="input-group input-group-sm">
 				<input id='foudnUsersInput' ng-change="searchUser({userName: userName})" ng-model="userName" type="text" class="form-control"
-				 placeholder="Search for...">
+				    placeholder="Search for...">
 
 				<!-- <datalist id="$root.currentUsers" ng-change="selectUser()" ng-model="selectedUserId">
 						<option ng-repeat="foundUser in foundUsers track by $index" ng-value="foundUser._id">{{foundUser.firstName}}</option>
@@ -27,23 +27,19 @@
 				<li ng-repeat="foundUser in foundUsers track by $index" ng-click="selectUser({foundUser: foundUser})" class="list-group-item">{{foundUser.firstName}} {{foundUser.lastName}}</li>
 			</ul>
 		</form>
-		<div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
-			<ul class="navbar-nav ml-auto mt-1">
-				<li class="nav-item">
+		<div class="my-navbar-collapse">
+			<ul >
+				<li >
 					<img data-no-retina="" class="img-fit w-40 img-fluid rounded-circle d-block mx-auto img-bordered-primary mt-1 mb-2" ng-src="{{$root.currentUser.profilePic}}"
-					 alt="{{$root.currentUser.firstName}} {{$root.currentUser.lastName}}">
+					    alt="{{$root.currentUser.firstName}} {{$root.currentUser.lastName}}">
 				</li>
-				<li class="nav-item">
+				<li >
 					<a class="nav-link font-weight-bold" href="#!/profile/{{$root.currentUser._id}}">{{$root.currentUser.firstName}}</a>
 				</li>
-				<li class="nav-item">
-					<!-- <a class="nav-link font-weight-bold" href="#">
-
-					</a> -->
-
-					<div class="dropdown">
+				<li >
+					<div class="dropdown1">
 						<button ng-click="onFirendRequests(sendedFriendRequests)" class="btn btn-purple" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-						 aria-haspopup="true" aria-expanded="false">
+						    aria-haspopup="true" aria-expanded="false">
 							<i class="fas fa-users mt-1"></i>
 						</button>
 						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
@@ -65,8 +61,30 @@
 									</div>
 								</a>
 							</div>
-							<!-- <p class="ml-2 font-weight-bold">Sended Friend Requests</p>
-							<div ng-repeat="friendReq in sendedFriendRequests track by $index">
+						</div>
+					</div>
+				</li>
+				<li >
+					<a ng-click=logout({$event:$event}) class="nav-link font-weight-bold" href="#!/login">Log out</a>
+				</li>
+			</ul>
+		</div>
+		<div class="dropdown">
+				<button class="btn btn-purple btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+						<span class="navbar-toggler-icon"></span></button>
+				<ul class="dropdown-menu">
+				  <li>	<img data-no-retina="" class="img-fit w-40 img-fluid rounded-circle d-block mx-auto img-bordered-primary mt-1 mb-2" ng-src="{{$root.currentUser.profilePic}}"
+					alt="{{$root.currentUser.firstName}} {{$root.currentUser.lastName}}"><a class="nav-link font-weight-bold" href="#!/profile/{{$root.currentUser._id}}">{{$root.currentUser.firstName}}</a></li>
+				<li>
+					<div >
+						<button ng-click="onFirendRequests(sendedFriendRequests)" class="btn btn-purple" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+						 aria-haspopup="true" aria-expanded="false">
+							<i class="fas fa-users mt-1"></i>
+							<a href="" class="nav-link font-weight-bold">Friend requests</a>
+						</button>
+						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+							<p class="ml-2 font-weight-bold">Received Friend Requests</p>
+							<div ng-repeat="friendReq in receivedFriendRequests track by $index">
 								<hr>
 								<a class="dropdown-item" href="#!/profile/{{friendReq._id}}">
 									<div class="row">
@@ -77,21 +95,21 @@
 											<p class="font-weight-bold">{{friendReq.firstName}} {{friendReq.lastName}}</p>
 										</div>
 										<div class="col- ml-auto">
+											<button ng-click="onConfirmFriendReuest({$event: $event, senderId:friendReq, receiverId: $root.currentUser})" class="btn btn-secondary btn-sm font-weight-bold">Confirm</button>
 											<button ng-click="onDeleteFriendReuest({$event: $event, senderId:friendReq._id, receiverId: $root.currentUser._id})" class="btn btn-primary btn-sm font-weight-bold">Delete</button>
 										</div>
 									</div>
 								</a>
-							</div> -->
+							</div>
 						</div>
 					</div>
 				</li>
-				<li class="nav-item">
-					<a ng-click=logout({$event:$event}) class="nav-link font-weight-bold" href="#!/login">Log out</a>
-				</li>
-			</ul>
-		</div>
-
-	</div>
+					<li >
+						<a ng-click=logout({$event:$event}) class="nav-link font-weight-bold" href="#!/login">Log out</a>
+					</li>
+				</ul>
+			  </div>
+	<!-- </div> -->
 
 </nav>
 <div id="navSeparator"></div>

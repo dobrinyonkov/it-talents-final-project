@@ -1,54 +1,104 @@
 body {
-    background-color: #e9ebee !important;
-  }
-  
-  .nav-color-purple {
-    background-color: #563d7c;
-  }
-
-  .btn-purple {
-    background-color: #563d7c;
-    color: #e9ebee;
-  }
-  
-  #logo {
-    color: azure;
-    text-shadow: 0px 0px 1px black;
-    border-radius: 2px;
-  }
-  #mainNav{
-    position: fixed;
-    top:0em;
-    z-index: 9000;
-    width: 100%;
-    height: 4em !important;
-  }
-  #navSeparator{
-    margin-bottom: 4.2em !important;
-  }
-  
-  #friends-req-icon {
-    background-color: #e9ebee
-  }
-
-  .dropdown-menu {
-    width: 500px !important;
-    font-size: 0.8em !important;
-    box-shadow: 0px 0px 10px #0000004b;
+  background-color: #e9ebee !important;
+}
+#mainNav {
+  width: 100%;
+  display: block;
+}
+.nav-color-purple {
+  background-color: #563d7c;
 }
 
-.bootbox >div{
+.btn-purple {
+  background-color: #563d7c;
+  border: none;
+  color: #e9ebee;
+}
+
+#logo {
+  color: azure;
+  text-shadow: 0px 0px 1px black;
+  border-radius: 2px;
+  margin-left: 3em;
+  margin-right: 1em;
+}
+#mainNav {
+  position: fixed;
+  top: 0em;
+  z-index: 9000;
+  width: 100%;
+  height: 4em !important;
+}
+#mainNav form {
+  max-width: 450px;
+  width: 35%;
+  min-width: 320px;
+  display: inline-block;
+}
+#mainNav form input {
+  height: 2.3em;
+  border-bottom-left-radius: 4px;
+  border-top-left-radius: 4px;
+}
+#navSeparator {
+  margin-bottom: 4.2em !important;
+}
+
+#friends-req-icon {
+  background-color: #e9ebee;
+}
+.my-navbar-collapse {
+  width: 350px;
+  float: right;
+}
+
+.my-navbar-collapse li {
+  display: block;
+  float: left;
+  font-size: 1.1em;
+  color: white !important;
+}
+.dropdown li {
+  font-size: 1.1em;
+  display: inline-block;
+  width: 100%;
+}
+.dropdown li button{
+  float: left !important;
+  margin-left:1em!important;
+}
+.dropdown li img,
+.dropdown li a {
+  margin-left: 1em !important;
+  display: inline !important;
+}
+.my-navbar-collapse li a,
+.dropdown li a {
+  color: white !important;
+}
+.my-navbar-collapse i {
+  font-size: 1.4em;
+}
+
+.dropdown1 .dropdown-menu {
+  width: 500px !important;
+  position: fixed;
+  top: 5em;
+  left: 100%;
+  margin-left: -500px !important;
+  float: right !important;
+  font-size: 0.8em !important;
+  box-shadow: 0px 0px 10px #0000004b;
+}
+
+.bootbox > div {
   border: midnightblue 1px solid;
-  margin-top:5em !important;
+  margin-top: 5em !important;
   z-index: 99999 !important;
 }
-.bootbox{
-  font-size: 2em
+.bootbox {
+  font-size: 2em;
 }
-
-/* #foudnUsersUl {
-  display: block
-} */
 
 #foudnUsersUl {
   position: absolute;
@@ -57,7 +107,59 @@ body {
   font-weight: bolder;
 }
 
-#foudnUsersUl >li {
+#foudnUsersUl > li {
   padding: 0.5em;
   cursor: pointer;
+}
+.dropdown {
+  display: none;
+}
+.dropdown ul {
+  width: 300px;
+  background: #563d7c;
+  position: fixed;
+  top: 3.6em;
+  left: 100%;
+  margin-left: -300px !important;
+  box-shadow: 0px 0px 10px #0000004b;
+}
+.dropdown button {
+  display: block;
+  float: right;
+  margin-right: 1em;
+}
+@media (max-width: 840px) {
+  .my-navbar-collapse {
+    display: none;
+  }
+  .dropdown {
+    display: inline;
+  }
+  #logo {
+    margin-left: 1.5em;
+    margin-right: 0.8em;
+  }
+  #mainNav form {
+    width: 60%;
+    min-width: 260px;
+  }
+}
+@media (max-width: 500px) {
+  .my-navbar-collapse {
+    display: none;
+  }
+  .dropdown {
+    display: inline;
+  }
+  #logo {
+    margin-left: 0.6em;
+    margin-right: 0.2em;
+  }
+  #mainNav form {
+    width: 60%;
+    min-width: 180px;
+  }
+  .dropdown button {
+    margin-right: 0.2em;
+  }
 }
