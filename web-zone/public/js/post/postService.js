@@ -35,6 +35,7 @@ app.service("PostService", function(API_URL, $http, UserService) {
       var owner = {};
       owner.name = mergeNames(res.data[0].firstName, res.data[0].lastName);
       owner.photoUrl = res.data[0].profilePic;
+      owner._id=res.data[0]._id
       post.owner = owner;
       return post;
     });
