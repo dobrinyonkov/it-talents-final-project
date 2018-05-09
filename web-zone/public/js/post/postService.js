@@ -127,13 +127,12 @@ app.service("PostService", function(API_URL, $http, UserService) {
     var post = {};
     //post needed to delete associated photo from the user's photo array
     
-    $http.get("/api/posts/" + postId).then(res=>res.data.photoUrl).then(photoUrl=>{
-      if(photoUrl&&photoUrl.trim().length>0){
-        console.log(photoUrl)
+  return  $http.get("/api/posts/" + postId).then(res=>res.data.photoUrl).then(photoUrl=>{
+      if(photoUrl&&photoUrl.trim().length>0){       
         UserService.deletePhoto(userId,photoUrl)
       }
-    })
-    return $http
+    }).then(()=>{
+      $http
       .post(`${API_URL}api/users/deletepost`, {
         postId: postId,
         userId: userId
@@ -142,6 +141,7 @@ app.service("PostService", function(API_URL, $http, UserService) {
         //  throw new Error("")<<--error catched succesufully
         return $http.delete(`${API_URL}api/posts/` + postId);
       });
+    }) 
   };
   //GET POST BY ID
   this.getPost = getPost;

@@ -1,4 +1,4 @@
-app.controller("postController", function($scope, PostService) {
+app.controller("postController", function($scope, $routeParams,PostService) {
   // DISPLAY POST FUNCTION
   $scope.calculateTimeInterval=function(date) {
     var interval = Date.now() - Date.parse(date);
@@ -24,10 +24,11 @@ app.controller("postController", function($scope, PostService) {
         post.canEdit = post.ownerId == localStorage.getItem("loggedUserId");
         post.editMode = false;
         post.delete = function() {
+          console.log($routeParams.id)
           bootbox.confirm("Are you sure you want to delete this post", res => {
             if (!res) return;
             PostService.deletePost(
-              localStorage.getItem("loggedUserId"),
+              $routeParams.id,
               post._id
             ).then(() => {
                 posts.displayedPosts = posts.displayedPosts.filter(

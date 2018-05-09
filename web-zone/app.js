@@ -65,18 +65,13 @@ app.use(function (req, res, next) {
   next();
 });
 
-// app.use(session({
-//   secret: 'keyboard cat',
-//   resave: false,
-//   saveUninitialized: true,
-// }));
 
 //vkarava mu bazata
 app.use(function (req, res, next) {
   req.db = db;
   next();
 })
-//da sa vijda dali bachka
+
 //users
 app.use('/api/users', ensureAuthorized, usersRouter);
 app.use('/api/login', loginRouter);
@@ -84,10 +79,6 @@ app.use('/api/signup', signupRouter);
 app.use('/api/friends', ensureAuthorized, friendsRouter);
 //posts
 app.use('/api/posts', ensureAuthorized, postsRouter);
-//add post test page
-// app.use('/addPost', addPostRouter);
-
-
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

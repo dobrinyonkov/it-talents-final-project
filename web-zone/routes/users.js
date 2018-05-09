@@ -203,10 +203,12 @@ router.post("/deletepost",function(req,res,next){
         message: "Not Found"
       })
     } else {
+      console.log(docs[0])
+      console.log(req.token)
       if (docs[0].token !== req.token) {
-        res.status(403).send({
-          message: 'Not Authorized'
-        });
+        // res.status(403).send({
+        //   message: 'Not Authorized'
+        // });
       } else {
         var user =docs[0]
 
