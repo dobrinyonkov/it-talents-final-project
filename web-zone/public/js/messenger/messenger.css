@@ -215,3 +215,12 @@ body {
 .modal-dialog {
     margin: 20vh auto 0px auto
 }
+
+.message-containter {
+    height: 100%;
+    max-height: 70%;
+    overflow: auto;
+    background: ivory;
+    display: flex;
+    flex-direction: column-reverse;
+}

@@ -1,5 +1,6 @@
 (function () {
     app.controller('MessengerController', function ($timeout, $rootScope, $window, $scope, UserService) {
+        $scope.messageText = '';
         $scope.nameToSearch = '';
         $scope.chatRoomsIds = [];
         $scope.messengerFriends = [];
@@ -80,7 +81,7 @@
                         data.user1.isMe = false;
                     }
                     if (chat) {
-                        chat.content.push(data.content.pop());
+                        chat.content.push(data.content.slice().pop());
                     } else {
                         $scope.activeChatRooms.push(data);
                     }
@@ -96,10 +97,9 @@
                             $window.localStorage.setItem("activeChatRooms", JSON.stringify($scope.activeChatRooms));
                         })
                     }, 0);
-
                     console.log($scope.currentChatRoom._id + ' received room id');
                     var room = $scope.chatRoomsObjects.find(c => c._id === data._id)
-                    room.content.push(data.content.pop());
+                    room.content.push(data.content.slice().pop());
                 })
             }, 0)
         })
@@ -114,6 +114,7 @@
                     .then(r => {
                         //store founded user to display on autocomplete div
                         $scope.foundUsersToChat = r.data;
+                        $scope.foundUsersToChat = $scope.foundUsersToChat.filter(u => u.firstName !== $rootScope.currentUser.firstName);
                     })
                     .catch(err => console.log(err));
             }
@@ -135,7 +136,6 @@
 
         // send message button on modal / creates new chat room 
         $scope.sendModalMessage = function () {
-
 
             var user = $scope.modalSelectedUser;
 
@@ -173,11 +173,20 @@
             $scope.currentChatRoom = chatRoom;
         }
 
-        $scope.sendMessage = function () {
-            //getting info
-            var text = $scope.messageText;
-            var user = $rootScope.currentUser;
+        $scope.sendDouEnter = function ($event) {
+            if ($event.keyCode == 13) {
+                $event.preventDefault();
+                $scope.sendMessage();
+            }
+        }
 
+        $scope.sendMessage = function () {
+
+            var text = $scope.messageText;
+            //getting info
+
+            var user = $rootScope.currentUser;
+             console.log(text);
             //prepair message obj
             var message = {
                 sender: user._id,
@@ -186,13 +195,13 @@
                 date: new Date(),
                 text: text
             }
+            //clean the textaria
+            $scope.messageText = '';
 
             //emit message to socket.io chat room
             console.log($scope.currentChatRoom._id + ' sended room id');
             socket.emit('message', message, $scope.currentChatRoom);
 
-            //clean the textaria
-            $scope.messageText = '';
         }
 
         $scope.closeChatWindow = function (chatRoom) {

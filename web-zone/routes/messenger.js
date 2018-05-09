@@ -31,6 +31,7 @@ module.exports = function (app, db) {
                     { _id: chatroom._id },
                     { $push: { content: message } }
                 ).then(docs => {
+                    console.log(docs);
                     //emit new message to spesific chat/socket room       
                     app.io.in(chatroom._id).emit('message', docs);
                 }).catch(err => {

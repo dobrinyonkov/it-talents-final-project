@@ -36,7 +36,7 @@
 
         $scope.searchUser = function (userName) {
             console.log(userName);
-            if ((userName.length !== 0)) {
+            if ((userName.trim().length !== 0)) {
                 UserService.getByName(userName)
                     .then(r => {
                         //store founded user to display on autocomplete div
@@ -44,6 +44,8 @@
                         console.log($scope.foundUsers)
                     })
                     .catch(err => console.log(err));
+            } else {
+                $scope.foundUsers = [];
             }
 
         }
@@ -52,7 +54,7 @@
             console.log(foundUser);
 
             //name to fill the input field
-            $scope.userToSearch = foundUser.firstName + ' ' + foundUser.lastName;
+            $scope.userName = foundUser.firstName + ' ' + foundUser.lastName;
 
             //empty the array so autocomplete div hides
             $scope.foundUsers = [];

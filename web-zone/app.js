@@ -18,7 +18,6 @@ var usersRouter = require('./routes/users');
 var loginRouter = require('./routes/login');
 var signupRouter = require('./routes/signup');
 var postsRouter = require('./routes/posts');
-var fileRouter = require('./routes/file');
 var friendsRouter = require('./routes/friends');
 
 // var addPostRouter = require('./routes/addPost');
@@ -81,10 +80,8 @@ app.use(function (req, res, next) {
 app.use('/api/users', ensureAuthorized, usersRouter);
 app.use('/api/login', loginRouter);
 app.use('/api/signup', signupRouter);
-// app.use('/api/file', ensureAuthorized, fileRouter);
 app.use('/api/friends', /*ensureAuthorized,*/ friendsRouter);
 //posts
-// app.use('/api/messenger', messengerRouter);
 app.use('/api/posts',/* ensureAuthorized,*/ postsRouter);
 //add post test page
 // app.use('/addPost', addPostRouter);
