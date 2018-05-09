@@ -163,3 +163,28 @@ body {
     margin-right: 0.1em;
   }
 }
+
+.messagesNavDiv {
+  overflow: auto;
+}
+
+.dropdown-item, .fas {
+  cursor: pointer;
+}
+
+.messageNameAndText {
+ color: black; 
+}
+.lastMessage {
+  color: grey;
+}
+.openInMessenger {
+  margin: 0.2em 2em;
+  padding: 0; 
+  color: blue !important;
+}
+
+.openInMessenger:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
