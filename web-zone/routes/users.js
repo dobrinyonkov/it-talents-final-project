@@ -161,6 +161,37 @@ router.put("/addphoto", function(req, res, next) {
     }
   });
 });
+//DELETE PHOTO
+router.post("/deletephoto", function(req, res, next) {
+  var photoUrl = req.body.photoUrl;
+  var userId = req.body.userId;
+  // console.log("going to delete photo "+photoUrl+" for user "+userId)
+  var userCollection = req.db.get("users");
+  userCollection.find({ _id: userId }, {}, function(err, docs) {
+    if (err) {
+      res.status(404).send({ message: "Not Found" });
+    } else {
+      if (docs[0].token !== req.token) {
+        console.log("no token");
+        res.status(403).send({ message: "Not Authorized" });
+      } else {
+        var user = docs[0];
+        var photoIndex = user.photos.indexOf(photoUrl);
+        user.photos.splice(photoIndex, 1);
+        userCollection.findOneAndUpdate({ _id: userId }, { $set: {photos:user.photos} }, function (err, docs) {
+          if (err) {
+            res.status(500);
+            res.json(err);
+          } else {
+            res.status(200);
+            res.json(docs);
+          }
+        })
+        
+      }
+    }
+  });
+})
 //DELETE POST
 router.post("/deletepost",function(req,res,next){
   var postId = req.body.postId;

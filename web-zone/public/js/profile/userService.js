@@ -26,7 +26,7 @@
         service.getByName = getByName;
         service.addPost = addPost;
         service.addPhoto=addPhoto;
-        // service.deletePost = deletePost;
+        service.deletePhoto=deletePhoto
         service.create = create;
         service.update = update;
         service.remove = remove;
@@ -247,16 +247,16 @@
         });
     }
     function addPhoto(userId, photoUrl) {
-        console.log("na toz "+userId+"  shte mu kacha taz snimka "+photoUrl)
-        return $http
-          .put(`${API_URL}api/users/addphoto`, {  userId: userId,photoUrl:photoUrl })
-        //   .then(res => {
-        //       res.newPostId=postId
-        //     return res;
-        //   })
-        //   .catch(err => {
-        //     return err;
-        //   });
+      return $http.put(`${API_URL}api/users/addphoto`, {
+        userId: userId,
+        photoUrl: photoUrl
+      });
+    }
+    function deletePhoto(userId, photoUrl) {
+        return $http.post(`${API_URL}api/users/deletephoto`, {
+          userId: userId,
+          photoUrl: photoUrl
+        });
       }
 
     }

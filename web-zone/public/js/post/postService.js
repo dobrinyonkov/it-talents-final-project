@@ -122,8 +122,17 @@ app.service("PostService", function(API_URL, $http, UserService) {
         return UserService.addPost(friendId, newPostId).then(() => newPostId);
       });
   }
-  // DELETE POST
+  // DELETE POST 
   this.deletePost = function(userId, postId) {
+    var post = {};
+    //post needed to delete associated photo from the user's photo array
+    
+    $http.get("/api/posts/" + postId).then(res=>res.data.photoUrl).then(photoUrl=>{
+      if(photoUrl&&photoUrl.trim().length>0){
+        console.log(photoUrl)
+        UserService.deletePhoto(userId,photoUrl)
+      }
+    })
     return $http
       .post(`${API_URL}api/users/deletepost`, {
         postId: postId,

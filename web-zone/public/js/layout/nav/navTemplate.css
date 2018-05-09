@@ -152,14 +152,14 @@ body {
     display: inline;
   }
   #logo {
-    margin-left: 0.6em;
-    margin-right: 0.2em;
+    margin-left: 0.4em;
+    margin-right: 0.1em;
   }
   #mainNav form {
-    width: 60%;
-    min-width: 180px;
+    width: 55%;
+    min-width: 160px;
   }
   .dropdown button {
-    margin-right: 0.2em;
+    margin-right: 0.1em;
   }
 }

@@ -10,7 +10,7 @@
   font-size: 1.4em !important;
 }
 .post div.inner-all > p {
-  font-size: 1.8em;
+  font-size: 1.6em;
 }
 .img-post {
   width: 3em;
@@ -114,4 +114,23 @@ span.news-source *{
   font-style: italic;
   /* line-height: 0.5em; */
   color:white
+}
+@media(max-width:500px){
+  .post div.post-content > p {
+    font-size: 1.1em !important;
+  }
+  .news-aricle{
+    margin-bottom: 1.2em;
+  }
+  .news-aricle .img-post {
+    width: 2.5em;
+    height: 2.5em;
+    margin-right: 1.3em;
+  }
+  .fa-cog {
+    margin-left: 1.6em;
+  }
+  .post div.inner-all > p {
+    font-size: 1.2em;
+  }
 }
