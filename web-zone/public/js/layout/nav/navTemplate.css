@@ -178,13 +178,8 @@ body {
 .lastMessage {
   color: grey;
 }
-.openInMessenger {
+#openInMessenger {
   margin: 0.2em 2em;
   padding: 0; 
   color: blue !important;
-}
-
-.openInMessenger:hover {
-  cursor: pointer;
-  text-decoration: underline;
 }
