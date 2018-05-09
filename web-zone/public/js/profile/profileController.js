@@ -1,5 +1,3 @@
-
-
 (function() {
   app.controller("ProfileController", function(
     $rootScope,
@@ -11,26 +9,26 @@
     UserService,
     $timeout
   ) {
+    //initializing the postController (responsible for adding and binding view data to the model)
+    $controller('postController', {$scope: $scope}); 
     $scope.profile = {};
     $scope.profileFriends = [];
     $scope.posts = {
       displayedPosts: [],
       busy: false,
       allPostsLoaded: false
-    };
-    $scope.page = "timeline";
-    $scope.isOwner = $routeParams.id == localStorage.getItem("loggedUserId")
+    };   
     $scope.addPost = addPost;
-    //initializing the postController (responsible for adding and binding view data to the model)
-    $controller('postController', {$scope: $scope}); 
-    // USER
+    //passed to the page navigation directive
+    $scope.page = "timeline";
+    
+    $scope.isOwner = $routeParams.id == localStorage.getItem("loggedUserId")
+    //LOADING USER DATA-can be logged user looking his own profile or another's profile
     var userId = $routeParams.id;
     UserService.getById(userId)
       //get firend list filled
       .then(r => { 
-        console.log(r)
         var friendsArr = r.data[0].friends;
-        console.log(friendsArr)
         friendsArr.forEach(function (friendId) {
           UserService.getById(friendId).then(function (user) {
             $scope.profileFriends.push(user.data[0]);
@@ -44,10 +42,8 @@
         return r.data[0].posts;
       })
       .then(postIds => {
-        console.log(postIds);
         if (postIds == 'undefined') return;
         if (postIds.length == 0) return;
-
         //First post
         var newestPostId = postIds[postIds.length - 1];
         $scope.displayPost(newestPostId, false, $scope.posts);
@@ -69,18 +65,18 @@
           }
           $scope.posts.busy = true;
           var numberOfDisplayedPost = $scope.posts.displayedPosts.length;
-          console.log("I have shown " + numberOfDisplayedPost + " posts..")
           if (!$scope.profile.posts) return;
           var totalNumberOfPosts = $scope.profile.posts.length;
           var position = totalNumberOfPosts - numberOfDisplayedPost - 1;
           if (position >= 0) {
             let postId = $scope.profile.posts[position];
+            console.log(postId)
             $scope.displayPost(postId, false, $scope.posts).then(res => {
               $scope.posts.busy = false;
             });
           } else {
             $scope.$apply(function () {
-              console.log("nqma poveche");
+              //and after that the scroll event just returns
               $scope.posts.allPostsLoaded = true;
             });
           }
@@ -92,8 +88,7 @@
     text:"",
     busy:false,
     photoUrl:"",
-    // photoUrl:"http://en.es-static.us/upl/2018/04/moon-full-set-La-_az-city-Max-Glaser-4-30-2018-e1525172614735.jpg",
-   };
+     };
     function addPost($event) {
       if (!$scope.newPost.text || $scope.newPost.text.trim().length < 1) {
         $scope.newPost.placeholder = "Can't post an empty post.";
@@ -104,6 +99,7 @@
         $timeout(()=>{btn.attr("title","")},8000)
          return;
       }
+    
       PostService.addPost(
         localStorage.getItem("loggedUserId"),
         $scope.newPost.text,
@@ -127,18 +123,33 @@
       })
     }
     //ADD PHOTO TO POST
-    document.getElementById("file-input").
-      addEventListener("change", function (event) {
-        $scope.newPost.busy = true
+    document
+      .getElementById("file-input")
+      .addEventListener("change", function(event) {
+        $scope.newPost.busy = true;
         var file = event.target.files[0];
-        console.log(file);
-        fileUpload.uploadFileToUrl(file).then(r => {
-          console.log(r.data.url)
-          $scope.newPost.photoUrl= r.data.url;
-          $scope.newPost.busy=false
-        }).catch((err)=>{
-          console.log(err)
-          alert("We couldn't locate the resource, pleace try again a different image.")})
-    });
+        var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+        if (!allowedExtensions.exec(file.name)) {
+          alert(
+            "Please upload file having extensions .jpeg/.jpg/.png/.gif only."
+          );
+          file = null;
+          return false;
+        } else {
+          fileUpload
+            .uploadFileToUrl(file)
+            .then(r => {
+              console.log(r.data.url);
+              $scope.newPost.photoUrl = r.data.url;
+              $scope.newPost.busy = false;
+            })
+            .catch(err => {
+              console.log(err);
+              alert(
+                "We couldn't locate the resource, pleace try again a different image."
+              );
+            });
+        }
+      });
   });
 })();

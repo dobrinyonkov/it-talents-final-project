@@ -112,17 +112,14 @@
         // console.log("cover photo----------->");
         // console.log(selectedFile2);
         selectedFile2.addEventListener("change", function(event) {
-          console.log("change event trigered on cover photo input");
           var file = event.target.files[0];
           var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
-        //   console.log(file);
           if (!allowedExtensions.exec(file.name)) {
             alert("Please upload file having extensions .jpeg/.jpg/.png/.gif only.");
             file = null;
             return false;
           } else {
-            console.log(file);
-            console.log("dobre taz snimka iskash shte opitam da q kacha");
+
             $scope.newCoverPhoto.busy = true;
             fileUpload
               .uploadFileToUrl(file)
