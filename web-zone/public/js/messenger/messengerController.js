@@ -1,5 +1,5 @@
 (function () {
-    app.controller('MessengerController', function ($timeout, $rootScope, $window, $scope, UserService) {
+    app.controller('MessengerController', function ($location, $timeout, $rootScope, $window, $scope, UserService) {
         $scope.messageText = '';
         $scope.nameToSearch = '';
         $scope.chatRoomsIds = [];
@@ -12,6 +12,12 @@
         $scope.activeChatRooms = JSON.parse($window.localStorage.getItem("activeChatRooms")) || [];
         //socket connection
         var socket = io();
+
+        //determined wwhether messenger windows is opened so to hide active chat little windows 
+        $rootScope.$on('$routeChangeStart', function () {
+            $scope.inMessengerRoute = $location.absUrl().indexOf('messenger') !== -1; 
+            console.log($scope.inMessengerRoute);
+        });
 
         var userId = $window.localStorage.getItem("loggedUserId");
         UserService.getById(userId)
@@ -180,10 +186,10 @@
             }
         }
 
-        $scope.sendMessage = function () {
-
-            var text = $scope.messageText;
+        $scope.sendMessage = function (chatRoom, textContent) {
+            console.log(chatRoom, textContent);
             //getting info
+            var text = textContent || $scope.messageText;
 
             var user = $rootScope.currentUser;
              console.log(text);
@@ -199,8 +205,8 @@
             $scope.messageText = '';
 
             //emit message to socket.io chat room
-            console.log($scope.currentChatRoom._id + ' sended room id');
-            socket.emit('message', message, $scope.currentChatRoom);
+            console.log(chatRoom._id + ' sended room id');
+            socket.emit('message', message, chatRoom);
 
         }
 

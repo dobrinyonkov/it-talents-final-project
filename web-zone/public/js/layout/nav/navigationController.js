@@ -21,7 +21,7 @@
             });
         }
 
-        $scope.onDeleteFriendReuest = function ($event, sender, receiverId) {
+        $scope.onDeleteFriendReuest = function ($event, senderId, receiverId) {
             $event.stopPropagation();
             $event.preventDefault();
             UserService.friendsRequests.deleteFR(senderId, receiverId).then(r => {
