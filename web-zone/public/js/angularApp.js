@@ -3,8 +3,8 @@ var app = angular.module("app", [
     "angularCSS",
 ]);
 
-app.constant("API_URL",'/');
-// app.constant("API_URL",'http://localhost:9000/');
+// app.constant("API_URL",'/');
+app.constant("API_URL",'http://localhost:9000/');
 
 app.config(function ($routeProvider, $httpProvider) {
 

@@ -22,7 +22,7 @@
                 <div class="card-block mx-5 my-3">
                     <div class="inner-all">
                         <ul class="text-center list-unstyled">
-                            <li class=" text-center">                                                     
+                            <li  class=" text-center">                                                     
                                 <div class="spinholder">
                                        
                                     <div ng-if="newProfilePic.busy" class="spinner-1" ></div>
@@ -31,11 +31,11 @@
                                         ng-src="{{profile.profilePic}}"
                                         alt="{{profile.firstName}} {{profile.lastName}}">
                                 </div>
-                                    <div title="Change profile picture." class="image-upload">
+                                    <div ng-show="isOnwer"  title="Change profile picture." class="image-upload">
                                         <p ng-if="newProfilePic.busy">loading your image...</p>
                                         <label for="selectedFile"><i class="far fa-image"></i></label>
                                         <input ng-show="isOnwer" type="file" id="selectedFile">
-                                        <button title="Save this image as your new profile picture." ng-if="newProfilePic.uploaded" ng-click="saveAcount(profile, newProfilePic.url)" class="btn btn-save btn-success btn-sm mt-2">SAVE</button>
+                                        <button title="Save this image as your new profile picture." ng-if="newProfilePic.uploaded" ng-click="saveAcount(profile, newProfilePic.url,false)" class="btn btn-save btn-success btn-sm mt-2">SAVE</button>
                                        
                                     </div>
                             </li>
@@ -146,20 +146,24 @@
         </div>
 
         <div class="col-lg-8 col-md-7">
-            <div class="profile-cover">
+            <div  ng-controller="ProfileInfoController"  class="profile-cover">
                 <div class="cover rounded shadow no-overflow">
-                    <!-- //new stuff doesn't work yet -->
-                    <!-- <div title="Change cover picture." class="image-upload">
-                        <label for="selectedFile">
+                    <!-- CHANGE COVER PHOTO -->
+                    <div ng-show="isOnwer" title="Change cover picture." class="changeCover image-upload">
+                        <label ng-show="!newCoverPhoto.uploaded" for="selectedFile2">
                             <i class="far fa-image"></i>
                         </label>
-                        <input ng-show="isOnwer" type="file" id="selectedFile">
-                        <button ng-if="profilePicUploaded" ng-click="saveAcount(profile, profilePicUrl)" class="btn btn-success btn-sm mt-2">SAVE</button>
-                    </div> -->
+                     
+                        <input type="file" id="selectedFile2">
+                        <button ng-show="newCoverPhoto.uploaded" ng-click="saveAcount(profile, newCoverPhoto.url,true )" class="btn btn-success btn-sm mt-2">SAVE</button>
+                    </div>
                     <div class="inner-cover">            
                         <!-- Cover photo -->
-                        <img ng-src="{{profile.coverPhoto}}" class="img-fluid full-width" alt="cover" style="max-height:200px;">
+                        <!--  ng-class="newCoverPhoto.busy ? 'changing img-fluid full-width ' : 'img-fluid full-width'" -->
+                        <div ng-if="newCoverPhoto.busy" class="spinner-1" ></div>
+                        <img ng-src="{{profile.coverPhoto}}" ng-class="newCoverPhoto.busy ? 'changing img-fluid full-width ' : 'img-fluid full-width'" alt="cover" style="max-height:200px;">
                     </div>
+                    <!-- PAGE NAVIFATION -->
                     <page-navigation is-Owner=isOwner profile=profile page=page></page-navigation>
                 </div>
                 <!-- /.cover -->
@@ -187,26 +191,7 @@
                                 <input id="file-input" ng-model="newPost.photoUrl" ng-change="newPost.procesPhoto()" type="file" />
                             </div>
                         </li>
-                        <!-- <li>
-                            <a href="#">
-                                <i class="m-3 fa fa-user"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="m-3 fa fa-map-marker"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="m-3 fa fa-camera"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="m-3 fa fa-smile-o"></i>
-                            </a>
-                        </li> -->
+                   
                     </ul>
                     <!-- /.nav nav-pills -->
                 </div>
