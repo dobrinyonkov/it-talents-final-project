@@ -3,7 +3,7 @@ var app = angular.module("app", [
     "angularCSS",
 ]);
 
-app.constant("API_URL",'https://web-zone.herokuapp.com/');
+app.constant("API_URL",'/');
 // app.constant("API_URL",'http://localhost:9000/');
 
 app.config(function ($routeProvider, $httpProvider) {
