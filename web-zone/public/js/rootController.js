@@ -16,44 +16,44 @@
             $scope.friendsRequestSended = false;
             $scope.areFriends = null;
 
-            // if ($scope.isLogged) {
+            if ($scope.isLogged) {
 
-            $timeout(function () {
-                $scope.$apply(function () {
-                    var userId = $window.localStorage.getItem("loggedUserId");
-                    UserService.getById(userId).then(data => {
-                        // console.log(data.data[0]);
-                        $timeout(function () {
-                            $scope.$apply(function () {
-                                $rootScope.currentUser = data.data[0];
-                                $rootScope.currentUser.receivedReqeusts.forEach(userId => {
-                                    UserService.getById(userId).then(data => {
-                                        // console.log(data);
-                                        $scope.receivedFriendRequests.push(data.data[0]);
-                                        // console.log($scope.receivedFriendRequests);
-                                    });
-                                })
-                            }, 0);
-                            // UserService.getById(userId).then(data => {
-                            //     $scope.sendedFriendRequests.push(data.data[0]);
-                            //     console.log($scope.sendedFriendRequests);
+                $timeout(function () {
+                    $scope.$apply(function () {
+                        var userId = $window.localStorage.getItem("loggedUserId");
+                        UserService.getById(userId).then(data => {
+                            // console.log(data.data[0]);
+                            $timeout(function () {
+                                $scope.$apply(function () {
+                                    $rootScope.currentUser = data.data[0];
+                                    $rootScope.currentUser.receivedReqeusts.forEach(userId => {
+                                        UserService.getById(userId).then(data => {
+                                            // console.log(data);
+                                            $scope.receivedFriendRequests.push(data.data[0]);
+                                            // console.log($scope.receivedFriendRequests);
+                                        });
+                                    })
+                                }, 0);
+                                // UserService.getById(userId).then(data => {
+                                //     $scope.sendedFriendRequests.push(data.data[0]);
+                                //     console.log($scope.sendedFriendRequests);
+                                // });
+
+                            });
+                            // $rootScope.currentUser.sendedReqeusts.forEach(userId => {
+                            //     UserService.getById(userId).then(data => {
+                            //         $scope.sendedFriendRequests.push(data.data[0]);
+                            //         console.log($scope.sendedFriendRequests);
+                            //     });
+                            //     // UserService.getById(userId).then(data => {
+                            //     //     $scope.receivedFriendRequests.push(data.data[0]);
+                            //     //     console.log($scope.receivedFriendRequests);
+                            //     // });
                             // });
-
                         });
-                        // $rootScope.currentUser.sendedReqeusts.forEach(userId => {
-                        //     UserService.getById(userId).then(data => {
-                        //         $scope.sendedFriendRequests.push(data.data[0]);
-                        //         console.log($scope.sendedFriendRequests);
-                        //     });
-                        //     // UserService.getById(userId).then(data => {
-                        //     //     $scope.receivedFriendRequests.push(data.data[0]);
-                        //     //     console.log($scope.receivedFriendRequests);
-                        //     // });
-                        // });
-                    });
-                })
-            }, 0);
-            // }
+                    })
+                }, 0);
+            }
         });
 
 })();
