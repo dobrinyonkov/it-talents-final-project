@@ -27,20 +27,63 @@
 				<li ng-repeat="foundUser in foundUsers track by $index" ng-click="selectUser({foundUser: foundUser})" class="list-group-item">{{foundUser.firstName}} {{foundUser.lastName}}</li>
 			</ul>
 		</form>
-		<div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+		<div class="mt-1 navbar-collapse collapse w-100 order-3 dual-collapse2">
 			<ul class="navbar-nav ml-auto mt-1">
 				<li class="nav-item">
-					<img data-no-retina="" class="img-fit w-40 img-fluid rounded-circle d-block mx-auto img-bordered-primary mt-1 mb-2" ng-src="{{$root.currentUser.profilePic}}"
+					<img data-no-retina="" class="img-fit w-40 img-fluid rounded-circle d-block mx-auto img-bordered-primary mb-2" ng-src="{{$root.currentUser.profilePic}}"
 					 alt="{{$root.currentUser.firstName}} {{$root.currentUser.lastName}}">
 				</li>
 				<li class="nav-item">
 					<a class="nav-link font-weight-bold" href="#!/profile/{{$root.currentUser._id}}">{{$root.currentUser.firstName}}</a>
 				</li>
+
 				<li class="nav-item">
-					<!-- <a class="nav-link font-weight-bold" href="#">
+						<div class="dropdown">
+							<button ng-click="onFirendRequests(sendedFriendRequests)" class="mr-2 btn btn-purple" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+							 aria-haspopup="true" aria-expanded="false">
+							 <i class="mt-1 fas fa-envelope"></i>
+							</button>
+							<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+								<p class="ml-2 font-weight-bold">Messeges</p>
+								<div ng-repeat="friendReq in receivedFriendRequests track by $index">
+									<hr>
+									<a class="dropdown-item" href="#!/profile/{{friendReq._id}}">
+										<div class="row">
+											<div class="col- mr-2">
+												<img class="img-fit w-40 img-fluid rounded-circle d-block mx-auto" width="40" ng-src="{{friendReq.profilePic}}" alt="">
+											</div>
+											<div class="col- mr-auto mt-2">
+												<p class="font-weight-bold">{{friendReq.firstName}} {{friendReq.lastName}}</p>
+											</div>
+											<div class="col- ml-auto">
+												<button ng-click="onConfirmFriendReuest({$event: $event, senderId:friendReq, receiverId: $root.currentUser})" class="btn btn-secondary btn-sm font-weight-bold">Confirm</button>
+												<button ng-click="onDeleteFriendReuest({$event: $event, senderId:friendReq._id, receiverId: $root.currentUser._id})" class="btn btn-primary btn-sm font-weight-bold">Delete</button>
+											</div>
+										</div>
+									</a>
+								</div>
+								<!-- <p class="ml-2 font-weight-bold">Sended Friend Requests</p>
+								<div ng-repeat="friendReq in sendedFriendRequests track by $index">
+									<hr>
+									<a class="dropdown-item" href="#!/profile/{{friendReq._id}}">
+										<div class="row">
+											<div class="col- mr-2">
+												<img class="img-fit w-40 img-fluid rounded-circle d-block mx-auto" width="40" ng-src="{{friendReq.profilePic}}" alt="">
+											</div>
+											<div class="col- mr-auto mt-2">
+												<p class="font-weight-bold">{{friendReq.firstName}} {{friendReq.lastName}}</p>
+											</div>
+											<div class="col- ml-auto">
+												<button ng-click="onDeleteFriendReuest({$event: $event, senderId:friendReq._id, receiverId: $root.currentUser._id})" class="btn btn-primary btn-sm font-weight-bold">Delete</button>
+											</div>
+										</div>
+									</a>
+								</div> -->
+							</div>
+						</div>
+					</li>
 
-					</a> -->
-
+				<li class="nav-item">
 					<div class="dropdown">
 						<button ng-click="onFirendRequests(sendedFriendRequests)" class="btn btn-purple" type="button" id="dropdownMenuButton" data-toggle="dropdown"
 						 aria-haspopup="true" aria-expanded="false">
