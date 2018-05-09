@@ -218,5 +218,9 @@
 
         $scope.minimize = function ($event) {
         }
+
+        $scope.addToAciveChats = function (chatRoom) {
+            console.log(chatRoom);
+        }
     });
 })();

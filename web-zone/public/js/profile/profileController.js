@@ -28,7 +28,9 @@
     UserService.getById(userId)
       //get firend list filled
       .then(r => {
+        console.log(r)
         var friendsArr = r.data[0].friends;
+        console.log(friendsArr)
         friendsArr.forEach(function (friendId) {
           UserService.getById(friendId).then(function (user) {
             $scope.profileFriends.push(user.data[0]);

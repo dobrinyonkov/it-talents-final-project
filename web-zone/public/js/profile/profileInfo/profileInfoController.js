@@ -41,6 +41,7 @@
                         console.log(r)
                         $rootScope.currentUser = r.data[0];
                         var recievId = $scope.profile._id;
+                        console.log($rootScope.currentUser)
                         $scope.friendsRequestSended = $rootScope.currentUser.sendedReqeusts.indexOf(recievId) !== -1;
                         console.log($scope.profile._id);
                         console.log($rootScope.currentUser.friends.indexOf($scope.profile._id));

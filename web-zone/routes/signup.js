@@ -8,6 +8,26 @@ function validatePass(password) {
   return re.test(String(password));
 }
 
+function User(user) {
+  this.email = user.email;
+  this.password = sha1(user.pass1);
+  this.firstName = user.firstName;
+  this.lastName = user.lastName;
+  this.passToReturn = user.pass1;
+  this.profilePic = 'http://res.cloudinary.com/adminwebzone/image/upload/v1525103035/noprofile_nniohu.png';
+  this.coverPhoto = "http://webzonenepal.com/new/images/webzone_logo.jpg";
+  this.sendedReqeusts = [];
+  this.receivedReqeusts = [];
+  this.friends = [];
+  this.chatRooms = [];
+  this.posts = [];
+  this.photos = [];
+  this.token = jwt.sign({
+    exp: Math.floor(Date.now() / 1000) + (60 * 60),
+    data: user
+  }, JWT_SECRET);
+}
+
 
 const JWT_SECRET = 'abcd1234';
 
@@ -28,24 +48,9 @@ router.post('/', function (req, res, next) {
     })
   }
 
-  // prepare user info
-  user.password = sha1(user.pass1);
-  // delete user.pass1;
-  // delete user.pass2;
-  var passToReturn = user.pass1;
-  user.profilePic = 'http://res.cloudinary.com/adminwebzone/image/upload/v1525103035/noprofile_nniohu.png';
-  user.coverPhoto = "http://webzonenepal.com/new/images/webzone_logo.jpg";
-  user.sendedReqeusts = [];
-  user.receivedReqeusts = [];
-  user.friends = [];
-  user.chatRooms = [];
-  user.posts = [];
-  user.token = jwt.sign({
-    exp: Math.floor(Date.now() / 1000) + (60 * 60),
-    data: user
-  }, JWT_SECRET);
+  var userToDb = new User(user);
 
-  userCollection.find({ email: user.email, password: user.password }, function (err, docs) {
+  userCollection.find({ email: userToDb.email, password: userToDb.password }, function (err, docs) {
     if (err) {
       res.json({
         type: false,
@@ -58,7 +63,7 @@ router.post('/', function (req, res, next) {
           data: "User already exists!"
         });
       } else {
-        userCollection.insert(user, function (err, user) {
+        userCollection.insert(userToDb, function (err, user) {
           if (err) {
             res.json({
               type: false,
