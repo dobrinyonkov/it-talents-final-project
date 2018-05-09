@@ -8,7 +8,7 @@ app.service('fileUpload', function ($http) {
         fd.append('file', file);
         fd.append('upload_preset', 'b9hkpogc');
         // formdata.append('public_id','video');
-        console.log("file upload service bachka")
+        console.log("file upload service will upload your file")
         return $http.post('https://api.cloudinary.com/v1_1/adminwebzone/image/upload', fd, {
             headers: {
                 'Content-Type': undefined,

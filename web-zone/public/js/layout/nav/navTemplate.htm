@@ -110,6 +110,36 @@
 				 alt="{{$root.currentUser.firstName}} {{$root.currentUser.lastName}}">
 				<a class="nav-link font-weight-bold" href="#!/profile/{{$root.currentUser._id}}">{{$root.currentUser.firstName}}</a>
 			</li>
+			<li class="nav-item">
+					<div class="dropdown">
+						<button class="mr-2 btn btn-purple" type="button" id="dropdownMenuButton"
+						 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<i class="messenger icon mt-1 fas fa-envelope"></i> <a href="" class="nav-link font-weight-bold"> Messenger</a>
+						</button>
+						<div class="dropdown-menu dropdown-menu-right messagesNavDiv my-0" aria-labelledby="dropdownMenuButton">
+							<p class="ml-2 font-weight-bold">Messeges</p>
+							<div ng-click="addToAciveChats({chatRoom: chatRoom})" ng-repeat="chatRoom in chatRoomsObjects track by $index">
+								<hr>
+								<a class="dropdown-item">
+									<div class="row">
+										<div class="col- mx-3">
+											<img class="img-fit w-40 img-fluid rounded-circle d-block mx-auto" width="40" ng-src="{{chatRoom.user1.isMe ? chatRoom.user2.profilePic : chatRoom.user1.profilePic}}" alt="">
+										</div>
+										<div class="col- mr-auto">
+											<p class="messageNameAndText h6 font-weight-bold">{{chatRoom.user1.isMe ? chatRoom.user2.name : chatRoom.user1.name}}</p>
+											<small class="lastMessage list-group-item-text c-gray">{{chatRoom.content.slice().pop().text}}</small>
+										</div>
+										<div class="col-">
+												<small class="messageNameAndText list-group-item-text c-gray">{{chatRoom.content.slice().pop().date}}</small>
+										</div>
+									</div>
+								</a>
+								<hr>
+							</div>
+							<p class="openInMessenger" href="#!/messenger">Open Messenger</p>
+						</div>
+					</div>
+				</li>
 			<li>
 				<div>
 					<button ng-click="onFirendRequests(sendedFriendRequests)" class="btn btn-purple" type="button" id="dropdownMenuButton" data-toggle="dropdown"
@@ -140,7 +170,7 @@
 				</div>
 			</li>
 			<li>
-				<a ng-click=logout({$event:$event}) class="nav-link font-weight-bold" href="#!/login">Log out</a>
+				<a ng-click=logout({$event:$event}) class="nav-link font-weight-bold" href="#!/login"><i class="logout fas fa-sign-out-alt"></i> Log out</a>
 			</li>
 		</ul>
 	</div>

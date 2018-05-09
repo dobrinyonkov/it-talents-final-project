@@ -27,7 +27,7 @@
     var userId = $routeParams.id;
     UserService.getById(userId)
       //get firend list filled
-      .then(r => {
+      .then(r => { 
         console.log(r)
         var friendsArr = r.data[0].friends;
         console.log(friendsArr)
@@ -121,7 +121,7 @@
           $scope.newPost.placeholder ='Sorry we had an error, please try again later.'            
         }
       }).catch((err) => {
-        alert(err)
+   
         console.log(err)
         alert('Sorry we had an error, please try again later.')
       })
