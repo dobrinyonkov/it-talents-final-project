@@ -83,7 +83,7 @@
 										<img class="img-fit w-40 img-fluid rounded-circle d-block mx-auto" width="40" ng-src="{{friendReq.profilePic}}" alt="">
 									</div>
 									<div class="col- mr-auto mt-2">
-										<p class="font-weight-bold">{{friendReq.firstName}} {{friendReq.lastName}}</p>
+										<p class="font-weight-bold messageNameAndText">{{friendReq.firstName}} {{friendReq.lastName}}</p>
 									</div>
 									<div class="col- ml-auto">
 										<button ng-click="onConfirmFriendReuest({$event: $event, senderId:friendReq, receiverId: $root.currentUser})" class="btn btn-secondary btn-sm font-weight-bold">Confirm</button>
