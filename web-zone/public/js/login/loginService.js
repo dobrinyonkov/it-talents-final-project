@@ -65,6 +65,7 @@
     function logOut(success) {
       changeUser({});
       $window.localStorage.removeItem(token);
+      $window.localStorage.removeItem(activeChatRooms);
       success();
     }
   }
