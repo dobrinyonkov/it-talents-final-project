@@ -90,7 +90,7 @@
                         var newMessage = data.content.slice().pop();
                         chat.content.push(newMessage);
                         if (!(data.user1.isMe && data.user1._id === newMessage.sender)) {
-                            audio.play();                    
+                            audio.play();
                         }
                     } else {
                         $scope.activeChatRooms.push(data);
@@ -112,7 +112,7 @@
                     var newMessage = data.content.slice().pop();
                     room.content.push(newMessage);
                     if (!(data.user1.isMe && data.user1._id === newMessage.sender)) {
-                        audio.play();                    
+                        audio.play();
                     }
                 })
             }, 0)
@@ -152,7 +152,7 @@
         $scope.sendModalMessage = function (profile, textContent) {
             console.log(profile);
             var user = profile || $scope.modalSelectedUser;
-            var text = textContent || $scope.modalMessageToSend; 
+            var text = textContent || $scope.modalMessageToSend;
 
             //prepair new chat room to emit to socket.io
             var chatRoom = {
@@ -188,20 +188,20 @@
             $scope.currentChatRoom = chatRoom;
         }
 
-        $scope.sendDouEnter = function ($event) {
+        $scope.sendDouEnter = function ($event, chatRoom, message) {
             if ($event.keyCode == 13) {
                 $event.preventDefault();
-                $scope.sendMessage();
+                $scope.sendMessage(chatRoom, message);
             }
         }
-
+        
         $scope.sendMessage = function (chatRoom, textContent) {
-            console.log(chatRoom, textContent);
-            //getting info
+            
             var text = textContent || $scope.messageText;
+            var chatRoom = chatRoom || $scope.currentChatRoom;
+
 
             var user = $rootScope.currentUser;
-            console.log(text);
             //prepair message obj
             var message = {
                 sender: user._id,
@@ -210,8 +210,16 @@
                 date: new Date(),
                 text: text
             }
+            
             //clean the textaria
+            document.querySelectorAll('.singleChatWindowInput').forEach(el => {
+                el.value = '';
+                console.log(el);
+            
+            });
             $scope.messageText = '';
+            $scope.modalMessageToSend = '';
+            $scope.modalSelectedUser = '';
 
             //emit message to socket.io chat room
             console.log(chatRoom._id + ' sended room id');
@@ -225,7 +233,8 @@
             $window.localStorage.setItem("activeChatRooms", JSON.stringify($scope.activeChatRooms));
         }
 
-        $scope.minimize = function ($event) {
+        $scope.minimize = function ($event, chatRoomId) {
+            
         }
 
         $scope.addToAciveChats = function (chatRoom) {

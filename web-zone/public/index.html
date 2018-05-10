@@ -71,8 +71,8 @@
         <div ng-controller="MessengerController">
             <div class="fixed-container">
                 <div ng-if="!inMessengerRoute" class="row">
-                    <messenger ng-repeat="chatRoom in activeChatRooms track by $index" message-text="messageText" send-message="sendMessage(chatRoom, textContent)"
-                        close-chat-window="closeChatWindow(chatRoom)" minimize="minimize($event)" class="col-sm fixed-sigle-window-message'"
+                    <messenger ng-repeat="chatRoom in activeChatRooms track by $index" send-dou-enter="sendDouEnter($event, chatRoom, message)" message-text="messageText" send-message="sendMessage(chatRoom, textContent)"
+                        close-chat-window="closeChatWindow(chatRoom)" minimize="minimize($event, chatRoomId)" class="col-sm fixed-sigle-window-message'"
                         chat-room="chatRoom"></messenger>
                 </div>
             </div>
