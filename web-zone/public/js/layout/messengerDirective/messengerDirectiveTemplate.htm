@@ -1,15 +1,9 @@
-<div class="box box-primary direct-chat direct-chat-primary">
+<div id="chatRoom._id" class="box box-primary direct-chat direct-chat-primary">
     <div class="box-header with-border">
         <h3 class="box-title">{{chatRoom.user1.isMe ? chatRoom.user2.name : chatRoom.user1.name}}</h3>
 
         <div class="box-tools pull-right">
             <span data-toggle="tooltip" title="" class="badge bg-light-blue" data-original-title="3 New Messages">3</span>
-            <button ng-click="minimize($event)" type="button" class="btn btn-box-tool" data-widget="collapse">
-                <i class="fa fa-minus"></i>
-            </button>
-            <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="Contacts" data-widget="chat-pane-toggle">
-                <i class="fa fa-comments"></i>
-            </button>
             <button ng-click="closeChatWindow(chatRoom)" type="button" class="btn btn-box-tool" data-widget="remove">
                 <i class="fa fa-times"></i>
             </button>
@@ -41,7 +35,7 @@
         <div class="box-footer">
             <div>
                 <div class="input-group">
-                    <input ng-model="messageText" type="text" name="message" placeholder="Type Message ..." class="form-control">
+                    <input ng-keydown="sendDouEnter({$event: $event, chatRoom: chatRoom, message: messageText})" ng-model="$parent.messageText" type="text" name="message" placeholder="Type Message ..." class="form-control singleChatWindowInput">
                     <span class="input-group-btn">
                         <button ng-click="sendMessage({chatRoom: chatRoom, textContent: messageText})" type="submit" class="btn btn-primary btn-flat">Send</button>
                     </span>

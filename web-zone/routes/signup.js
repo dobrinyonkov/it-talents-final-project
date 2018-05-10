@@ -13,7 +13,6 @@ function User(user) {
   this.password = sha1(user.pass1);
   this.firstName = user.firstName;
   this.lastName = user.lastName;
-  this.passToReturn = user.pass1;
   this.profilePic = 'http://res.cloudinary.com/adminwebzone/image/upload/v1525103035/noprofile_nniohu.png';
   this.coverPhoto = "http://webzonenepal.com/new/images/webzone_logo.jpg";
   this.sendedReqeusts = [];

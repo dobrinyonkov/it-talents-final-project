@@ -9,6 +9,7 @@ app.directive('messenger', function () {
             sendMessage: '&',
             minimize: '&',
             closeChatWindow: '&',
+            sendDouEnter: '&'
         }
     };
 });
