@@ -24,8 +24,10 @@
   
   
     var userId = localStorage.getItem("loggedUserId");
-    UserService.getAndSafeLoggedUser(userId) 
-      .then(user => {//loads logged user data
+    UserService.getById(userId) 
+      .then(data => {//loads logged user data
+        console.log(data)
+        user=data.data[0]
         $scope.profile = user;
         return $scope.profile.friends;
       })
