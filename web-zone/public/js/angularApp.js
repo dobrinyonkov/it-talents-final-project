@@ -15,6 +15,11 @@ app.config(function ($routeProvider, $httpProvider) {
             controller: 'LoginController',
             css: 'js/login/login.css'
         })
+        .when("/", {
+            templateUrl: "js/login/login.htm",
+            controller: 'LoginController',
+            css: 'js/login/login.css'
+        })
         .when("/profile/:id", {
             templateUrl: "js/profile/profile.htm",
             controller: "ProfileController",
@@ -39,6 +44,11 @@ app.config(function ($routeProvider, $httpProvider) {
             templateUrl: "js/photoGallery/photoGallery.htm",
             controller: 'PhotoGalleryController',
             css: "js/photoGallery/photoGallery.css"
+        })
+        .when("/friends/:id", {
+            templateUrl: "js/friendsPage/friends.htm",
+            controller: 'Friends',
+            css: "js/friendsPage/friends.css"
         })
         .when("/messenger", {
             templateUrl: "js/messenger/messenger.htm",
