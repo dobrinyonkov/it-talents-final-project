@@ -29,7 +29,8 @@ $font-size-sm:   ($font-size-base * 0.875) !default !important;
 
 .fixed-container {
     position: fixed;
-    top: 63% !important;
+    top: 100% !important;
+    margin-top: -375px;
     left: 10%;
     z-index: 1000 !important;
 }

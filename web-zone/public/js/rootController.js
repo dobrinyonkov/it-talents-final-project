@@ -16,42 +16,37 @@
             $scope.friendsRequestSended = false;
             $scope.areFriends = null;
 
-            // if ($scope.isLogged) {
 
+            var userId = $window.localStorage.getItem("loggedUserId");
+            UserService.getById(userId).then(data => {
                 $timeout(function () {
                     $scope.$apply(function () {
-                        var userId = $window.localStorage.getItem("loggedUserId");
-                        UserService.getById(userId).then(data => {
-                            $timeout(function () {
-                                $scope.$apply(function () {
-                                    $rootScope.currentUser = data.data[0];
-                                    $rootScope.currentUser.receivedReqeusts.forEach(userId => {
-                                        UserService.getById(userId).then(data => {
-                                            $scope.receivedFriendRequests.push(data.data[0]);
-                                            // console.log($scope.receivedFriendRequests);
-                                        });
-                                    })
-                                }, 0);
-                                // UserService.getById(userId).then(data => {
-                                //     $scope.sendedFriendRequests.push(data.data[0]);
-                                //     console.log($scope.sendedFriendRequests);
-                                // });
-
+                        $rootScope.currentUser = data.data[0];
+                        $rootScope.currentUser.receivedReqeusts.forEach(userId => {
+                            UserService.getById(userId).then(data => {
+                                $scope.receivedFriendRequests.push(data.data[0]);
+                                console.log($scope.receivedFriendRequests);
                             });
-                            // $rootScope.currentUser.sendedReqeusts.forEach(userId => {
-                            //     UserService.getById(userId).then(data => {
-                            //         $scope.sendedFriendRequests.push(data.data[0]);
-                            //         console.log($scope.sendedFriendRequests);
-                            //     });
-                            //     // UserService.getById(userId).then(data => {
-                            //     //     $scope.receivedFriendRequests.push(data.data[0]);
-                            //     //     console.log($scope.receivedFriendRequests);
-                            //     // });
-                            // });
-                        });
-                    })
-                }, 0);
-            // }
+                        })
+                    }, 0);
+                    // UserService.getById(userId).then(data => {
+                    //     $scope.sendedFriendRequests.push(data.data[0]);
+                    //     console.log($scope.sendedFriendRequests);
+                    // });
+
+                });
+                // $rootScope.currentUser.sendedReqeusts.forEach(userId => {
+                //     UserService.getById(userId).then(data => {
+                //         $scope.sendedFriendRequests.push(data.data[0]);
+                //         console.log($scope.sendedFriendRequests);
+                //     });
+                //     // UserService.getById(userId).then(data => {
+                //     //     $scope.receivedFriendRequests.push(data.data[0]);
+                //     //     console.log($scope.receivedFriendRequests);
+                //     // });
+                // });
+            });
+
         });
 
 })();
