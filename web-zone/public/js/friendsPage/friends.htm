@@ -12,5 +12,42 @@
                 </div>
             </div>
         </div>
+        <div class="col-md-12 text-center ">
+            <div class="friendContainer">
+
+                <div class="friendInfo" ng-repeat="friend in friends">
+
+                    <div class="media-object float-left">
+                        <img ng-src="{{friend.profilePic}}" width="45" alt="..." class="rounded-circle img-post">
+                    </div>
+                    <div class="media-body">
+                       
+                            <!-- <li> -->
+                                <p class="names">
+                                    <a href=" #!/profile/{{friend._id}} " class="media-heading block mb-0 h6 text-white ">{{friend.firstName}} {{friend.lastName}} </a>
+                                </p>
+                            <!-- </li> -->
+                             <ul class="details"> 
+                            <li>
+                                photos : {{friend.photos.length}}
+                            </li>
+                            <li>
+                                friends : {{friend.friends.length}}
+                            </li>
+                            <li>
+                                posts : {{friend.posts.length}}
+                            </li>
+                        </ul>
+
+
+                    </div>
+
+
+
+                </div>
+
+            </div>
+        </div>
+
     </div>
 </div>
