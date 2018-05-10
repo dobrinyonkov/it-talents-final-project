@@ -80,6 +80,7 @@ app.use('/api/friends', ensureAuthorized, friendsRouter);
 //posts
 app.use('/api/posts', ensureAuthorized, postsRouter);
 
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));

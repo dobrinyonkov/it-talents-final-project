@@ -1,0 +1,102 @@
+body {
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    background-color: #f0f3f5 !important;
+    margin-top: 40px;
+  }
+  .card-content {
+    height: 20% !important;
+  }
+  .col-lg-8 {
+    max-height: 500px !important;
+  }
+  .col-lg-12 {
+    max-height: 180px !important;
+  }
+  .profile-cover .cover .inner-cover img {
+    border: 1px solid transparent;
+    text-align: center;
+    max-height: 250px!important;
+    width: 100%;
+  }
+  .post-content {
+    font-size: 3em;
+    text-align: center;
+  }
+  
+  .post-header div.media-body *{
+    font-size: 1.2em !important;
+  
+  }
+  .post-header .float-right * {
+      font-size: 1.1em ;
+      margin-top:0.8em;	
+  }
+  .post-header .float-right span {
+  margin-right:0.8em  
+  }
+  @media (max-width: 640px) {
+    .form-inner-all [class*="col-"]:last-child .form-control {
+      margin-top: 15px;
+    }
+  }
+  @media (max-width: 560px) {
+    .inner-all {
+      text-align: center;
+    }
+    .list-group-item,.list-group-item *{
+      align-content: center!important;
+      text-align: center!important;
+    }
+  }
+  .fa-heart:hover {
+    color: orangered;
+  }
+  .likedPost {
+    color: firebrick;
+  }
+  i.fa-cog {
+  display: none;
+  }
+  
+  .post {
+    box-sizing: border-box;
+    margin-bottom: 1em;
+  
+  }
+  .your-comment button:hover {
+  
+    font-weight: bold;
+  }
+  .your-comment input {
+    border-radius: 0.7em;
+  }
+  .my-cover
+  {
+    border: 6px solid red;
+    height: 250px!important;
+  }
+  .img-post {
+    width: 3em;
+    height: 3em;
+    margin-right: 1.2em;
+  }
+  .img-post2 {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .fa-cog {
+    margin-left: 2em;
+  }
+  .list-group-item span,.list-group-item i{
+  font-size: 1.5em;
+  margin-right: 0.5em;
+  color: rebeccapurple;
+  }
+  .list-group-item:hover  {
+    font-size: 1.5em;
+    margin-right: 0.5em;
+    color: rgb(82, 34, 131);
+    background: rgba(142, 142, 231, 0.452)
+    }
