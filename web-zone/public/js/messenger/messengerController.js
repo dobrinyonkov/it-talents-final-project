@@ -13,7 +13,7 @@
         //socket connection
         var socket = io();
 
-        //determined wwhether messenger windows is opened so to hide active chat little windows 
+        //determined wwhether messenger windows is opened so hide active chat little windows 
         $rootScope.$on('$routeChangeStart', function () {
             $scope.inMessengerRoute = $location.absUrl().indexOf('messenger') !== -1;
             console.log($scope.inMessengerRoute);
