@@ -16,6 +16,7 @@ body {
 .profile-cover .cover .inner-cover img {
   border: 1px solid transparent;
   text-align: center;
+  max-height: 250px!important;
   width: 100%;
 }
 .post-content {
@@ -70,7 +71,11 @@ display: none;
 .your-comment input {
   border-radius: 0.7em;
 }
-
+.my-cover
+{
+  border: 6px solid red;
+  height: 250px!important;
+}
 .img-post {
   width: 3em;
   height: 3em;

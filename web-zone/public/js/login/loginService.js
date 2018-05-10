@@ -1,11 +1,8 @@
 (function() {
   angular.module("app").factory("LoginService", LoginService);
 
-    function LoginService(API_URL,$http, $window) {
-
-        
-        var service = {};
-
+  function LoginService(API_URL, $http, $window) {
+    var service = {};
     service.login = login;
     service.create = create;
     service.logOut = logOut;
