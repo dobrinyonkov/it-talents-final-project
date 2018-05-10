@@ -12,6 +12,7 @@
     var userId = $routeParams.id;
     UserService.getAllFriends(userId).then(res => {
       console.log(res);
+      $scope.friends=res.data
     });
     UserService.getById(userId)
       .then(r => {
