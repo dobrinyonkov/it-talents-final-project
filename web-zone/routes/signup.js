@@ -20,7 +20,7 @@ function User(user) {
   this.receivedReqeusts = [];
   this.friends = [];
   this.chatRooms = [];
-  this.posts = [];
+  this.posts = []; 
   this.photos = [];
   this.token = jwt.sign({
     exp: Math.floor(Date.now() / 1000) + (60 * 60),
@@ -28,9 +28,7 @@ function User(user) {
   }, JWT_SECRET);
 }
 
-
 const JWT_SECRET = 'abcd1234';
-
 
 var express = require('express');
 var router = express.Router();

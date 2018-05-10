@@ -76,10 +76,9 @@ function validatePass(password) {
           window.location = `#!/profile/${r.data.data._id}`;
         });
       } else {
-        console.log("obarka neshto  ");
+      //
         $scope.errors[5] = true;
         $scope.hasErrors = $scope.errors.some(err => err);
-
         $timeout(() => {
           $scope.errors[5] = false;
           $scope.hasErrors = $scope.errors.some(err => err);

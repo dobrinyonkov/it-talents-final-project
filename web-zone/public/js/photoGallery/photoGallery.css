@@ -92,8 +92,8 @@
 
 @media (max-width: 460px) {
   #gallery  img {
-    width: 160px;
-    height: 160px;
+    width: 140px;
+    height: 140px;
     margin: 0.2em;
   }
 }
@@ -118,13 +118,20 @@
 @media (max-width: 1000px) {
   #big-image {
     width: 700px;
+    max-width: 100% !important;
     margin-left: -350px;
   }
 }
 @media (max-width: 800px) {
   #big-image {
     width: 400px;
-    margin-left: -200px;
+    max-width: 90% !important;
+    left:0;
+    /* margin-left: 0; */
+    margin-left:5%;
+    min-height: 200px
+
+    /* margin-left: -200px; */
   }
 }
 #big-image img {
