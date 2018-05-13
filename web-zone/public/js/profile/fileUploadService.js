@@ -12,7 +12,11 @@ app.service('fileUpload', function ($http) {
         return $http.post('https://api.cloudinary.com/v1_1/adminwebzone/image/upload', fd, {
             headers: {
                 'Content-Type': undefined,
-                'X-Requested-With': 'XMLHttpRequest'
+                'X-Requested-With': 'XMLHttpRequest',
+                // 'Access-Control-Allow-Origin': '*',
+                // "Access-Control-Allow-Credentials": "true",
+                // "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS,POST,PUT",
+                // "Access-Control-Allow-Headers": "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"
             }
         })
     }

@@ -59,8 +59,11 @@ app.config(function ($routeProvider, $httpProvider) {
     $httpProvider.interceptors.push(function ($q, $location, $window) {
         return {
             'request': function (config) {
+                // console.log(config.url=="https://api.cloudinary.com/v1_1/adminwebzone/image/upload")
+                if(config.url=="https://api.cloudinary.com/v1_1/adminwebzone/image/upload")return config
                 config.headers = config.headers || {};
                 if ($window.localStorage.getItem('token')) {
+                    
                     config.headers.Authorization = 'Bearer ' + $window.localStorage.getItem('token');
                 }
                 return config;
